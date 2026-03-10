@@ -1,12 +1,17 @@
 [build]
-  base = "oceanleans_website"
+  # Tell Netlify to "walk" into these folders to find your site
+  base = "data/oceanleans_website"
+  # Once inside oceanleans_website, the site is right here (.)
   publish = "."
-  command = "# no build command needed"
-
-[functions]
-  directory = "netlify/functions"
+  # Once inside oceanleans_website, the functions are here
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.scdn.co;"
