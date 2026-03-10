@@ -45,20 +45,16 @@
             </div>
         </section>
 
-        <section id="music-section" class="container">
+<section id="music-section" class="container">
     <h2 class="section-title">Latest Releases</h2>
     
-    <div class="album-grid" id="dynamic-album-grid">
-        <div class="album-card" onclick="openStreamingModal('Song Title', 'images/album1.jpg', 'SPOTIFY_URL', 'APPLE_URL')">
-            <div class="album-cover-wrapper">
-                <img src="images/album1.jpg" alt="Song Title" class="album-cover">
-            </div>
-            <div class="album-info">
-                <h3>Song Title</h3>
-                <p>Listen Now</p>
-            </div>
-        </div>
+    <div id="loading-spinner" class="spinner-container">
+        <div class="spinner"></div>
+        <p>Fetching...</p>
     </div>
+    
+    <div class="album-grid" id="dynamic-album-grid">
+        </div>
 </section>
 
 <div id="streaming-modal" class="modal-overlay" onclick="closeModal()">
