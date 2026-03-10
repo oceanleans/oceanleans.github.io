@@ -9,6 +9,6 @@
   force = true
 
 [[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "default-src 'self' https: data:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data:;"
+for = "/*"
+[headers.values]
+Content-Security-Policy = "default-src 'self' https: data:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.scdn.co;"

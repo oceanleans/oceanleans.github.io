@@ -40,7 +40,7 @@ async function fetchLatestReleases() {
     
     try {
         // Request data from your secure backend endpoint
-        const response = await fetch('/api/get-releases');
+        const response = await fetch('/.netlify/functions/get-releases');
         
         if (!response.ok) {
             throw new Error('Could not reach the Spotify gateway');
