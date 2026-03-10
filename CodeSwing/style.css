@@ -8,7 +8,6 @@
 html {
     scroll-behavior: smooth;
     scroll-snap-type: y proximity; 
-    /* This tells the snap engine to account for your 80px header */
     scroll-padding-top: 80px; 
 }
 
@@ -17,11 +16,12 @@ body {
     line-height: 1.6;
     background-color: #e8e8e6;
     color: #1f0202;
+    overflow-x: hidden;
 }
 
 /* Header and Navigation */
 header {
-    height: 80px; 
+    min-height: 80px; 
     background-color: #e8e8e6;
     display: flex;
     align-items: center;
@@ -29,234 +29,248 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    /* Adding this helps prevent 'jumping' during snap calculations */
-    overflow: hidden; 
+    padding: 10px 0;
 }
 
 #main-nav {
     display: flex;
-    justify-content: center; 
+    justify-content: space-between; 
     align-items: center;
     width: 100%;
-    position: relative; 
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.nav-toggle, .nav-toggle-label {
+    display: none !important;
 }
 
 .logo-link {
-    position: absolute;
-    left: 20px;
-    z-index: 1001;
+    flex-shrink: 0;
 }
 
 .logo {
-    /* Updated: Logo now shrinks on mobile to make room for the form */
-    height: clamp(35px, 5vw, 50px);
+    height: clamp(30px, 4vw, 50px);
     width: auto;
     display: block;
 }
 
-/* Nav Links - Desktop */
 .nav-links {
     display: flex;
     list-style-type: none;
-    gap: 30px;
+    gap: clamp(15px, 3vw, 30px);
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: #011C2D;
     font-weight: 500;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #ff0000; 
+    color: #a57c60; 
 }
 
-/* Subscribe Form - Desktop */
 .subscribe-form {
-    position: absolute;
-    right: 20px;
     display: flex;
-    gap: 0.5vw;
-}
-
-.subscribe-form input::placeholder {
-    text-align: center;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
 .subscribe-form input {
-    /* Fluid width to match your title scaling */
-    width: clamp(80px, 15vw, 200px); 
-    font-size: clamp(0.65rem, 1vw, 0.9rem);
+    width: clamp(120px, 15vw, 200px); 
+    font-size: 0.8rem;
     padding: 0.6em 1em;
     border: 1px solid #ccc;
     border-radius: 25px;
-    text-align: center;
     outline: none;
 }
 
 .subscribe-form button {
-    /* Fluid padding to prevent button from being too bulky on phones */
-    padding: 0.6em clamp(8px, 1.5vw, 20px);
+    padding: 0.6em 1.2em;
     background-color: #011C2D;
     color: white;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
-    font-size: clamp(0.65rem, 1vw, 0.9rem);
-    transition: background-color 0.3s ease;
+    font-size: 0.8rem;
 }
 
-.subscribe-form button:hover {
-    background-color: #bc3131;
-}
-
-/* Hamburger Toggle Mechanics (Hidden by default) */
-.nav-toggle {
-    display: none;
-}
-
-.nav-toggle-label {
-    display: none;
-    cursor: pointer;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px;
-}
-
-.nav-toggle-label span,
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
-    display: block;
-    background: #333;
-    height: 2px;
-    width: 25px;
-    position: relative;
-}
-
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
-    content: '';
-    position: absolute;
-}
-
-.nav-toggle-label span::before { bottom: 7px; }
-.nav-toggle-label span::after { top: 7px; }
-
-/* Responsive adjustments */
-@media (max-width: 570px) {
-    /* Show Hamburger */
-    .nav-toggle-label {
-        display: block;
-    }
-
-    /* Hide Menu normally */
-    .nav-links {
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background: #e8e8e6;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding: 20px 0;
-        transform: scale(1, 0);
-        transform-origin: top;
-        transition: transform 0.3s ease;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-    }
-
-    /* When checkbox is checked, show menu */
-    .nav-toggle:checked ~ .nav-links {
-        transform: scale(1, 1);
-    }
-}
-
-@media (max-width: 600px) {
-    .logo-link {
-        left: 10px;
-    }
-    .subscribe-form {
-        right: 10px;
-    }
-    /* Form stays visible but gets compact */
-    .subscribe-form input {
-        width: clamp(70px, 25vw, 100px);
-        font-size: 0.65rem;
-    }
-    .subscribe-form button {
-        padding: 8px 10px;
-        font-size: 0.65rem;
-    }
-}
-
-/* Removed the @media (max-width: 480px) display:none rule to keep the button visible */
-
-/* --- Hero & Sections (Remains the same) --- */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
+/* Hero Section */
 .hero-banner {
     width: 100%;
-    height: calc(100vh - 80px); 
+    height: calc(100vh - 80px);
     background-color: #011C2D; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     scroll-snap-align: start;
 }
 
+.hero-content {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.hero-content::before {
+    content: '';
+    flex: 0.7; 
+}
+
 .hero-content h1 {
-    font-size: clamp(1rem, 7vw, 5rem);
-    white-space: nowrap;
-    color: white;
+    font-size: clamp(1rem, 10vw, 8rem); 
+    line-height: 0.9;
+    color: #e8e8e6;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
+    letter-spacing: clamp(1px, 0.5vw, 4px);
+    /* Changed: Removed nowrap and added a max-width to force vertical stacking */
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: min-content; 
+    margin-bottom: clamp(20px, 8vh, 60px); 
+}
+
+/* This ensures each word in the H1 is treated as a separate block */
+.hero-content h1 b, 
+.hero-content h1 i {
+    display: block;
+}
+
+.hero-content h2 {
+    color: #1b849c;
+    font-size: clamp(1.1rem, 4vw, 2rem);
+    margin-bottom: clamp(20px, 5vh, 50px);
 }
 
 .btn-listen {
     display: inline-block;
-    margin-top: 2vw; 
-    font-size: clamp(0.8rem, 2.5vw, 1.5rem); 
-    padding: 0.6em 2em; 
-    background-color: white;
-    color: #0077be;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    padding: 0.8em 2.5em; 
+    background-color: #e8e8e6;
+    color: #1b849c;
     text-decoration: none;
     font-weight: bold;
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-listen:hover {
-    background-color: #bc3131;
-    color: white;
-    transform: translateY(-3px);
+    background-color: #a57c60;
+    color: #e8e8e6;
+    transform: translateY(-5px);
 }
+
+/* Refined Latest Releases Section */
 
 #music-section {
-    padding: 100px 20px;
-    text-align: center;
-    scroll-margin-top: 80px; 
-    scroll-snap-align: start;
+    padding: clamp(60px, 12vh, 120px) 5%;
+    background-color: #e8e8e6; /* Keeping your light neutral background */
     min-height: 100vh;
+    scroll-margin-top: 80px;
 }
 
+.section-title {
+    margin-bottom: clamp(40px, 8vh, 80px);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #011C2D;
+}
+
+/* Album Grid Styling */
 .album-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 40px;
+    margin-top: 40px;
 }
 
-.album-cover {
+.album-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.album-card:hover {
+    transform: scale(1.03);
+}
+
+.album-cover-wrapper {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 12px;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
 }
 
-footer { padding: 40px 0; text-align: center; font-size: 0.9rem; color: #777; }
+/* Modal Styling */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #e8e8e6;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#modal-album-art {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.streaming-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stream-link {
+    display: block;
+    padding: 12px;
+    background: #011C2D;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.stream-link:hover {
+    background: #1b849c;
+}

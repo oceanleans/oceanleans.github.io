@@ -37,24 +37,47 @@
     </header>
 
     <main id="content-wrapper">
-        <section class="hero-banner">
+        <section class="hero-banner" id="home">
             <div class="hero-content">
-                <h1>leans into ocean</h1>
+                <h1><i><b>lean</b> into</i> <b>ocean.</b></h1>
+                <h2>#oceanrap</h2>
                 <a href="#music-section" class="btn-listen">Listen Now</a>
             </div>
         </section>
 
         <section id="music-section" class="container">
-            <h2 class="section-title">Latest Releases</h2>
-            
-            <div class="album-grid">
-                <a href="#" class="album-card" target="_blank">
-                    <img src="images/album1.jpg" alt="Album Name" class="album-cover">
-                    <div class="album-info">
-                        <h3>Song Title</h3>
-                        <p>Listen Now</p>
-                    </div>
-                </a>
-                
-                <a href="#" class="album-card" target="_blank">
-                    <img src="images/album2.jpg" alt="Album Name" class="album-cover">
+    <h2 class="section-title">Latest Releases</h2>
+    
+    <div class="album-grid" id="dynamic-album-grid">
+        <div class="album-card" onclick="openStreamingModal('Song Title', 'images/album1.jpg', 'SPOTIFY_URL', 'APPLE_URL')">
+            <div class="album-cover-wrapper">
+                <img src="images/album1.jpg" alt="Song Title" class="album-cover">
+            </div>
+            <div class="album-info">
+                <h3>Song Title</h3>
+                <p>Listen Now</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="streaming-modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <img id="modal-album-art" src="" alt="Album Art">
+        <h3 id="modal-album-title">Album Title</h3>
+        <div class="streaming-links">
+            <a href="#" id="link-spotify" target="_blank" class="stream-link">Spotify</a>
+            <a href="#" id="link-apple" target="_blank" class="stream-link">Apple Music</a>
+            <a href="#" id="link-youtube" target="_blank" class="stream-link">YouTube</a>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 OceanLeans</p>
+    </footer>
+    <script src="script.js"></script> 
+</body>
+</html>
