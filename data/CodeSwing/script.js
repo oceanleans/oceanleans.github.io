@@ -40,7 +40,7 @@ async function fetchLatestReleases() {
     
     try {
         // Request data from your secure backend endpoint
-        const response = await fetch('/.netlify/functions/get-releases');
+        const response = await fetch('/api/get-releases');
         
         if (!response.ok) {
             throw new Error('Could not reach the Spotify gateway');
@@ -57,9 +57,9 @@ async function fetchLatestReleases() {
             card.className = 'album-card';
             
             // Extract specific data points from the Spotify API object
-            const art = album.images[0].url; // The high-res cover
-            const title = album.name;
-            const spotifyUrl = album.external_urls.spotify;
+            const art = album.images && album.images[0] ? album.images[0].url : '/images/fallback-cover.jpg';
+            const title = album.name || 'Untitled';
+            const spotifyUrl = album.external_urls?.spotify || '#';
 
             // Set the click event to trigger our modal
             card.onclick = () => openStreamingModal(title, art, spotifyUrl);
