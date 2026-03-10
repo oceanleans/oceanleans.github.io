@@ -1,6 +1,6 @@
 [build]
-  publish = "data/oceanleans-website"
-  functions = "data/oceanleans-website/netlify/functions"
+  publish = "data/oceanleans_website"
+  functions = "data/oceanleans_website/netlify/functions"
 
 [[redirects]]
   from = "/api/*"
