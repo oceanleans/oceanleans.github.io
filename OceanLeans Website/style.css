@@ -127,24 +127,24 @@ header {
 }
 
 .hero-content h1 {
-    font-size: clamp(1rem, 10vw, 8rem); 
+    font-size: clamp(1rem, 3vw, 8rem); 
     line-height: 0.9;
     color: #e8e8e6;
     text-transform: uppercase;
     letter-spacing: clamp(1px, 0.5vw, 4px);
-    /* Changed: Removed nowrap and added a max-width to force vertical stacking */
-    white-space: normal;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: min-content; 
+    
+    /* Change these three lines */
+    white-space: nowrap;        /* Prevents text from wrapping to a new line */
+    display: block;             /* Returns it to a standard block element */
+    max-width: none;            /* Removes the width restriction */
+    
     margin-bottom: clamp(20px, 8vh, 60px); 
 }
 
-/* This ensures each word in the H1 is treated as a separate block */
+/* Also, remove the 'display: block' from these helpers if you want them inline */
 .hero-content h1 b, 
 .hero-content h1 i {
-    display: block;
+    display: inline;            /* This ensures 'lean' and 'ocean' sit side-by-side */
 }
 
 .hero-content h2 {
@@ -273,4 +273,29 @@ header {
 
 .stream-link:hover {
     background: #1b849c;
+}
+
+/* Spinner Container */
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+/* The actual rotating ring */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(1, 28, 45, 0.1); /* Light version of your Navy */
+    border-top: 5px solid #1b849c; /* Your Teal accent */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
