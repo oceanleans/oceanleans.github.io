@@ -1,7 +1,10 @@
 [build]
   base = "oceanleans_website"
   publish = "."
-  functions = "netlify/functions"
+  command = "# no build command needed"
+
+[functions]
+  directory = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
