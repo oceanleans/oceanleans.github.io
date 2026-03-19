@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OceanLeans | Official Site</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<nav id="main-nav">
+
+<a href="index.html" class="logo-link" aria-label="Go to the OceanLeans home page">
+<img src="assets/logo/Oceanleans Round Logo 2.png" alt="OceanLeans Logo" class="logo">
+</a>
+
+<div class="nav-dropdown">
+
+<button class="nav-toggle nav-pill-button" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="home-menu">
+<span class="nav-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+<span class="nav-text">Home</span>
+<span class="nav-arrow">⌄</span>
+</button>
+
+  <div class="nav-dropdown-menu" id="home-menu">
+    <a href="store.html">Store</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+</div>
+
+<div class="subscribe-wrapper">
+
+<button class="subscribe-toggle nav-pill-button nav-pill-button-primary" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="subscribe-menu">
+<span class="nav-icon" aria-hidden="true"><i class="fa-regular fa-envelope"></i></span>
+<span class="subscribe-text">Subscribe</span>
+<span class="arrow">⌄</span>
+</button>
+
+<form class="subscribe-dropdown" id="subscribe-menu">
+<input type="email" placeholder="Email address" required>
+<button type="submit">Join</button>
+</form>
+
+</div>
+
+</nav>
+</header>
+
+<main>
+
+<section class="hero-banner" id="home">
+<div class="hero-content">
+<h1 class="hero-title">
+<span class="lean-into"><b>lean</b> into</span>
+<b>ocean.</b>
+</h1>
+
+<h2 class="hero-tagline"><span class="wave-text">#oceanrap</span></h2>
+
+<a href="#music-section" class="btn-listen hero-cta">Listen Now</a>
+
+</div>
+</section>
+
+<section id="music-section">
+
+<div class="music-filter">
+<label id="media-type-label" for="media-type" class="section-title">Browse</label>
+
+<div class="browse-dropdown">
+<select id="media-type" name="media-type" class="browse-native" aria-hidden="true" tabindex="-1">
+<option value="all" selected>All</option>
+<option value="featured">Featured Release</option>
+<option value="songs">Songs</option>
+<option value="instrumentals">Instrumentals</option>
+<option value="music-videos">Music Videos</option>
+</select>
+
+<button class="browse-toggle" type="button" aria-expanded="false" aria-haspopup="listbox" aria-controls="browse-menu" aria-labelledby="media-type-label browse-toggle-text">
+<span class="browse-toggle-text" id="browse-toggle-text">All</span>
+<span class="browse-toggle-arrow" aria-hidden="true">⌄</span>
+</button>
+
+<div class="browse-menu" id="browse-menu" role="listbox" aria-labelledby="media-type-label">
+<button type="button" class="browse-option is-selected" data-value="all" data-label="All" role="option" aria-selected="true">All</button>
+<button type="button" class="browse-option browse-option-featured" data-value="featured" data-label="Featured Release" role="option" aria-selected="false">Featured Release</button>
+<button type="button" class="browse-option" data-value="songs" data-label="Songs" role="option" aria-selected="false">Songs</button>
+<button type="button" class="browse-option" data-value="instrumentals" data-label="Instrumentals" role="option" aria-selected="false">Instrumentals</button>
+<button type="button" class="browse-option" data-value="music-videos" data-label="Music Videos" role="option" aria-selected="false">Music Videos</button>
+</div>
+</div>
+</div>
+
+<div class="album-grid" id="album-grid"></div>
+
+<button id="back-to-top">
+<span class="back-to-top-icon" aria-hidden="true">↑</span>
+<span class="back-to-top-text">Back to Top</span>
+</button>
+
+</section>
+
+</main>
+
+<footer>
+<div class="footer-socials" aria-label="Social media links">
+<a href="https://www.youtube.com/@OceanLeans/videos" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+<i class="fa-brands fa-youtube" aria-hidden="true"></i>
+<span class="sr-only">YouTube</span>
+</a>
+<a href="https://www.tiktok.com/@oceanleans" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+<i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+<span class="sr-only">TikTok</span>
+</a>
+<a href="https://www.instagram.com/oceanleans/" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+<i class="fa-brands fa-instagram" aria-hidden="true"></i>
+<span class="sr-only">Instagram</span>
+</a>
+<a href="https://www.facebook.com/profile.php?id=61563285745056" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+<i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+<span class="sr-only">Facebook</span>
+</a>
+</div>
+<p class="footer-legal">&copy; 2026 OceanLeans. All rights reserved.</p>
+<a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

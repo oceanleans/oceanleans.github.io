@@ -1,0 +1,211 @@
+[
+  {
+    "title": "Loch Ness",
+    "category": "songs",
+    "date": "2026-02-06",
+    "cover": "assets/album-covers/loch-ness.jpeg",
+    "link": "https://artists.landr.com/oceanleans-loch_ness",
+    "preview": "assets/previews/loch-ness-preview.mp3",
+    "lyricsLink": "https://genius.com/your-song-page",
+    "alt": "Loch Ness cover",
+    "featured": true
+  },
+  {
+    "title": "Keep Going",
+    "category": "instrumentals",
+    "date": "2026-02-09",
+    "cover": "assets/album-covers/keep-going.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Altercation",
+    "category": "instrumentals",
+    "date": "2026-02-08",
+    "cover": "assets/album-covers/altercation.jpeg",
+    "link": "https://artists.landr.com/oceanleans-altercation",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Altercation cover"
+  },
+  {
+    "title": "Simplify",
+    "category": "instrumentals",
+    "date": "2026-02-07",
+    "cover": "assets/album-covers/simplify.jpg",
+    "link": "https://artists.landr.com/oceanleans-simplify",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Simplify cover"
+  },
+  {
+    "title": "Scolding",
+    "category": "instrumentals",
+    "date": "2026-02-07",
+    "cover": "assets/album-covers/scolding.jpeg",
+    "link": "https://artists.landr.com/oceanleans-scolding",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Scolding cover"
+  },
+  {
+    "title": "No Limit",
+    "category": "instrumentals",
+    "date": "2026-02-05",
+    "cover": "assets/album-covers/no-limit.jpeg",
+    "link": "https://artists.landr.com/oceanleans-no_limit",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "No Limit cover"
+  },
+  {
+    "title": "Control",
+    "category": "instrumentals",
+    "date": "2026-02-04",
+    "cover": "assets/album-covers/control.jpeg",
+    "link": "https://artists.landr.com/oceanleans-control",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Control cover"
+  },
+  {
+    "title": "Keep It Coming",
+    "category": "instrumentals",
+    "date": "2026-02-03",
+    "cover": "assets/album-covers/keep-it-coming.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_it_coming",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Keep It Coming cover"
+  },
+  {
+    "title": "Painting",
+    "category": "instrumentals",
+    "date": "2026-02-02",
+    "cover": "assets/album-covers/painting.jpeg",
+    "link": "https://artists.landr.com/oceanleans-painting",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Painting cover"
+  },
+  {
+    "title": "Have Fun",
+    "category": "instrumentals",
+    "date": "2026-02-01",
+    "cover": "assets/album-covers/have-fun.jpeg",
+    "link": "https://artists.landr.com/oceanleans-have_fun",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Have Fun cover"
+  },
+  {
+    "title": "Fly Screen",
+    "category": "instrumentals",
+    "date": "2026-01-31",
+    "cover": "assets/album-covers/fly-screen.jpeg",
+    "link": "https://artists.landr.com/oceanleans-fly_screen",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Fly Screen cover"
+  },
+  {
+    "title": "Loop",
+    "category": "instrumentals",
+    "date": "2026-01-30",
+    "cover": "assets/album-covers/loop.jpeg",
+    "link": "https://artists.landr.com/oceanleans-loop",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Loop cover"
+  },
+  {
+    "title": "Entrance",
+    "category": "instrumentals",
+    "date": "2026-01-29",
+    "cover": "assets/album-covers/entrance.jpeg",
+    "link": "https://artists.landr.com/oceanleans-entrance",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Entrance cover"
+  },
+  {
+    "title": "Empty",
+    "category": "instrumentals",
+    "date": "2026-01-28",
+    "cover": "assets/album-covers/empty.jpeg",
+    "link": "https://artists.landr.com/oceanleans-empty",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Empty cover"
+  },
+  {
+    "title": "Capture Less",
+    "category": "instrumentals",
+    "date": "2026-01-27",
+    "cover": "assets/album-covers/capture-less.jpeg",
+    "link": "https://artists.landr.com/oceanleans-capture_less",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Capture Less cover"
+  },
+  {
+    "title": "Rivers",
+    "category": "instrumentals",
+    "date": "2026-01-26",
+    "cover": "assets/album-covers/rivers.jpeg",
+    "link": "https://artists.landr.com/oceanleans-rivers",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Rivers cover"
+  },
+  {
+    "title": "Mayhem",
+    "category": "instrumentals",
+    "date": "2026-01-25",
+    "cover": "assets/album-covers/mayhem.jpeg",
+    "link": "https://artists.landr.com/oceanleans-mayhem",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Mayhem cover"
+  },
+  {
+    "title": "Friction",
+    "category": "instrumentals",
+    "date": "2026-01-24",
+    "cover": "assets/album-covers/friction.jpeg",
+    "link": "https://artists.landr.com/oceanleans-friction",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Friction cover"
+  },
+  {
+    "title": "Willpower",
+    "category": "instrumentals",
+    "date": "2026-01-23",
+    "cover": "assets/album-covers/willpower.jpeg",
+    "link": "https://artists.landr.com/oceanleans-willpower",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Willpower cover"
+  },
+  {
+    "title": "Truth",
+    "category": "instrumentals",
+    "date": "2026-01-22",
+    "cover": "assets/album-covers/truth.jpeg",
+    "link": "https://artists.landr.com/oceanleans-truth",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Truth cover"
+  },
+  {
+    "title": "Easy",
+    "category": "instrumentals",
+    "date": "2026-01-21",
+    "cover": "assets/album-covers/easy.jpeg",
+    "link": "https://artists.landr.com/oceanleans-easy",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Easy cover"
+  },
+  {
+    "title": "Becoming",
+    "category": "instrumentals",
+    "date": "2026-01-20",
+    "cover": "assets/album-covers/becoming.jpeg",
+    "link": "https://artists.landr.com/oceanleans_becoming",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "Becoming cover"
+  },
+  {
+    "title": "What's Going On",
+    "category": "instrumentals",
+    "date": "2026-01-19",
+    "cover": "assets/album-covers/whats-going-on.jpeg",
+    "link": "https://artists.landr.com/oceanleans_whats-going-on",
+    "preview": "assets/previews/keep-going-preview.mp3",
+    "alt": "What's Going On cover"
+  }
+]
