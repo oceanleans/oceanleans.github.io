@@ -1,68 +1,269 @@
-const filter = document.getElementById("media-type");
-const grid = document.getElementById("album-grid");
-const browseDropdown = document.querySelector(".browse-dropdown");
-const browseToggle = document.querySelector(".browse-toggle");
-const browseToggleText = document.querySelector(".browse-toggle-text");
-const browseMenu = document.querySelector(".browse-menu");
-const browseOptions = Array.from(document.querySelectorAll(".browse-option"));
+const carousel = document.getElementById("album-grid");
+const musicFilterButtons = Array.from(document.querySelectorAll(".music-filter-button"));
 
 const navToggle = document.querySelector(".nav-toggle");
 const navMenu = document.querySelector(".nav-dropdown-menu");
 const navDropdown = document.querySelector(".nav-dropdown");
 const logoLink = document.querySelector(".logo-link");
-const listenNowLink = document.querySelector(".btn-listen");
+const diveInLink = document.querySelector(".hero-cta");
 
 const subscribeToggle = document.querySelector(".subscribe-toggle");
 const subscribeMenu = document.querySelector(".subscribe-dropdown");
 const subscribeWrapper = document.querySelector(".subscribe-wrapper");
 
 const backToTop = document.getElementById("back-to-top");
+const prevAlbumButton = document.getElementById("album-nav-prev");
+const nextAlbumButton = document.getElementById("album-nav-next");
 const header = document.querySelector("header");
-const heroBanner = document.querySelector(".hero-banner");
 const musicSection = document.getElementById("music-section");
 
+let releases = [];
+let filteredReleases = [];
+let currentAlbumIndex = 0;
+let previewAudio = null;
+let activePreviewButton = null;
+
+function cloneReleaseData(items) {
+  if (!Array.isArray(items)) {
+    return [];
+  }
+
+  return items.map(release => ({
+    ...release,
+    streamingLinks:
+      release && typeof release.streamingLinks === "object" && release.streamingLinks !== null
+        ? { ...release.streamingLinks }
+        : {}
+  }));
+}
+
+function sortReleasesByDate(items) {
+  items.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return items;
+}
+
+const STREAMING_ICON_CONFIG = [
+  {
+    key: "spotify",
+    modifier: "spotify",
+    label: "Spotify",
+    iconMarkup: `<i class="fa-brands fa-spotify fa-fw" aria-hidden="true"></i>`
+  },
+  {
+    key: "youtube",
+    modifier: "youtube",
+    label: "YouTube",
+    iconMarkup: `<i class="fa-brands fa-youtube fa-fw" aria-hidden="true"></i>`
+  },
+  {
+    key: "appleMusic",
+    modifier: "apple-music",
+    label: "Apple Music",
+    iconMarkup: `<i class="fa-brands fa-itunes-note fa-fw" aria-hidden="true"></i>`
+  },
+  {
+    key: "amazonMusic",
+    modifier: "amazon",
+    label: "Amazon Music",
+    iconMarkup: `<i class="fa-brands fa-amazon fa-fw" aria-hidden="true"></i>`
+  },
+  {
+    key: "deezer",
+    modifier: "deezer",
+    label: "Deezer",
+    iconMarkup: `<i class="fa-brands fa-deezer fa-fw" aria-hidden="true"></i>`
+  },
+  {
+    key: "pandora",
+    modifier: "pandora",
+    label: "Pandora",
+    iconMarkup: `<img src="assets/icons/pandora.svg" alt="" class="streaming-icon-image streaming-icon-image--pandora">`
+  }
+];
+
+function getStreamingLink(release, key) {
+  if (!release || typeof release.streamingLinks !== "object" || release.streamingLinks === null) {
+    return "";
+  }
+
+  const url = release.streamingLinks[key];
+  return typeof url === "string" ? url.trim() : "";
+}
+
+function createStreamingIconsMarkup(release) {
+  return STREAMING_ICON_CONFIG.map(platform => {
+    const url = getStreamingLink(release, platform.key);
+    const className = `streaming-icon-badge streaming-icon-badge--${platform.modifier}`;
+
+    if (url) {
+      return `
+        <a
+          href="${url}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="${className}"
+          aria-label="Listen to ${release.title} on ${platform.label}"
+        >
+          ${platform.iconMarkup}
+        </a>
+      `;
+    }
+
+    return `
+      <span class="${className} is-disabled" aria-hidden="true">
+        ${platform.iconMarkup}
+      </span>
+    `;
+  }).join("");
+}
+
+function createReleaseActionsMarkup(release, className) {
+  if (release.category === "songs") {
+    return `
+      <div class="${className}">
+        ${release.preview ? `<button type="button" class="preview-btn">Preview</button>` : ``}
+        ${release.preview && release.lyricsLink ? `<span class="overlay-divider" aria-hidden="true">|</span>` : ``}
+        ${release.lyricsLink ? `<a href="${release.lyricsLink}" target="_blank" rel="noopener noreferrer" class="lyrics-btn">Lyrics</a>` : ``}
+      </div>
+    `;
+  }
+
+  if (release.category === "instrumentals" && release.preview) {
+    return `
+      <div class="${className}">
+        <button type="button" class="preview-btn">Preview</button>
+      </div>
+    `;
+  }
+
+  return "";
+}
+
+function resetPreviewButton(button) {
+  if (!button) {
+    return;
+  }
+
+  button.textContent = "Preview";
+  button.classList.remove("is-playing", "is-error");
+  button.setAttribute("aria-pressed", "false");
+}
+
+function stopActivePreview() {
+  if (previewAudio) {
+    previewAudio.pause();
+    previewAudio.currentTime = 0;
+    previewAudio = null;
+  }
+
+  resetPreviewButton(activePreviewButton);
+  activePreviewButton = null;
+}
+
+function handlePreviewEnded(audioInstance) {
+  if (previewAudio !== audioInstance) {
+    return;
+  }
+
+  stopActivePreview();
+}
+
+function handlePreviewError(audioInstance) {
+  if (previewAudio !== audioInstance) {
+    return;
+  }
+
+  if (activePreviewButton) {
+    activePreviewButton.textContent = "Unavailable";
+    activePreviewButton.classList.remove("is-playing");
+    activePreviewButton.classList.add("is-error");
+    activePreviewButton.setAttribute("aria-pressed", "false");
+  }
+
+  if (previewAudio) {
+    previewAudio.pause();
+    previewAudio = null;
+  }
+
+  activePreviewButton = null;
+}
+
+async function togglePreview(button) {
+  if (!button) {
+    return;
+  }
+
+  const previewSrc = button.dataset.previewSrc;
+
+  if (!previewSrc) {
+    return;
+  }
+
+  if (button === activePreviewButton && previewAudio) {
+    stopActivePreview();
+    return;
+  }
+
+  stopActivePreview();
+
+  const audio = new Audio(previewSrc);
+  previewAudio = audio;
+  activePreviewButton = button;
+
+  button.textContent = "Playing";
+  button.classList.remove("is-error");
+  button.classList.add("is-playing");
+  button.setAttribute("aria-pressed", "true");
+
+  audio.addEventListener("ended", () => {
+    handlePreviewEnded(audio);
+  });
+
+  audio.addEventListener("error", () => {
+    handlePreviewError(audio);
+  });
+
+  try {
+    await audio.play();
+  } catch (error) {
+    console.error("Preview playback error:", error);
+    handlePreviewError(audio);
+  }
+}
+
 function setExpandedState(button, isExpanded) {
+  if (!button) {
+    return;
+  }
+
   button.setAttribute("aria-expanded", String(isExpanded));
   button.classList.toggle("is-open", isExpanded);
 }
 
 function closeNavMenu() {
+  if (!navMenu || !navToggle) {
+    return;
+  }
+
   navMenu.classList.remove("show");
   setExpandedState(navToggle, false);
 }
 
 function closeSubscribeMenu() {
+  if (!subscribeMenu || !subscribeToggle) {
+    return;
+  }
+
   subscribeMenu.classList.remove("show");
   setExpandedState(subscribeToggle, false);
 }
 
-function closeBrowseMenu() {
-  if (!browseMenu || !browseToggle) {
-    return;
-  }
-
-  browseMenu.classList.remove("show");
-  browseToggle.setAttribute("aria-expanded", "false");
-}
-
-function setBrowseSelection(value) {
-  if (!filter || !browseToggleText) {
-    return;
-  }
-
-  filter.value = value;
-
-  browseOptions.forEach(option => {
-    const isSelected = option.dataset.value === value;
-    option.classList.toggle("is-selected", isSelected);
-    option.setAttribute("aria-selected", String(isSelected));
-
-    if (isSelected) {
-      browseToggleText.textContent = option.dataset.label || option.textContent.trim();
-    }
+function setCategorySelection(value) {
+  musicFilterButtons.forEach(button => {
+    const isSelected = button.dataset.category === value;
+    button.classList.toggle("is-selected", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
   });
-
-  browseToggle.classList.toggle("is-featured", value === "featured");
 }
 
 function syncHeaderHeight() {
@@ -73,230 +274,244 @@ function syncHeaderHeight() {
   document.body.style.setProperty("--header-height", `${header.offsetHeight}px`);
 }
 
-function scrollToHeroEnd() {
+function getMusicSectionTop() {
+  if (!musicSection) {
+    return 0;
+  }
+
+  return Math.max(0, musicSection.getBoundingClientRect().top + window.scrollY);
+}
+
+function syncSubscribeTheme() {
+  if (!subscribeMenu || !header) {
+    return;
+  }
+
+  subscribeMenu.classList.toggle("is-hero-theme", header.classList.contains("is-scrolled-past-hero"));
+}
+
+function updateHeaderHeroState() {
+  if (!header || !musicSection) {
+    return;
+  }
+
+  const isPastHero = window.scrollY >= getMusicSectionTop() - 2;
+  header.classList.toggle("is-scrolled-past-hero", isPastHero);
+  document.body.classList.toggle("is-below-surface", isPastHero);
+  syncSubscribeTheme();
+}
+
+function updateBackToTopVisibility() {
+  if (!backToTop) {
+    return;
+  }
+
+  const showButton = window.scrollY >= getMusicSectionTop() - 2;
+  backToTop.classList.toggle("show", Boolean(showButton));
+}
+
+function updateCarouselControls() {
+  if (!prevAlbumButton || !nextAlbumButton) {
+    return;
+  }
+
+  const hasAlbums = filteredReleases.length > 0;
+  prevAlbumButton.disabled = !hasAlbums || currentAlbumIndex <= 0;
+  nextAlbumButton.disabled = !hasAlbums || currentAlbumIndex >= filteredReleases.length - 1;
+}
+
+function updatePageUI() {
+  updateHeaderHeroState();
+  updateBackToTopVisibility();
+}
+
+function isOnMusicPage() {
+  const musicTop = getMusicSectionTop();
+  return window.scrollY >= musicTop - 2 && window.scrollY < musicTop + window.innerHeight;
+}
+
+function scrollToMusicSection(smooth = true) {
   if (!musicSection) {
     return;
   }
 
-  const headerHeight = header ? header.offsetHeight : 0;
-  const targetTop = Math.max(0, musicSection.offsetTop - headerHeight);
-
   window.scrollTo({
-    top: targetTop,
-    behavior: "smooth"
+    top: getMusicSectionTop(),
+    behavior: smooth ? "smooth" : "auto"
   });
 }
 
-function updateHeaderHeroState() {
-  if (!header || !heroBanner) {
+function scrollToTop(smooth = true) {
+  window.scrollTo({
+    top: 0,
+    behavior: smooth ? "smooth" : "auto"
+  });
+}
+
+function resetCarouselToStart(smooth = true) {
+  currentAlbumIndex = 0;
+  renderCurrentAlbum();
+}
+
+function moveCarouselBy(direction) {
+  if (!filteredReleases.length) {
     return;
   }
 
-  const heroBottom = heroBanner.getBoundingClientRect().bottom;
-  header.classList.toggle("is-scrolled-past-hero", heroBottom <= header.offsetHeight);
-  syncSubscribeTheme();
-}
+  const nextIndex = Math.min(
+    filteredReleases.length - 1,
+    Math.max(0, currentAlbumIndex + direction)
+  );
 
-function syncSubscribeTheme() {
-  if (!subscribeMenu) {
+  if (nextIndex === currentAlbumIndex) {
     return;
   }
 
-  const useHeroTheme = !!heroBanner && header && header.classList.contains("is-scrolled-past-hero");
-  subscribeMenu.classList.toggle("is-hero-theme", useHeroTheme);
+  currentAlbumIndex = nextIndex;
+  renderCurrentAlbum();
 }
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
+function isInteractionBlocked(target) {
+  if (!target) {
+    return false;
   }
 
-  updateHeaderHeroState();
-});
-
-listenNowLink.addEventListener("click", event => {
-  event.preventDefault();
-  scrollToHeroEnd();
-});
-
-backToTop.addEventListener("click", () => {
-  scrollToHeroEnd();
-});
-
-let releases = [];
-
-function positionSubscribeDropdown() {
-  subscribeMenu.style.left = "";
-  subscribeMenu.style.right = "";
+  return !!target.closest(
+    "input, textarea, select, .subscribe-dropdown, .nav-dropdown-menu, .nav-toggle, .subscribe-toggle, .preview-btn, .lyrics-btn, .streaming-icon-badge, .footer-social-link, .footer-policy-link, .music-filter-button"
+  );
 }
 
-if (logoLink) {
-  logoLink.addEventListener("click", event => {
-    event.preventDefault();
-    window.location.assign("index.html");
-  });
-}
+function createAlbumCard(release) {
+  const card = document.createElement("div");
+  card.className = "album-card";
 
-if (browseToggle && browseMenu) {
-  browseToggle.addEventListener("click", () => {
-    const willOpen = !browseMenu.classList.contains("show");
-    browseMenu.classList.toggle("show", willOpen);
-    browseToggle.setAttribute("aria-expanded", String(willOpen));
-  });
+  card.innerHTML = `
+    <div class="streaming-icons streaming-icons--mobile">
+      ${createStreamingIconsMarkup(release)}
+    </div>
 
-  browseOptions.forEach(option => {
-    option.addEventListener("click", () => {
-      const selectedValue = option.dataset.value;
+    <div class="album-cover-wrapper">
+      <img
+        src="${release.cover}"
+        alt="${release.alt}"
+        class="album-cover"
+        loading="lazy"
+        decoding="async"
+      >
 
-      setBrowseSelection(selectedValue);
-      closeBrowseMenu();
-      renderAlbums(selectedValue);
+      <div class="album-overlay">
+        <div class="streaming-overlay-content">
+          <div class="streaming-icons streaming-icons--overlay">${createStreamingIconsMarkup(release)}</div>
+          ${createReleaseActionsMarkup(release, "overlay-buttons album-actions--overlay")}
+        </div>
+      </div>
+    </div>
+
+    ${createReleaseActionsMarkup(release, "album-actions--mobile")}
+  `;
+
+  const previewButtons = Array.from(card.querySelectorAll(".preview-btn"));
+
+  previewButtons.forEach(previewButton => {
+    if (!release.preview) {
+      return;
+    }
+
+    previewButton.dataset.previewSrc = release.preview;
+    previewButton.setAttribute("aria-label", `Play preview for ${release.title}`);
+    previewButton.setAttribute("aria-pressed", "false");
+
+    previewButton.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      togglePreview(previewButton);
     });
   });
+
+  return card;
 }
 
-/* HOME DROPDOWN */
+function createAlbumSlide(release) {
+  const slide = document.createElement("article");
+  slide.className = "album-slide";
 
-navToggle.addEventListener("click", () => {
-  const willOpen = !navMenu.classList.contains("show");
-
-  closeSubscribeMenu();
-  navMenu.classList.toggle("show", willOpen);
-  setExpandedState(navToggle, willOpen);
-});
-
-document.addEventListener("click", (event) => {
-  if (!navDropdown.contains(event.target)) {
-    closeNavMenu();
-  }
-});
-
-/* SUBSCRIBE DROPDOWN */
-
-subscribeToggle.addEventListener("click", () => {
-  const willOpen = !subscribeMenu.classList.contains("show");
-
-  closeNavMenu();
-  syncSubscribeTheme();
-  subscribeMenu.classList.toggle("show", willOpen);
-  setExpandedState(subscribeToggle, willOpen);
-
-  if (willOpen) {
-    positionSubscribeDropdown();
-  } 
-});
-
-document.addEventListener("click", (event) => {
-  if (!subscribeWrapper.contains(event.target)) {
-    closeSubscribeMenu();
+  if (release) {
+    slide.appendChild(createAlbumCard(release));
+    return slide;
   }
 
-  if (browseDropdown && !browseDropdown.contains(event.target)) {
-    closeBrowseMenu();
-  }
-});
+  const emptyState = document.createElement("div");
+  emptyState.className = "album-empty-state";
+  emptyState.textContent = "No releases found in this category.";
+  slide.appendChild(emptyState);
 
-window.addEventListener("resize", () => {
-  syncHeaderHeight();
-  updateHeaderHeroState();
-  syncSubscribeTheme();
+  return slide;
+}
 
-  if (subscribeMenu.classList.contains("show")) {
-    positionSubscribeDropdown();
-  }
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeNavMenu();
-    closeSubscribeMenu();
-    closeBrowseMenu();
-  }
-});
-
-/* RELEASES */
-
-function buildAlbums(selectedCategory = "all") {
-  grid.innerHTML = "";
-
-  const filtered = releases.filter(release => {
+function getFilteredReleases(selectedCategory = "all") {
+  return releases.filter(release => {
     if (selectedCategory === "featured") {
       return release.featured === true;
     }
 
     return selectedCategory === "all" || release.category === selectedCategory;
   });
+}
 
-  filtered.forEach(release => {
-    const card = document.createElement("a");
+function renderCurrentAlbum() {
+  if (!carousel) {
+    return;
+  }
 
-    card.href = release.link;
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
-    card.className = "album-card";
+  stopActivePreview();
+  carousel.innerHTML = "";
 
-    card.innerHTML = `
-      <div class="album-cover-wrapper">
-        <img
-          src="${release.cover}"
-          alt="${release.alt}"
-          class="album-cover"
-          loading="lazy"
-          decoding="async"
-        >
+  if (filteredReleases.length === 0) {
+    carousel.appendChild(createAlbumSlide(null));
+    updateCarouselControls();
+    updatePageUI();
+    return;
+  }
 
-        <div class="album-overlay">
-          <div class="streaming-overlay-content">
-            <div class="streaming-text">Listen on streaming services</div>
+  const activeRelease = filteredReleases[currentAlbumIndex];
 
-            <div class="streaming-icons">
-              <i class="fa-brands fa-spotify"></i>
-              <i class="fa-brands fa-youtube"></i>
-              <i class="fa-brands fa-apple"></i>
-              <i class="fa-brands fa-amazon"></i>
-              <i class="fa-brands fa-deezer"></i>
-              <i class="fa-solid fa-music"></i>
-            </div>
+  if (activeRelease) {
+    carousel.appendChild(createAlbumSlide(activeRelease));
+  }
 
-            ${
-              release.category === "songs"
-                ? `
-                  <div class="overlay-buttons">
-                    ${release.preview ? `<button type="button" class="preview-btn">Preview</button>` : ``}
-                    ${release.preview && release.lyricsLink ? `<span class="overlay-divider" aria-hidden="true">|</span>` : ``}
-                    ${release.lyricsLink ? `<a href="${release.lyricsLink}" target="_blank" rel="noopener noreferrer" class="lyrics-btn">Lyrics</a>` : ``}
-                  </div>
-                `
-                : release.category === "instrumentals"
-                  ? `
-                    <div class="overlay-buttons">
-                      ${release.preview ? `<button type="button" class="preview-btn">Preview</button>` : ``}
-                    </div>
-                  `
-                  : ``
-            }
-          </div>
-        </div>
-      </div>
-    `;
+  updateCarouselControls();
+  updatePageUI();
+}
 
-    grid.appendChild(card);
-  });
+function buildAlbums(selectedCategory = "all") {
+  if (!carousel) {
+    return;
+  }
+
+  filteredReleases = getFilteredReleases(selectedCategory);
+  currentAlbumIndex = 0;
+  renderCurrentAlbum();
 }
 
 function renderAlbums(selectedCategory = "all") {
-  grid.classList.add("fade");
-
-  setTimeout(() => {
-    buildAlbums(selectedCategory);
-    grid.classList.remove("fade");
-  }, 350);
+  buildAlbums(selectedCategory);
 }
 
 async function loadReleases() {
+  if (!carousel) {
+    return;
+  }
+
+  const embeddedReleases = cloneReleaseData(window.OCEANLEANS_RELEASES);
+  const shouldPreferEmbeddedReleases = window.location.protocol === "file:";
+
   try {
+    if (shouldPreferEmbeddedReleases && embeddedReleases.length) {
+      releases = sortReleasesByDate(embeddedReleases);
+      buildAlbums("all");
+      return;
+    }
+
     const response = await fetch("releases.json");
 
     if (!response.ok) {
@@ -304,21 +519,178 @@ async function loadReleases() {
     }
 
     releases = await response.json();
-    releases.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    buildAlbums(filter.value);
+    sortReleasesByDate(releases);
   } catch (error) {
     console.error("Release loading error:", error);
 
-    grid.innerHTML = `
-      <p style="text-align:center;padding:40px;">
-        Unable to load releases.
-      </p>
-    `;
+    if (embeddedReleases.length) {
+      releases = sortReleasesByDate(embeddedReleases);
+    } else {
+      releases = [];
+    }
   }
+
+  buildAlbums("all");
 }
 
+function positionSubscribeDropdown() {
+  if (!subscribeMenu) {
+    return;
+  }
+
+  subscribeMenu.style.left = "";
+  subscribeMenu.style.right = "";
+}
+
+if (diveInLink) {
+  diveInLink.addEventListener("click", event => {
+    event.preventDefault();
+    closeNavMenu();
+    closeSubscribeMenu();
+    scrollToMusicSection(true);
+  });
+}
+
+if (backToTop) {
+  backToTop.addEventListener("click", () => {
+    scrollToTop(true);
+  });
+}
+
+if (prevAlbumButton) {
+  prevAlbumButton.addEventListener("click", () => {
+    moveCarouselBy(-1);
+  });
+}
+
+if (nextAlbumButton) {
+  nextAlbumButton.addEventListener("click", () => {
+    moveCarouselBy(1);
+  });
+}
+
+if (logoLink) {
+  logoLink.addEventListener("click", event => {
+    event.preventDefault();
+
+    const path = window.location.pathname;
+    const onHomePage = path.endsWith("/index.html") || path === "/" || path === "";
+
+    if (onHomePage) {
+      scrollToTop(true);
+      return;
+    }
+
+    window.location.assign("index.html");
+  });
+}
+
+if (musicFilterButtons.length) {
+  musicFilterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const selectedValue = button.dataset.category || "all";
+      setCategorySelection(selectedValue);
+      renderAlbums(selectedValue);
+    });
+  });
+}
+
+if (navToggle && navMenu) {
+  navToggle.addEventListener("click", () => {
+    const willOpen = !navMenu.classList.contains("show");
+    closeSubscribeMenu();
+    navMenu.classList.toggle("show", willOpen);
+    setExpandedState(navToggle, willOpen);
+  });
+}
+
+document.addEventListener("click", event => {
+  if (navDropdown && !navDropdown.contains(event.target)) {
+    closeNavMenu();
+  }
+
+  if (subscribeWrapper && !subscribeWrapper.contains(event.target)) {
+    closeSubscribeMenu();
+  }
+});
+
+if (subscribeToggle && subscribeMenu) {
+  subscribeToggle.addEventListener("click", () => {
+    const willOpen = !subscribeMenu.classList.contains("show");
+    closeNavMenu();
+    syncSubscribeTheme();
+    subscribeMenu.classList.toggle("show", willOpen);
+    setExpandedState(subscribeToggle, willOpen);
+
+    if (willOpen) {
+      positionSubscribeDropdown();
+    }
+  });
+}
+
+window.addEventListener("resize", () => {
+  const shouldPinMusicPage = isOnMusicPage();
+
+  syncHeaderHeight();
+  updateCarouselControls();
+  updatePageUI();
+
+  if (subscribeMenu && subscribeMenu.classList.contains("show")) {
+    positionSubscribeDropdown();
+  }
+
+  if (shouldPinMusicPage) {
+    requestAnimationFrame(() => {
+      scrollToMusicSection(false);
+    });
+  }
+});
+
+window.addEventListener("scroll", () => {
+  updatePageUI();
+}, { passive: true });
+
+document.addEventListener("keydown", event => {
+  const targetTag = event.target && event.target.tagName ? event.target.tagName.toLowerCase() : "";
+
+  if (event.key === "Escape") {
+    closeNavMenu();
+    closeSubscribeMenu();
+    return;
+  }
+
+  if (["input", "textarea", "select"].includes(targetTag) || isInteractionBlocked(event.target)) {
+    return;
+  }
+
+  if (window.scrollY < getMusicSectionTop() - 2 && ["ArrowDown", "PageDown", " "].includes(event.key)) {
+    event.preventDefault();
+    scrollToMusicSection(true);
+    return;
+  }
+
+  if (event.key === "Home") {
+    event.preventDefault();
+    resetCarouselToStart(false);
+    scrollToTop(true);
+  }
+});
+
+if (window.ResizeObserver && header) {
+  const headerObserver = new ResizeObserver(() => {
+    syncHeaderHeight();
+    updatePageUI();
+  });
+
+  headerObserver.observe(header);
+}
+
+window.addEventListener("load", () => {
+  syncHeaderHeight();
+  updatePageUI();
+});
+
 syncHeaderHeight();
-syncSubscribeTheme();
-updateHeaderHeroState();
+setCategorySelection("all");
+updatePageUI();
 loadReleases();

@@ -1,0 +1,397 @@
+// Local fallback release data for environments where fetching JSON is blocked.
+// Keep this file in sync with releases.json.
+window.OCEANLEANS_RELEASES = [
+  {
+    "title": "Loch Ness",
+    "category": "songs",
+    "date": "2026-02-06",
+    "cover": "assets/album-covers/loch-ness.jpeg",
+    "link": "https://artists.landr.com/oceanleans-loch_ness",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/5b2szf1MDFqBk9A32hjNJm?si=4d81772657064c10",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/loch-ness/1882940949?i=1882940950",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_lochness.wav",
+    "lyricsLink": "https://genius.com/your-song-page",
+    "alt": "Loch Ness cover",
+    "featured": true
+  },
+  {
+    "title": "Keep Going",
+    "category": "instrumentals",
+    "date": "2026-02-09",
+    "cover": "assets/album-covers/keep-going.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/370VrRuMhtAx5w3bUhrSUy?si=248d72126c144f91",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_nlhDIkePT3Im-y_BapD4gDB3I150ATQQg&si=xykxRuNjOudkvb8A",
+      "appleMusic": "https://music.apple.com/au/album/keep-going/1883599945?i=1883599948",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_keepGoing.wav",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Altercation",
+    "category": "instrumentals",
+    "date": "2026-02-08",
+    "cover": "assets/album-covers/altercation.jpeg",
+    "link": "https://artists.landr.com/oceanleans-altercation",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/5V2qxDFc6sj9AmEnLAZFG1?si=7c9a6e87b4294e3e",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_kZWOnOAZHwuFZYyUHlFq5aGNB07UCZ-Og&si=MNrYKCnpPr-JPrJs",
+      "appleMusic": "https://music.apple.com/au/album/altercation/1883596849?i=1883596850",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_altercation.wav",
+    "alt": "Altercation cover"
+  },
+  {
+    "title": "Simplify",
+    "category": "instrumentals",
+    "date": "2026-02-07",
+    "cover": "assets/album-covers/simplify.jpg",
+    "link": "https://artists.landr.com/oceanleans-simplify",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/0GhsI6Z9A4KvI4x27JpfMT?si=004229cd92514826",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_mq-LPhaGxeo4s-uym1vq0zJsV5hf0qN9U&si=o_8z-8KyhJYqYry1",
+      "appleMusic": "https://music.apple.com/au/album/simplify/1883791258?i=1883791259",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_simplify.wav",
+    "alt": "Simplify cover"
+  },
+  {
+    "title": "Scolding",
+    "category": "instrumentals",
+    "date": "2026-02-07",
+    "cover": "assets/album-covers/scolding.jpeg",
+    "link": "https://artists.landr.com/oceanleans-scolding",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/0GhsI6Z9A4KvI4x27JpfMT?si=1ce6456905844022",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_noDTaCYnSBxtZeePfS9MPx-VJKmr_t5Ew&si=nU9FDaA7hJeZRBVb",
+      "appleMusic": "https://music.apple.com/au/album/scolding/1883192151?i=1883192154",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_scolding.wav",
+    "alt": "Scolding cover"
+  },
+  {
+    "title": "No Limit",
+    "category": "instrumentals",
+    "date": "2026-02-05",
+    "cover": "assets/album-covers/no-limit.jpeg",
+    "link": "https://artists.landr.com/oceanleans-no_limit",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/2ZFvgwBYA3SIzF4fHl6SVC?si=b0782a649deb4edd",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_kszSQTDgFXAyfEx-ncg66oVPFuQ7TWPlI&si=KNAwFvA-9i9ggeIO",
+      "appleMusic": "https://music.apple.com/au/album/no-limit/1882467425?i=1882467426",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_noLimit.wav",
+    "alt": "No Limit cover"
+  },
+  {
+    "title": "Control",
+    "category": "instrumentals",
+    "date": "2026-02-04",
+    "cover": "assets/album-covers/control.jpeg",
+    "link": "https://artists.landr.com/oceanleans-control",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/4wEc56ClGAnTIT7oJ9pTXt?si=42250b55cdbf4f70",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/control/1881777359?i=1881777361",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_control.wav",
+    "alt": "Control cover"
+  },
+  {
+    "title": "Keep It Coming",
+    "category": "instrumentals",
+    "date": "2026-02-03",
+    "cover": "assets/album-covers/keep-it-coming.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_it_coming",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/7BruNjJ7ttOP6u48r37RFy?si=8c98675078a14084",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/keep-it-coming/1881740710?i=1881740711",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_keepItComing.wav",
+    "alt": "Keep It Coming cover"
+  },
+  {
+    "title": "Painting",
+    "category": "instrumentals",
+    "date": "2026-02-02",
+    "cover": "assets/album-covers/painting.jpeg",
+    "link": "https://artists.landr.com/oceanleans-painting",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/album/5nGcZk4rPR6MjCK4LVRTQ2?si=uwSwph2jTsmbupaZz_Ol1Q",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_mzsAbOrIaM0eZ49aX_vlFwni054823jtc&si=us5DOZfSSP1ni62k",
+      "appleMusic": "https://music.apple.com/au/album/painting/1881713477?i=1881713478",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_painting.wav",
+    "alt": "Painting cover"
+  },
+  {
+    "title": "Have Fun",
+    "category": "instrumentals",
+    "date": "2026-02-01",
+    "cover": "assets/album-covers/have-fun.jpeg",
+    "link": "https://artists.landr.com/oceanleans-have_fun",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/1pE6bi4tIArRJQ3XOfzfTQ?si=6cbdd27154434822",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_nLmdWGJKw6h-Y8iwDZgzVPW1utTAvBxNI&si=UiCJpJYfUBtrj8iN",
+      "appleMusic": "https://music.apple.com/au/album/have-fun/1880771471?i=1880771472",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_haveFun.wav",
+    "alt": "Have Fun cover"
+  },
+  {
+    "title": "Fly Screen",
+    "category": "instrumentals",
+    "date": "2026-01-31",
+    "cover": "assets/album-covers/fly-screen.jpeg",
+    "link": "https://artists.landr.com/oceanleans-fly_screen",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/5TjV1xhokjeUbL4S56hzHw?si=78da0bb53b9d438a",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_kgloRL1GJeOgr9Fa2wQLHE29CGZzF_Zp8&si=V3CPQU1bQ9Mb7p4d",
+      "appleMusic": "https://music.apple.com/au/album/fly-screen/1880449932?i=1880449933",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_flyScreen.wav",
+    "alt": "Fly Screen cover"
+  },
+  {
+    "title": "Loop",
+    "category": "instrumentals",
+    "date": "2026-01-30",
+    "cover": "assets/album-covers/loop.jpeg",
+    "link": "https://artists.landr.com/oceanleans-loop",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/7dKWoITrBP6cPVDxcTjrng?si=386deadfa3e743c6",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/loop/1880176753?i=1880176755",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_loop.wav",
+    "alt": "Loop cover"
+  },
+  {
+    "title": "Entrance",
+    "category": "instrumentals",
+    "date": "2026-01-29",
+    "cover": "assets/album-covers/entrance.jpeg",
+    "link": "https://artists.landr.com/oceanleans-entrance",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/0PH8BDrcTrHWzcpFvbxz49?si=f3574e871ca647ae",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_mXiRRcfmeJQ5IJDZbpl4Qb5wADMWUALgg&si=2lEAMDVVpAVRxDVt",
+      "appleMusic": "https://music.apple.com/au/album/entrance/1880190849?i=1880190850",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_entrance.wav",
+    "alt": "Entrance cover"
+  },
+  {
+    "title": "Empty",
+    "category": "instrumentals",
+    "date": "2026-01-28",
+    "cover": "assets/album-covers/empty.jpeg",
+    "link": "https://artists.landr.com/oceanleans-empty",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/6BGz8ELqLmXQj7aAc4ULNn?si=90f9405075a34ff1",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_lVFYLO878YINyRpjFCFAYP7jIoXZiVYv4&si=YArWb3aNYhv1IU5H",
+      "appleMusic": "https://music.apple.com/au/album/empty/1879371038?i=1879371039",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_empty.wav",
+    "alt": "Empty cover"
+  },
+  {
+    "title": "Capture Less",
+    "category": "instrumentals",
+    "date": "2026-01-27",
+    "cover": "assets/album-covers/capture-less.jpeg",
+    "link": "https://artists.landr.com/oceanleans-capture_less",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/3woYHd72JaSAs5Z8pgpJgd?si=cee266d69d274ebb",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_lD6QgS0s1UcoCoMDIPBg6ztz-Hm0MOTXE&si=KWjomm12aeDU9T6q",
+      "appleMusic": "https://music.apple.com/au/album/capture-less/1879370628?i=1879370629",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_captureLess.wav",
+    "alt": "Capture Less cover"
+  },
+  {
+    "title": "Rivers",
+    "category": "instrumentals",
+    "date": "2026-01-26",
+    "cover": "assets/album-covers/rivers.jpeg",
+    "link": "https://artists.landr.com/oceanleans-rivers",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/1h23uu9ZxEoy85xuyzDjzf?si=f2d01a2221504057",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_lEftcYNpJPNwSEN6d73sL-MP3zSrV9dAc&si=pUuNtCxO1OwOSMJ-",
+      "appleMusic": "https://music.apple.com/au/album/rivers/1879360081?i=1879360082",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_rivers.wav",
+    "alt": "Rivers cover"
+  },
+  {
+    "title": "Mayhem",
+    "category": "instrumentals",
+    "date": "2026-01-25",
+    "cover": "assets/album-covers/mayhem.jpeg",
+    "link": "https://artists.landr.com/oceanleans-mayhem",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/2cYfKpIOF0HnMMf8cs6gQA?si=2161390a40074c4d",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_lf7mTFHxwH5yCTphG8gAuBT94MkD104NI&si=6DlBxt4gkSfXRbfh",
+      "appleMusic": "https://music.apple.com/au/album/mayhem/1878765874?i=1878765875",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_mayhem.wav",
+    "alt": "Mayhem cover"
+  },
+  {
+    "title": "Friction",
+    "category": "instrumentals",
+    "date": "2026-01-24",
+    "cover": "assets/album-covers/friction.jpeg",
+    "link": "https://artists.landr.com/oceanleans-friction",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/0U1uEeljpCZxW6Wp5ou563?si=c5633f5b65ba477b",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_koQ-suNxtZNPSgXARqL4k_6rgWCPFrXFg&si=AgZKD89k6XIxT1Nw",
+      "appleMusic": "https://music.apple.com/au/album/friction/1878470134?i=1878470136",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_friction.wav",
+    "alt": "Friction cover"
+  },
+  {
+    "title": "Willpower",
+    "category": "instrumentals",
+    "date": "2026-01-23",
+    "cover": "assets/album-covers/willpower.jpeg",
+    "link": "https://artists.landr.com/oceanleans-willpower",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/6YMEA4g78lgu5ciE75jyLx?si=b7d63a7f8bb140ca",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/willpower/1877924539?i=1877924540",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_willpower.wav",
+    "alt": "Willpower cover"
+  },
+  {
+    "title": "Truth",
+    "category": "instrumentals",
+    "date": "2026-01-22",
+    "cover": "assets/album-covers/truth.jpeg",
+    "link": "https://artists.landr.com/oceanleans-truth",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/5yzZgWaoePpSIw4u8tAqCx?si=bcfc73f2806f4b05",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/au/album/truth/1877706546?i=1877706547",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_truth.wav",
+    "alt": "Truth cover"
+  },
+  {
+    "title": "Easy",
+    "category": "instrumentals",
+    "date": "2026-01-21",
+    "cover": "assets/album-covers/easy.jpeg",
+    "link": "https://artists.landr.com/oceanleans-easy",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/70DwrSrb0CobNtBVZMG4I6?si=cabd36d2732345f1",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_mY4LzOL-5PTvAUlW9FqqLHdxdoHrIrnrI&si=oWGjmX-79JCLWQ4P",
+      "appleMusic": "https://music.apple.com/au/album/easy/1877753802?i=1877753804",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_easy.wav",
+    "alt": "Easy cover"
+  },
+  {
+    "title": "Becoming",
+    "category": "instrumentals",
+    "date": "2026-01-20",
+    "cover": "assets/album-covers/becoming.jpeg",
+    "link": "https://artists.landr.com/oceanleans_becoming",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/2jUX7otzTnDtgMmPuShkQX?si=8f1462dfb6534a3b",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_n1xDyByO80pLvNMAW_WyDsIJcH2yPldio&si=YmbmcdsgSq2sQnDi",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_becoming.wav",
+    "alt": "Becoming cover"
+  },
+  {
+    "title": "What's Going On",
+    "category": "instrumentals",
+    "date": "2026-01-19",
+    "cover": "assets/album-covers/whats-going-on.jpeg",
+    "link": "https://artists.landr.com/oceanleans_whats-going-on",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/5ZXCzP4NWiZEZwlLA3SLb5?si=b513a7efb90d4f23",
+      "youtube": "https://music.youtube.com/playlist?list=OLAK5uy_khki88hGGKlir2rOa2RyT609_4VDTidGQ&si=XlWXx8w48KKfCRRg",
+      "appleMusic": "https://music.apple.com/au/album/whats-going-on-instrumental/1875978117?i=1875978118",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_whatsGoingOn.wav",
+    "alt": "What's Going On cover"
+  }
+];

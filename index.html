@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
 
 <header>
 <nav id="main-nav">
@@ -54,10 +54,12 @@
 </nav>
 </header>
 
-<main>
+<main class="page-shell">
+<div class="page-track" id="page-track">
 
 <section class="hero-banner" id="home">
 <div class="hero-content">
+<div class="hero-stack">
 <h1 class="hero-title">
 <span class="lean-into"><b>lean</b> into</span>
 <b>ocean.</b>
@@ -65,52 +67,35 @@
 
 <h2 class="hero-tagline"><span class="wave-text">#oceanrap</span></h2>
 
-<a href="#music-section" class="btn-listen hero-cta">Listen Now</a>
+<a href="#music-section" class="btn-listen hero-cta">DIVE IN</a>
+</div>
 
 </div>
 </section>
 
-<section id="music-section">
+<section id="music-section" aria-label="Music releases">
 
-<div class="music-filter">
-<label id="media-type-label" for="media-type" class="section-title">Browse</label>
-
-<div class="browse-dropdown">
-<select id="media-type" name="media-type" class="browse-native" aria-hidden="true" tabindex="-1">
-<option value="all" selected>All</option>
-<option value="featured">Featured Release</option>
-<option value="songs">Songs</option>
-<option value="instrumentals">Instrumentals</option>
-<option value="music-videos">Music Videos</option>
-</select>
-
-<button class="browse-toggle" type="button" aria-expanded="false" aria-haspopup="listbox" aria-controls="browse-menu" aria-labelledby="media-type-label browse-toggle-text">
-<span class="browse-toggle-text" id="browse-toggle-text">All</span>
-<span class="browse-toggle-arrow" aria-hidden="true">⌄</span>
-</button>
-
-<div class="browse-menu" id="browse-menu" role="listbox" aria-labelledby="media-type-label">
-<button type="button" class="browse-option is-selected" data-value="all" data-label="All" role="option" aria-selected="true">All</button>
-<button type="button" class="browse-option browse-option-featured" data-value="featured" data-label="Featured Release" role="option" aria-selected="false">Featured Release</button>
-<button type="button" class="browse-option" data-value="songs" data-label="Songs" role="option" aria-selected="false">Songs</button>
-<button type="button" class="browse-option" data-value="instrumentals" data-label="Instrumentals" role="option" aria-selected="false">Instrumentals</button>
-<button type="button" class="browse-option" data-value="music-videos" data-label="Music Videos" role="option" aria-selected="false">Music Videos</button>
-</div>
-</div>
+<div class="music-filter-buttons" aria-label="Release categories">
+<button type="button" class="music-filter-button is-selected" data-category="all" aria-pressed="true">All</button>
+<button type="button" class="music-filter-button" data-category="songs" aria-pressed="false">Songs</button>
+<button type="button" class="music-filter-button" data-category="instrumentals" aria-pressed="false">Instrumentals</button>
+<button type="button" class="music-filter-button" data-category="music-videos" aria-pressed="false">Music Videos</button>
 </div>
 
+<div class="album-viewer">
 <div class="album-grid" id="album-grid"></div>
-
-<button id="back-to-top">
-<span class="back-to-top-icon" aria-hidden="true">↑</span>
-<span class="back-to-top-text">Back to Top</span>
+<div class="album-carousel-controls" aria-label="Album navigation">
+<button type="button" class="album-nav-button" id="album-nav-prev" aria-label="Show previous album">
+<span aria-hidden="true">←</span>
 </button>
-
+<button type="button" class="album-nav-button" id="album-nav-next" aria-label="Show next album">
+<span aria-hidden="true">→</span>
+</button>
+</div>
+</div>
 </section>
 
-</main>
-
-<footer>
+<footer class="page-footer">
 <div class="footer-socials" aria-label="Social media links">
 <a href="https://www.youtube.com/@OceanLeans/videos" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
 <i class="fa-brands fa-youtube" aria-hidden="true"></i>
@@ -133,6 +118,16 @@
 <a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
 </footer>
 
+</div>
+
+<button id="back-to-top">
+<span class="back-to-top-icon" aria-hidden="true">↑</span>
+<span class="back-to-top-text">Back to Surface</span>
+</button>
+
+</main>
+
+<script src="releases-data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
