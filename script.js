@@ -16,12 +16,16 @@ const prevAlbumButton = document.getElementById("album-nav-prev");
 const nextAlbumButton = document.getElementById("album-nav-next");
 const header = document.querySelector("header");
 const musicSection = document.getElementById("music-section");
+const albumViewer = document.querySelector(".album-viewer");
+const musicFilterBar = document.querySelector(".music-filter-buttons");
+const albumCarouselControls = document.querySelector(".album-carousel-controls");
 
 let releases = [];
 let filteredReleases = [];
 let currentAlbumIndex = 0;
 let previewAudio = null;
 let activePreviewButton = null;
+let mobileAlbumCenterFrame = 0;
 
 function cloneReleaseData(items) {
   if (!Array.isArray(items)) {
@@ -274,6 +278,94 @@ function syncHeaderHeight() {
   document.body.style.setProperty("--header-height", `${header.offsetHeight}px`);
 }
 
+function getViewportHeight() {
+  if (window.visualViewport && Number.isFinite(window.visualViewport.height)) {
+    return window.visualViewport.height;
+  }
+
+  return window.innerHeight;
+}
+
+function syncViewportHeight() {
+  const viewportHeight = getViewportHeight();
+
+  if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) {
+    return;
+  }
+
+  document.documentElement.style.setProperty("--app-viewport-height", `${viewportHeight}px`);
+}
+
+function clearMobileAlbumViewportCentering() {
+  if (!musicSection) {
+    return;
+  }
+
+  musicSection.style.removeProperty("--album-cover-size");
+  musicSection.style.removeProperty("--mobile-album-viewer-offset");
+}
+
+function syncMobileAlbumViewportCentering() {
+  if (!musicSection || !carousel || !albumViewer || !musicFilterBar || !albumCarouselControls) {
+    return;
+  }
+
+  if (!window.matchMedia("(max-width: 1100px)").matches) {
+    clearMobileAlbumViewportCentering();
+    return;
+  }
+
+  const activeCard = carousel.querySelector(".album-card");
+  const coverWrapper = activeCard ? activeCard.querySelector(".album-cover-wrapper") : null;
+
+  if (!activeCard || !coverWrapper) {
+    clearMobileAlbumViewportCentering();
+    return;
+  }
+
+  const mobileIcons = activeCard.querySelector(".streaming-icons--mobile");
+  const mobileActions = activeCard.querySelector(".album-actions--mobile");
+  const musicSectionStyles = window.getComputedStyle(musicSection);
+  const activeCardStyles = window.getComputedStyle(activeCard);
+  const sectionPaddingTop = parseFloat(musicSectionStyles.paddingTop) || 0;
+  const sectionPaddingBottom = parseFloat(musicSectionStyles.paddingBottom) || 0;
+  const sectionPaddingLeft = parseFloat(musicSectionStyles.paddingLeft) || 0;
+  const sectionPaddingRight = parseFloat(musicSectionStyles.paddingRight) || 0;
+  const sectionGap = parseFloat(musicSectionStyles.gap) || 0;
+  const cardGap = parseFloat(activeCardStyles.gap) || 0;
+  const filterHeight = musicFilterBar.offsetHeight;
+  const iconsHeight = mobileIcons ? mobileIcons.offsetHeight : 0;
+  const actionsHeight = mobileActions ? mobileActions.offsetHeight : 0;
+  const navHeight = albumCarouselControls.offsetHeight;
+  const sectionHeight = getViewportHeight();
+  const maxCoverWidth = Math.max(
+    0,
+    musicSection.clientWidth - sectionPaddingLeft - sectionPaddingRight
+  );
+  const topOffsetBeforeCover = sectionPaddingTop + filterHeight + sectionGap + iconsHeight + cardGap;
+  const bottomOffsetAfterCover = cardGap + actionsHeight + sectionGap + navHeight + sectionPaddingBottom;
+  const availableHalfHeight = Math.min(
+    Math.max(0, (sectionHeight / 2) - topOffsetBeforeCover),
+    Math.max(0, (sectionHeight / 2) - bottomOffsetAfterCover)
+  );
+  const coverSize = Math.max(0, Math.min(maxCoverWidth, availableHalfHeight * 2));
+  const viewerOffset = (sectionHeight / 2) - (topOffsetBeforeCover + (coverSize / 2));
+
+  musicSection.style.setProperty("--album-cover-size", `${coverSize}px`);
+  musicSection.style.setProperty("--mobile-album-viewer-offset", `${viewerOffset}px`);
+}
+
+function scheduleMobileAlbumViewportCentering() {
+  if (mobileAlbumCenterFrame) {
+    cancelAnimationFrame(mobileAlbumCenterFrame);
+  }
+
+  mobileAlbumCenterFrame = requestAnimationFrame(() => {
+    mobileAlbumCenterFrame = 0;
+    syncMobileAlbumViewportCentering();
+  });
+}
+
 function getMusicSectionTop() {
   if (!musicSection) {
     return 0;
@@ -327,7 +419,7 @@ function updatePageUI() {
 
 function isOnMusicPage() {
   const musicTop = getMusicSectionTop();
-  return window.scrollY >= musicTop - 2 && window.scrollY < musicTop + window.innerHeight;
+  return window.scrollY >= musicTop - 2 && window.scrollY < musicTop + getViewportHeight();
 }
 
 function scrollToMusicSection(smooth = true) {
@@ -481,6 +573,7 @@ function renderCurrentAlbum() {
 
   updateCarouselControls();
   updatePageUI();
+  scheduleMobileAlbumViewportCentering();
 }
 
 function buildAlbums(selectedCategory = "all") {
@@ -631,9 +724,11 @@ if (subscribeToggle && subscribeMenu) {
 window.addEventListener("resize", () => {
   const shouldPinMusicPage = isOnMusicPage();
 
+  syncViewportHeight();
   syncHeaderHeight();
   updateCarouselControls();
   updatePageUI();
+  scheduleMobileAlbumViewportCentering();
 
   if (subscribeMenu && subscribeMenu.classList.contains("show")) {
     positionSubscribeDropdown();
@@ -645,6 +740,24 @@ window.addEventListener("resize", () => {
     });
   }
 });
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => {
+    const shouldPinMusicPage = isOnMusicPage();
+
+    syncViewportHeight();
+    syncHeaderHeight();
+    updateCarouselControls();
+    updatePageUI();
+    scheduleMobileAlbumViewportCentering();
+
+    if (shouldPinMusicPage) {
+      requestAnimationFrame(() => {
+        scrollToMusicSection(false);
+      });
+    }
+  });
+}
 
 window.addEventListener("scroll", () => {
   updatePageUI();
@@ -680,17 +793,22 @@ if (window.ResizeObserver && header) {
   const headerObserver = new ResizeObserver(() => {
     syncHeaderHeight();
     updatePageUI();
+    scheduleMobileAlbumViewportCentering();
   });
 
   headerObserver.observe(header);
 }
 
 window.addEventListener("load", () => {
+  syncViewportHeight();
   syncHeaderHeight();
   updatePageUI();
+  scheduleMobileAlbumViewportCentering();
 });
 
+syncViewportHeight();
 syncHeaderHeight();
 setCategorySelection("all");
 updatePageUI();
+scheduleMobileAlbumViewportCentering();
 loadReleases();
