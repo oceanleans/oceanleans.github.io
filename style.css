@@ -476,7 +476,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-gap:clamp(10px, 2.4vh, 22px);
+gap:clamp(18px, 3.2vh, 34px);
 width:100%;
 max-width:58rem;
 margin:0 auto;
@@ -1503,9 +1503,24 @@ font-size:clamp(.8rem, .6rem + .3vw, .92rem);
 }
 
 @media (max-width:1100px) and (min-width:701px){
+.logo{
+height:clamp(42px, 5.6vw, 52px);
+}
+
+.nav-pill-button{
+min-height:38px;
+padding:7px 13px;
+font-size:clamp(.74rem, .58rem + .24vw, .9rem);
+}
+
+.nav-icon{
+width:clamp(.8rem, .62rem + .2vw, 1rem);
+font-size:clamp(.64rem, .5rem + .18vw, .78rem);
+}
+
 .hero-content{
 max-width:48rem;
-gap:clamp(10px, 2vh, 18px);
+gap:clamp(14px, 2.4vh, 24px);
 }
 
 .hero-title{
@@ -1658,18 +1673,18 @@ max-width:100%;
 }
 
 .logo{
-height:clamp(28px, 7vw, 38px);
+height:clamp(32px, 8vw, 44px);
 }
 
 .nav-pill-button{
-min-height:28px;
-padding:4px 8px;
-font-size:clamp(.58rem, .5rem + .16vw, .72rem);
+min-height:34px;
+padding:6px 11px;
+font-size:clamp(.66rem, .56rem + .22vw, .8rem);
 }
 
 .nav-icon{
-width:clamp(.62rem, .52rem + .18vw, .82rem);
-font-size:clamp(.5rem, .42rem + .16vw, .66rem);
+width:clamp(.72rem, .6rem + .2vw, .92rem);
+font-size:clamp(.58rem, .48rem + .18vw, .72rem);
 }
 
 .subscribe-toggle{
@@ -1686,7 +1701,7 @@ min-height:calc(var(--screen-page-height) - var(--header-height) - clamp(20px, 4
 }
 
 .hero-stack{
-gap:clamp(8px, 1.8vh, 16px);
+gap:clamp(14px, 2.6vh, 24px);
 max-width:34rem;
 transform:translateY(calc(var(--header-height) * -0.5));
 }
@@ -1738,8 +1753,8 @@ min-height:calc(var(--screen-page-height) - var(--header-height));
 }
 
 .hero-title{
-font-size:clamp(1.4rem, 7vw, 4.25rem);
-letter-spacing:clamp(.35px, .22vw, 1.2px);
+font-size:clamp(1.75rem, 9vw, 4.8rem);
+letter-spacing:clamp(.4px, .24vw, 1.4px);
 }
 
 .hero-tagline{
@@ -1752,9 +1767,9 @@ font-size:clamp(.88rem, 3.5vw, .98rem);
 }
 
 .btn-listen{
-min-inline-size:clamp(126px, 42vw, 158px);
-padding:clamp(9px, 1.8vh, 11px) clamp(18px, 5vw, 24px);
-font-size:clamp(.82rem, 3.4vw, .94rem);
+min-inline-size:clamp(112px, 34vw, 138px);
+padding:clamp(8px, 1.5vh, 10px) clamp(15px, 4vw, 20px);
+font-size:clamp(.76rem, 3vw, .86rem);
 }
 
 .store-message h1{
