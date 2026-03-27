@@ -2,12 +2,12 @@
 <html lang="en-AU">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>OceanLeans | Contact</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="style.css">
@@ -23,23 +23,27 @@
 
   <main class="contact-page">
     <section class="contact-shell">
-      <section class="contact-form-card" aria-labelledby="contact-heading">
-        <h1 id="contact-heading">Contact</h1>
+      <section class="contact-card" aria-labelledby="contact-heading">
+        <p class="contact-eyebrow">Contact</p>
+        <h1 id="contact-heading">Get in touch</h1>
+        <p class="contact-copy">For questions, collaborations, or feedback, send a message below.</p>
 
         <form class="contact-form">
-          <label class="contact-field">
-            <span>Name</span>
-            <input type="text" name="name" placeholder="Your name" required>
-          </label>
+          <div class="contact-form-row">
+            <label class="contact-field">
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required>
+            </label>
 
-          <label class="contact-field">
-            <span>Email</span>
-            <input type="email" name="email" placeholder="you@example.com" required>
-          </label>
+            <label class="contact-field">
+              <span>Email</span>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </label>
+          </div>
 
           <label class="contact-field">
             <span>Message</span>
-            <textarea name="message" rows="6" placeholder="Write your message here..." required></textarea>
+            <textarea name="message" rows="5" placeholder="Write your message here..." required></textarea>
           </label>
 
           <button type="submit" class="contact-submit">Send</button>
