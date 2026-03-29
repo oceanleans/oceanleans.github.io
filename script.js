@@ -608,10 +608,15 @@ async function loadReleases() {
   const embeddedReleases = cloneReleaseData(window.OCEANLEANS_RELEASES);
   const shouldPreferEmbeddedReleases = window.location.protocol === "file:";
 
+  // Render immediately from embedded data so the first album cover can appear
+  // without waiting for an extra network round-trip to releases.json.
+  if (embeddedReleases.length) {
+    releases = sortReleasesByDate(embeddedReleases);
+    buildAlbums("all");
+  }
+
   try {
     if (shouldPreferEmbeddedReleases && embeddedReleases.length) {
-      releases = sortReleasesByDate(embeddedReleases);
-      buildAlbums("all");
       return;
     }
 
@@ -626,11 +631,11 @@ async function loadReleases() {
   } catch (error) {
     console.error("Release loading error:", error);
 
-    if (embeddedReleases.length) {
-      releases = sortReleasesByDate(embeddedReleases);
-    } else {
+    if (!embeddedReleases.length) {
       releases = [];
+      buildAlbums("all");
     }
+    return;
   }
 
   buildAlbums("all");
