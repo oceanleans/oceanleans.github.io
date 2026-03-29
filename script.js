@@ -63,26 +63,17 @@ function prefetchAlbumCover(src, highPriority = false) {
   prefetchedAlbumCoverRequests.set(src, image);
 }
 
-function prefetchNearbyAlbumCovers(activeIndex) {
-  if (!filteredReleases.length) {
+function prefetchAllAlbumCovers(items) {
+  if (!Array.isArray(items) || !items.length) {
     return;
   }
 
-  const adjacentIndexes = [
-    activeIndex,
-    activeIndex + 1,
-    activeIndex + 2,
-    activeIndex - 1
-  ];
-
-  adjacentIndexes.forEach((index, position) => {
-    const release = filteredReleases[index];
-
+  items.forEach((release, index) => {
     if (!release || typeof release.cover !== "string") {
       return;
     }
 
-    prefetchAlbumCover(release.cover, position === 0);
+    prefetchAlbumCover(release.cover, index < 3);
   });
 }
 
@@ -621,7 +612,6 @@ function renderCurrentAlbum() {
     carousel.appendChild(createAlbumSlide(activeRelease));
   }
 
-  prefetchNearbyAlbumCovers(currentAlbumIndex);
   updateCarouselControls();
   updatePageUI();
   scheduleMobileAlbumViewportCentering();
@@ -641,6 +631,19 @@ function renderAlbums(selectedCategory = "all") {
   buildAlbums(selectedCategory);
 }
 
+function warmAlbumCoverCache(items) {
+  const startWarmup = () => {
+    prefetchAllAlbumCovers(items);
+  };
+
+  if (typeof window.requestAnimationFrame === "function") {
+    window.requestAnimationFrame(startWarmup);
+    return;
+  }
+
+  window.setTimeout(startWarmup, 0);
+}
+
 async function loadReleases() {
   if (!carousel) {
     return;
@@ -654,6 +657,7 @@ async function loadReleases() {
   if (embeddedReleases.length) {
     releases = sortReleasesByDate(embeddedReleases);
     buildAlbums("all");
+    warmAlbumCoverCache(releases);
   }
 
   try {
@@ -680,6 +684,7 @@ async function loadReleases() {
   }
 
   buildAlbums("all");
+  warmAlbumCoverCache(releases);
 }
 
 function positionSubscribeDropdown() {
