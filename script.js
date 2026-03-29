@@ -46,6 +46,10 @@ function sortReleasesByDate(items) {
   return items;
 }
 
+function isExternalLink(href) {
+  return /^https?:\/\//i.test(href);
+}
+
 const STREAMING_ICON_CONFIG = [
   {
     key: "spotify",
@@ -123,11 +127,16 @@ function createStreamingIconsMarkup(release) {
 
 function createReleaseActionsMarkup(release, className) {
   if (release.category === "songs") {
+    const lyricsHref = typeof release.lyricsLink === "string" ? release.lyricsLink.trim() : "";
+    const lyricsMarkup = lyricsHref
+      ? `<a href="${lyricsHref}"${isExternalLink(lyricsHref) ? ` target="_blank" rel="noopener noreferrer"` : ``} class="lyrics-btn">Lyrics</a>`
+      : ``;
+
     return `
       <div class="${className}">
         ${release.preview ? `<button type="button" class="preview-btn">Preview</button>` : ``}
-        ${release.preview && release.lyricsLink ? `<span class="overlay-divider" aria-hidden="true">|</span>` : ``}
-        ${release.lyricsLink ? `<a href="${release.lyricsLink}" target="_blank" rel="noopener noreferrer" class="lyrics-btn">Lyrics</a>` : ``}
+        ${release.preview && lyricsMarkup ? `<span class="overlay-divider" aria-hidden="true">|</span>` : ``}
+        ${lyricsMarkup}
       </div>
     `;
   }
@@ -487,7 +496,8 @@ function createAlbumCard(release) {
         src="${release.cover}"
         alt="${release.alt}"
         class="album-cover"
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
         decoding="async"
       >
 

@@ -16,7 +16,7 @@ window.OCEANLEANS_RELEASES = [
       "pandora": ""
     },
     "preview": "assets/previews/preview_lochness.wav",
-    "lyricsLink": "https://genius.com/your-song-page",
+    "lyricsLink": "lyrics.html#loch-ness",
     "alt": "Loch Ness cover",
     "featured": true
   },
