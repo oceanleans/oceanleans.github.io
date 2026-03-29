@@ -26,6 +26,7 @@ let currentAlbumIndex = 0;
 let previewAudio = null;
 let activePreviewButton = null;
 let mobileAlbumCenterFrame = 0;
+const prefetchedAlbumCoverRequests = new Map();
 
 function cloneReleaseData(items) {
   if (!Array.isArray(items)) {
@@ -44,6 +45,45 @@ function cloneReleaseData(items) {
 function sortReleasesByDate(items) {
   items.sort((a, b) => new Date(b.date) - new Date(a.date));
   return items;
+}
+
+function prefetchAlbumCover(src, highPriority = false) {
+  if (typeof src !== "string" || !src.trim() || prefetchedAlbumCoverRequests.has(src)) {
+    return;
+  }
+
+  const image = new Image();
+  image.decoding = "async";
+
+  if ("fetchPriority" in image) {
+    image.fetchPriority = highPriority ? "high" : "low";
+  }
+
+  image.src = src;
+  prefetchedAlbumCoverRequests.set(src, image);
+}
+
+function prefetchNearbyAlbumCovers(activeIndex) {
+  if (!filteredReleases.length) {
+    return;
+  }
+
+  const adjacentIndexes = [
+    activeIndex,
+    activeIndex + 1,
+    activeIndex + 2,
+    activeIndex - 1
+  ];
+
+  adjacentIndexes.forEach((index, position) => {
+    const release = filteredReleases[index];
+
+    if (!release || typeof release.cover !== "string") {
+      return;
+    }
+
+    prefetchAlbumCover(release.cover, position === 0);
+  });
 }
 
 function isExternalLink(href) {
@@ -581,6 +621,7 @@ function renderCurrentAlbum() {
     carousel.appendChild(createAlbumSlide(activeRelease));
   }
 
+  prefetchNearbyAlbumCovers(currentAlbumIndex);
   updateCarouselControls();
   updatePageUI();
   scheduleMobileAlbumViewportCentering();
