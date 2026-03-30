@@ -478,11 +478,6 @@ function updatePageUI() {
   updateBackToTopVisibility();
 }
 
-function isPinnedToMusicSection() {
-  const musicTop = getMusicSectionTop();
-  return Math.abs(window.scrollY - musicTop) <= 2;
-}
-
 function scrollToMusicSection(smooth = true) {
   if (!musicSection) {
     return;
@@ -715,6 +710,18 @@ function positionSubscribeDropdown() {
   subscribeMenu.style.right = "";
 }
 
+function handleViewportResize() {
+  syncViewportHeight();
+  syncHeaderHeight();
+  updateCarouselControls();
+  updatePageUI();
+  scheduleMobileAlbumViewportCentering();
+
+  if (subscribeMenu && subscribeMenu.classList.contains("show")) {
+    positionSubscribeDropdown();
+  }
+}
+
 if (diveInLink) {
   diveInLink.addEventListener("click", event => {
     event.preventDefault();
@@ -801,42 +808,10 @@ if (subscribeToggle && subscribeMenu) {
   });
 }
 
-window.addEventListener("resize", () => {
-  const shouldPinMusicPage = isPinnedToMusicSection();
-
-  syncViewportHeight();
-  syncHeaderHeight();
-  updateCarouselControls();
-  updatePageUI();
-  scheduleMobileAlbumViewportCentering();
-
-  if (subscribeMenu && subscribeMenu.classList.contains("show")) {
-    positionSubscribeDropdown();
-  }
-
-  if (shouldPinMusicPage) {
-    requestAnimationFrame(() => {
-      scrollToMusicSection(false);
-    });
-  }
-});
+window.addEventListener("resize", handleViewportResize);
 
 if (window.visualViewport) {
-  window.visualViewport.addEventListener("resize", () => {
-    const shouldPinMusicPage = isPinnedToMusicSection();
-
-    syncViewportHeight();
-    syncHeaderHeight();
-    updateCarouselControls();
-    updatePageUI();
-    scheduleMobileAlbumViewportCentering();
-
-    if (shouldPinMusicPage) {
-      requestAnimationFrame(() => {
-        scrollToMusicSection(false);
-      });
-    }
-  });
+  window.visualViewport.addEventListener("resize", handleViewportResize);
 }
 
 window.addEventListener("scroll", () => {
