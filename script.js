@@ -27,6 +27,7 @@ let previewAudio = null;
 let activePreviewButton = null;
 let mobileAlbumCenterFrame = 0;
 const prefetchedAlbumCoverRequests = new Map();
+const DEFAULT_CATEGORY = "featured";
 
 function cloneReleaseData(items) {
   if (!Array.isArray(items)) {
@@ -45,6 +46,26 @@ function cloneReleaseData(items) {
 function sortReleasesByDate(items) {
   items.sort((a, b) => new Date(b.date) - new Date(a.date));
   return items;
+}
+
+function getFeaturedOrderValue(release) {
+  if (!release || typeof release.featuredOrder !== "number" || Number.isNaN(release.featuredOrder)) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  return release.featuredOrder;
+}
+
+function sortFeaturedReleases(items) {
+  return [...items].sort((a, b) => {
+    const orderDifference = getFeaturedOrderValue(a) - getFeaturedOrderValue(b);
+
+    if (orderDifference !== 0) {
+      return orderDifference;
+    }
+
+    return new Date(b.date) - new Date(a.date);
+  });
 }
 
 function prefetchAlbumCover(src, highPriority = false) {
@@ -581,14 +602,12 @@ function createAlbumSlide(release) {
   return slide;
 }
 
-function getFilteredReleases(selectedCategory = "all") {
-  return releases.filter(release => {
-    if (selectedCategory === "featured") {
-      return release.featured === true;
-    }
+function getFilteredReleases(selectedCategory = DEFAULT_CATEGORY) {
+  if (selectedCategory === "featured") {
+    return sortFeaturedReleases(releases.filter(release => release.featured === true));
+  }
 
-    return selectedCategory === "all" || release.category === selectedCategory;
-  });
+  return releases.filter(release => release.category === selectedCategory);
 }
 
 function renderCurrentAlbum() {
@@ -617,7 +636,7 @@ function renderCurrentAlbum() {
   scheduleMobileAlbumViewportCentering();
 }
 
-function buildAlbums(selectedCategory = "all") {
+function buildAlbums(selectedCategory = DEFAULT_CATEGORY) {
   if (!carousel) {
     return;
   }
@@ -627,7 +646,7 @@ function buildAlbums(selectedCategory = "all") {
   renderCurrentAlbum();
 }
 
-function renderAlbums(selectedCategory = "all") {
+function renderAlbums(selectedCategory = DEFAULT_CATEGORY) {
   buildAlbums(selectedCategory);
 }
 
@@ -656,7 +675,7 @@ async function loadReleases() {
   // without waiting for an extra network round-trip to releases.json.
   if (embeddedReleases.length) {
     releases = sortReleasesByDate(embeddedReleases);
-    buildAlbums("all");
+    buildAlbums(DEFAULT_CATEGORY);
     warmAlbumCoverCache(releases);
   }
 
@@ -678,12 +697,12 @@ async function loadReleases() {
 
     if (!embeddedReleases.length) {
       releases = [];
-      buildAlbums("all");
+      buildAlbums(DEFAULT_CATEGORY);
     }
     return;
   }
 
-  buildAlbums("all");
+  buildAlbums(DEFAULT_CATEGORY);
   warmAlbumCoverCache(releases);
 }
 
@@ -742,7 +761,7 @@ if (logoLink) {
 if (musicFilterButtons.length) {
   musicFilterButtons.forEach(button => {
     button.addEventListener("click", () => {
-      const selectedValue = button.dataset.category || "all";
+      const selectedValue = button.dataset.category || DEFAULT_CATEGORY;
       setCategorySelection(selectedValue);
       renderAlbums(selectedValue);
     });

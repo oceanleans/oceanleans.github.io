@@ -952,6 +952,11 @@ z-index:20;
 }
 
 .album-empty-state{
+display:grid;
+place-items:center;
+width:100%;
+min-height:calc(var(--album-cover-size) + var(--streaming-row-height) + var(--album-action-height) + (var(--album-stack-gap) * 2));
+padding:clamp(20px, 4vw, 32px);
 font-size:clamp(1rem, 2vw, 1.2rem);
 font-weight:600;
 text-align:center;
@@ -979,6 +984,9 @@ background:rgba(232,232,230,.22);
 color:#f7fbfc;
 font:inherit;
 font-size:clamp(.92rem, .72rem + .48vw, 1.32rem);
+touch-action:manipulation;
+-webkit-user-select:none;
+user-select:none;
 cursor:pointer;
 box-shadow:0 12px 28px rgba(1,28,45,.24);
 transition:transform .2s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
@@ -1621,8 +1629,8 @@ gap:18px;
 font-size:clamp(1.9rem, 5vw, 3rem);
 line-height:.95;
 margin:0;
-color:#e8e8e6;
-text-shadow:0 3px 14px rgba(1,28,45,.24), 0 0 1px rgba(1,28,45,.18);
+color:#05374f;
+text-shadow:0 1px 0 rgba(255,255,255,.35), 0 10px 24px rgba(1,28,45,.12);
 }
 
 .lyrics-intro{
@@ -1681,6 +1689,24 @@ margin:0;
 
 .lyrics-placeholder{
 color:rgba(232,232,230,.9);
+}
+
+.lyrics-body .footer-social-link{
+border-color:rgba(232,232,230,.16);
+background:rgba(0,0,0,.18);
+color:#e8e8e6;
+box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
+.lyrics-body .footer-social-link:hover{
+border-color:rgba(232,232,230,.26);
+background:rgba(232,232,230,.1);
+color:#9dd9e6;
+box-shadow:0 16px 32px rgba(0,0,0,.24);
+}
+
+.lyrics-body .footer-policy-link{
+color:#e8e8e6;
 }
 
 @media (min-width:701px){

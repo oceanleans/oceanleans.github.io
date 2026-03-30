@@ -13,10 +13,11 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_lochness.wav",
+    "preview": "assets/previews/preview_lochness.mp3",
     "lyricsLink": "lyrics.html#loch-ness",
     "alt": "Loch Ness cover",
-    "featured": true
+    "featured": true,
+    "featuredOrder": 1
   },
   {
     "title": "Keep Going",
@@ -32,7 +33,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_keepGoing.wav",
+    "preview": "assets/previews/preview_keepGoing.mp3",
     "alt": "Keep Going cover"
   },
   {
@@ -49,7 +50,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_altercation.wav",
+    "preview": "assets/previews/preview_altercation.mp3",
     "alt": "Altercation cover"
   },
   {
@@ -66,7 +67,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_simplify.wav",
+    "preview": "assets/previews/preview_simplify.mp3",
     "alt": "Simplify cover"
   },
   {
@@ -83,7 +84,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_scolding.wav",
+    "preview": "assets/previews/preview_scolding.mp3",
     "alt": "Scolding cover"
   },
   {
@@ -100,7 +101,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_noLimit.wav",
+    "preview": "assets/previews/preview_noLimit.mp3",
     "alt": "No Limit cover"
   },
   {
@@ -117,7 +118,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_control.wav",
+    "preview": "assets/previews/preview_control.mp3",
     "alt": "Control cover"
   },
   {
@@ -134,7 +135,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_keepItComing.wav",
+    "preview": "assets/previews/preview_keepItComing.mp3",
     "alt": "Keep It Coming cover"
   },
   {
@@ -151,7 +152,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_painting.wav",
+    "preview": "assets/previews/preview_painting.mp3",
     "alt": "Painting cover"
   },
   {
@@ -168,7 +169,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_haveFun.wav",
+    "preview": "assets/previews/preview_haveFun.mp3",
     "alt": "Have Fun cover"
   },
   {
@@ -185,7 +186,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_flyScreen.wav",
+    "preview": "assets/previews/preview_flyScreen.mp3",
     "alt": "Fly Screen cover"
   },
   {
@@ -202,7 +203,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_loop.wav",
+    "preview": "assets/previews/preview_loop.mp3",
     "alt": "Loop cover"
   },
   {
@@ -219,7 +220,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_entrance.wav",
+    "preview": "assets/previews/preview_entrance.mp3",
     "alt": "Entrance cover"
   },
   {
@@ -236,7 +237,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_empty.wav",
+    "preview": "assets/previews/preview_empty.mp3",
     "alt": "Empty cover"
   },
   {
@@ -253,7 +254,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_captureLess.wav",
+    "preview": "assets/previews/preview_captureLess.mp3",
     "alt": "Capture Less cover"
   },
   {
@@ -270,7 +271,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_rivers.wav",
+    "preview": "assets/previews/preview_rivers.mp3",
     "alt": "Rivers cover"
   },
   {
@@ -287,7 +288,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_mayhem.wav",
+    "preview": "assets/previews/preview_mayhem.mp3",
     "alt": "Mayhem cover"
   },
   {
@@ -304,7 +305,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_friction.wav",
+    "preview": "assets/previews/preview_friction.mp3",
     "alt": "Friction cover"
   },
   {
@@ -321,7 +322,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_willpower.wav",
+    "preview": "assets/previews/preview_willpower.mp3",
     "alt": "Willpower cover"
   },
   {
@@ -338,7 +339,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_truth.wav",
+    "preview": "assets/previews/preview_truth.mp3",
     "alt": "Truth cover"
   },
   {
@@ -355,7 +356,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_easy.wav",
+    "preview": "assets/previews/preview_easy.mp3",
     "alt": "Easy cover"
   },
   {
@@ -372,7 +373,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_becoming.wav",
+    "preview": "assets/previews/preview_becoming.mp3",
     "alt": "Becoming cover"
   },
   {
@@ -389,7 +390,7 @@
       "deezer": "",
       "pandora": ""
     },
-    "preview": "assets/previews/preview_whatsGoingOn.wav",
+    "preview": "assets/previews/preview_whatsGoingOn.mp3",
     "alt": "What's Going On cover"
   }
 ]
