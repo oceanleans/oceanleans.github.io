@@ -457,9 +457,9 @@ function updatePageUI() {
   updateBackToTopVisibility();
 }
 
-function isOnMusicPage() {
+function isPinnedToMusicSection() {
   const musicTop = getMusicSectionTop();
-  return window.scrollY >= musicTop - 2 && window.scrollY < musicTop + getViewportHeight();
+  return Math.abs(window.scrollY - musicTop) <= 2;
 }
 
 function scrollToMusicSection(smooth = true) {
@@ -783,7 +783,7 @@ if (subscribeToggle && subscribeMenu) {
 }
 
 window.addEventListener("resize", () => {
-  const shouldPinMusicPage = isOnMusicPage();
+  const shouldPinMusicPage = isPinnedToMusicSection();
 
   syncViewportHeight();
   syncHeaderHeight();
@@ -804,7 +804,7 @@ window.addEventListener("resize", () => {
 
 if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", () => {
-    const shouldPinMusicPage = isOnMusicPage();
+    const shouldPinMusicPage = isPinnedToMusicSection();
 
     syncViewportHeight();
     syncHeaderHeight();
