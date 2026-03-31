@@ -1787,6 +1787,15 @@ font-size:clamp(.56rem, .45rem + .42vw, .84rem);
 --screen-page-height:100svh;
 }
 
+#music-section{
+justify-content:flex-start;
+}
+
+.album-viewer{
+flex:1 1 auto;
+min-height:0;
+}
+
 .album-grid{
 height:auto;
 }
