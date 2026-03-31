@@ -371,7 +371,7 @@ function syncMobileAlbumViewportCentering() {
     return;
   }
 
-  if (!window.matchMedia("(max-width: 1100px)").matches) {
+  if (!window.matchMedia("(max-width: 1100px)").matches || window.matchMedia("(max-width: 700px)").matches) {
     clearMobileAlbumViewportCentering();
     return;
   }
@@ -464,11 +464,15 @@ function updateBackToTopVisibility() {
 }
 
 function updateCarouselControls() {
-  if (!prevAlbumButton || !nextAlbumButton) {
+  if (!prevAlbumButton || !nextAlbumButton || !albumCarouselControls) {
     return;
   }
 
   const hasAlbums = filteredReleases.length > 0;
+  const shouldHideControls = filteredReleases.length === 1;
+
+  albumCarouselControls.hidden = shouldHideControls;
+  albumCarouselControls.setAttribute("aria-hidden", shouldHideControls ? "true" : "false");
   prevAlbumButton.disabled = !hasAlbums || currentAlbumIndex <= 0;
   nextAlbumButton.disabled = !hasAlbums || currentAlbumIndex >= filteredReleases.length - 1;
 }
@@ -863,7 +867,7 @@ window.addEventListener("load", () => {
 
 syncViewportHeight();
 syncHeaderHeight();
-setCategorySelection("all");
+setCategorySelection(DEFAULT_CATEGORY);
 updatePageUI();
 scheduleMobileAlbumViewportCentering();
 loadReleases();

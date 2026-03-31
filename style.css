@@ -1783,6 +1783,10 @@ font-size:clamp(.56rem, .45rem + .42vw, .84rem);
 }
 
 @media (max-width:700px){
+.home-page{
+--screen-page-height:100svh;
+}
+
 .album-grid{
 height:auto;
 }
@@ -1872,10 +1876,6 @@ min-inline-size:clamp(118px, 34vw, 140px);
 block-size:clamp(38px, 9.5vw, 42px);
 padding:0 clamp(16px, 4vw, 22px);
 font-size:clamp(.74rem, 2.8vw, .82rem);
-}
-
-.album-viewer{
-transform:translateY(var(--mobile-album-viewer-offset, 0px));
 }
 
 header{
