@@ -628,12 +628,9 @@ background:linear-gradient(135deg, rgba(255,255,255,1), rgba(213,235,241,.98));
 --album-action-height:clamp(38px, 3.2vw, 42px);
 --album-stack-gap:clamp(10px, 2.2vw, 16px);
 --controls-gap:clamp(14px, 2.4vw, 24px);
---music-section-height:var(--screen-page-height);
---album-cover-size:min(
-  calc(100vw - 48px),
-  calc(var(--music-section-height) - (var(--section-pad-y) * 2) - var(--filter-button-height) - var(--album-nav-size) - var(--streaming-row-height) - var(--album-action-height) - (var(--section-gap) * 2) - (var(--album-stack-gap) * 2))
-);
-min-height:var(--music-section-height);
+--album-cover-size:min(620px, calc(100vw - 48px));
+min-height:100vh;
+min-height:var(--screen-page-height);
 height:auto;
 display:flex;
 flex-direction:column;
@@ -1770,11 +1767,7 @@ padding:clamp(9px, 1.2vw, 12px) clamp(20px, 2.4vw, 28px);
 --album-action-height:clamp(38px, 3.2vw, 42px);
 --album-stack-gap:clamp(10px, 2vw, 14px);
 --controls-gap:clamp(14px, 2.8vw, 22px);
---album-cover-size:min(620px, calc(100vw - 40px), calc(var(--music-section-height) - (var(--section-pad-y) * 2) - var(--filter-button-height) - var(--album-nav-size) - var(--streaming-row-height) - var(--album-action-height) - (var(--section-gap) * 2) - (var(--album-stack-gap) * 2)));
-}
-
-.album-viewer{
-transform:translateY(var(--mobile-album-viewer-offset, 0px));
+--album-cover-size:min(560px, calc(100vw - 40px));
 }
 
 .music-filter-buttons{
@@ -1983,7 +1976,7 @@ min-height:calc(var(--screen-page-height) - var(--header-height) - clamp(20px, 4
 .hero-stack{
 gap:clamp(14px, 2.6vh, 24px);
 max-width:34rem;
-transform:translateY(calc(var(--header-height) * -0.5));
+transform:none;
 }
 
 #music-section{
@@ -1995,7 +1988,7 @@ transform:translateY(calc(var(--header-height) * -0.5));
 --album-action-height:clamp(38px, 9.5vw, 42px);
 --album-stack-gap:clamp(10px, 2.4vw, 14px);
 --controls-gap:clamp(12px, 4.8vw, 18px);
---album-cover-size:min(calc(100vw - 20px), calc(var(--music-section-height) - (var(--section-pad-y) * 2) - var(--filter-button-height) - var(--album-nav-size) - var(--streaming-row-height) - var(--album-action-height) - (var(--section-gap) * 2) - (var(--album-stack-gap) * 2)));
+--album-cover-size:min(calc(100vw - 24px), 440px);
 }
 
 .music-filter-buttons{
