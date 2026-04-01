@@ -28,9 +28,14 @@
         <h1 id="contact-heading">Get in touch</h1>
         <p class="contact-copy">For questions, collaborations, or feedback, send a message below.</p>
 
-        <form class="contact-form" action="https://formsubmit.co/oceanleans@gmail.com" method="POST">
+        <form class="contact-form" data-form-type="contact" action="https://formsubmit.co/oceanleans@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="OceanLeans contact form">
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+          <input type="hidden" name="form_type" value="contact">
+          <input type="hidden" name="rendered_at" value="">
+          <input type="hidden" name="request_id" value="">
+          <input type="hidden" name="page_url" value="">
+          <input type="hidden" name="user_agent" value="">
           <div class="contact-form-row">
             <label class="contact-field">
               <span>Name</span>
@@ -76,5 +81,8 @@
     <p class="footer-legal">&copy; 2026 OceanLeans. All rights reserved.</p>
     <a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
   </footer>
+
+  <script src="forms-config.js"></script>
+  <script src="forms.js"></script>
 </body>
 </html>

@@ -46,9 +46,14 @@
 <span class="arrow">⌄</span>
 </button>
 
-<form class="subscribe-dropdown" id="subscribe-menu" action="https://formsubmit.co/oceanleans@gmail.com" method="POST">
+<form class="subscribe-dropdown" id="subscribe-menu" data-form-type="subscribe" action="https://formsubmit.co/oceanleans@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="OceanLeans subscribe form">
 <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+<input type="hidden" name="form_type" value="subscribe">
+<input type="hidden" name="rendered_at" value="">
+<input type="hidden" name="request_id" value="">
+<input type="hidden" name="page_url" value="">
+<input type="hidden" name="user_agent" value="">
 <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
 <button type="submit">Join</button>
 </form>
@@ -133,5 +138,7 @@
 
 <script src="releases-data.js"></script>
 <script src="script.js"></script>
+<script src="forms-config.js"></script>
+<script src="forms.js"></script>
 </body>
 </html>

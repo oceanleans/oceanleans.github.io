@@ -868,16 +868,19 @@ display:none;
 
 .album-actions--mobile{
 display:flex;
-flex-wrap:wrap;
+flex-wrap:nowrap;
 align-items:center;
 justify-content:center;
 gap:clamp(8px, 1vw, 12px);
+width:min(100%, var(--album-cover-size));
 }
 
 .album-actions--mobile > *{
 display:inline-flex;
 align-items:center;
 justify-content:center;
+flex:0 0 auto;
+min-width:0;
 }
 
 .overlay-divider{
@@ -891,7 +894,8 @@ display:none;
 appearance:none;
 -webkit-appearance:none;
 inline-size:auto;
-min-inline-size:clamp(118px, 10vw, 140px);
+min-inline-size:0;
+max-inline-size:100%;
 block-size:clamp(38px, 3.2vw, 42px);
 padding:0 clamp(16px, 1.8vw, 22px);
 border:1px solid rgba(232,232,230,.98);
@@ -905,6 +909,7 @@ font-size:clamp(.74rem, .7rem + .12vw, .82rem);
 letter-spacing:calc(.4px * var(--overlay-scale));
 line-height:1;
 text-transform:uppercase;
+white-space:nowrap;
 cursor:pointer;
 transition:background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease;
 box-shadow:0 10px 22px rgba(1,28,45,.24);
@@ -946,7 +951,7 @@ transition:filter .35s ease;
 
 @media (hover:hover) and (pointer:fine){
 .album-cover-wrapper:hover{
-transform:scale(1.03);
+transform:scale(1.015);
 z-index:20;
 }
 }
@@ -1780,6 +1785,53 @@ gap:clamp(4px, .9vw, 10px);
 padding:0 clamp(8px, 1vw, 14px);
 font-size:clamp(.56rem, .45rem + .42vw, .84rem);
 }
+
+.album-actions--mobile{
+flex-wrap:nowrap;
+gap:clamp(6px, .8vw, 10px);
+}
+
+.album-actions--mobile .preview-btn,
+.album-actions--mobile .lyrics-btn{
+min-inline-size:clamp(92px, 8.6vw, 118px);
+padding:0 clamp(12px, 1.2vw, 16px);
+font-size:clamp(.68rem, .54rem + .18vw, .78rem);
+}
+}
+
+@media (max-height:760px) and (min-width:701px){
+#music-section{
+--section-pad-y:clamp(8px, 1.2vh, 12px);
+--section-gap:clamp(6px, 1vh, 10px);
+--filter-button-height:clamp(26px, 2.2vw, 32px);
+--album-nav-size:clamp(22px, 2.8vw, 34px);
+--streaming-row-height:clamp(22px, 2.4vw, 28px);
+--album-action-height:clamp(32px, 2.8vw, 36px);
+--album-stack-gap:clamp(6px, 1vh, 10px);
+--controls-gap:clamp(10px, 1.8vw, 16px);
+}
+
+.music-filter-button{
+font-size:clamp(.52rem, .42rem + .22vw, .72rem);
+padding:0 clamp(6px, .8vw, 10px);
+}
+
+.album-actions--mobile{
+gap:clamp(4px, .7vw, 8px);
+}
+
+.album-actions--mobile .preview-btn,
+.album-actions--mobile .lyrics-btn{
+min-inline-size:clamp(78px, 7vw, 96px);
+block-size:clamp(32px, 2.8vw, 36px);
+padding:0 clamp(10px, 1vw, 14px);
+font-size:clamp(.62rem, .5rem + .16vw, .72rem);
+}
+
+.streaming-icons{
+--streaming-badge-size:clamp(22px, 2.4vw, 28px);
+--streaming-badge-column-gap:clamp(6px, .8vw, 10px);
+}
 }
 
 @media (max-width:700px){
@@ -1862,10 +1914,10 @@ display:none;
 
 .album-actions--mobile{
 display:flex;
-flex-wrap:wrap;
+flex-wrap:nowrap;
 align-items:center;
 justify-content:center;
-gap:clamp(8px, 2vw, 10px);
+gap:clamp(6px, 2vw, 10px);
 }
 
 .album-actions--mobile > *{
@@ -1880,11 +1932,13 @@ display:none;
 
 .album-actions--mobile .preview-btn,
 .album-actions--mobile .lyrics-btn{
+flex:0 0 auto;
 inline-size:auto;
-min-inline-size:clamp(118px, 34vw, 140px);
-block-size:clamp(38px, 9.5vw, 42px);
-padding:0 clamp(16px, 4vw, 22px);
-font-size:clamp(.74rem, 2.8vw, .82rem);
+min-inline-size:clamp(86px, 24vw, 112px);
+max-inline-size:100%;
+block-size:clamp(34px, 9vw, 40px);
+padding:0 clamp(10px, 3.2vw, 16px);
+font-size:clamp(.66rem, 2.5vw, .78rem);
 }
 
 header{
