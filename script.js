@@ -12,19 +12,43 @@ const subscribeMenu = document.querySelector(".subscribe-dropdown");
 const subscribeWrapper = document.querySelector(".subscribe-wrapper");
 
 const backToTop = document.getElementById("back-to-top");
+const goDeeperButton = document.getElementById("go-deeper");
+const goDeeperButtonIcon = goDeeperButton ? goDeeperButton.querySelector(".section-nav-icon") : null;
+const goDeeperButtonText = goDeeperButton ? goDeeperButton.querySelector(".section-nav-text") : null;
 const prevAlbumButton = document.getElementById("album-nav-prev");
 const nextAlbumButton = document.getElementById("album-nav-next");
 const header = document.querySelector("header");
 const musicSection = document.getElementById("music-section");
+const pageFooter = document.getElementById("page-footer");
 const albumCarouselControls = document.querySelector(".album-carousel-controls");
+const isHomePage = document.body.classList.contains("home-page");
+const SECTION_NAVIGATION_LOCK_MS = 140;
+const WHEEL_NAVIGATION_THRESHOLD = 24;
+const TOUCH_NAVIGATION_THRESHOLD = 64;
+const WHEEL_BUFFER_RESET_MS = 180;
+const SECTION_SETTLE_TOLERANCE = 3;
+const SECTION_TRANSITION_MAX_MS = 1800;
+const HERO_SCROLL_HINT_DURATION_MS = 1100;
 
 let releases = [];
 let filteredReleases = [];
 let currentAlbumIndex = 0;
 let previewAudio = null;
 let activePreviewButton = null;
+let lastSectionNavigationAt = 0;
+let touchStartX = null;
+let touchStartY = null;
+let wheelNavigationDelta = 0;
+let lastWheelDirection = 0;
+let wheelBufferResetTimer = null;
+let sectionTransitionTargetTop = null;
+let sectionTransitionStartedAt = 0;
+let sectionTransitionReleaseTimer = null;
+let heroScrollHintTimer = null;
 const prefetchedAlbumCoverRequests = new Map();
 const DEFAULT_CATEGORY = "featured";
+
+document.documentElement.classList.toggle("home-page-scroll-locked", isHomePage);
 
 function cloneReleaseData(items) {
   if (!Array.isArray(items)) {
@@ -362,6 +386,275 @@ function getMusicSectionTop() {
   return Math.max(0, musicSection.getBoundingClientRect().top + window.scrollY);
 }
 
+function getFooterTop() {
+  if (!pageFooter) {
+    return getMusicSectionTop();
+  }
+
+  return Math.max(0, pageFooter.getBoundingClientRect().top + window.scrollY);
+}
+
+function getSectionStops() {
+  const stops = [0];
+
+  if (musicSection) {
+    stops.push(getMusicSectionTop());
+  }
+
+  if (pageFooter) {
+    stops.push(getFooterTop());
+  }
+
+  return stops.filter((stop, index, values) => index === 0 || stop > values[index - 1] + 2);
+}
+
+function getActiveSectionIndex() {
+  const sectionStops = getSectionStops();
+  const scrollPosition = window.scrollY;
+  let activeIndex = 0;
+
+  for (let index = 0; index < sectionStops.length - 1; index += 1) {
+    const boundary = (sectionStops[index] + sectionStops[index + 1]) / 2;
+
+    if (scrollPosition >= boundary) {
+      activeIndex = index + 1;
+    }
+  }
+
+  return activeIndex;
+}
+
+function isSectionNavigationLocked() {
+  return sectionTransitionTargetTop !== null || Date.now() - lastSectionNavigationAt < SECTION_NAVIGATION_LOCK_MS;
+}
+
+function lockSectionNavigation() {
+  lastSectionNavigationAt = Date.now();
+}
+
+function clearSectionTransitionReleaseTimer() {
+  if (sectionTransitionReleaseTimer) {
+    window.clearTimeout(sectionTransitionReleaseTimer);
+    sectionTransitionReleaseTimer = null;
+  }
+}
+
+function clearSectionTransitionState() {
+  sectionTransitionTargetTop = null;
+  sectionTransitionStartedAt = 0;
+  clearSectionTransitionReleaseTimer();
+}
+
+function checkSectionTransitionRelease() {
+  if (sectionTransitionTargetTop === null) {
+    return;
+  }
+
+  const now = Date.now();
+  const hasReachedTarget = Math.abs(window.scrollY - sectionTransitionTargetTop) <= SECTION_SETTLE_TOLERANCE;
+  const hasExceededMaxDuration = now - sectionTransitionStartedAt >= SECTION_TRANSITION_MAX_MS;
+
+  if (hasReachedTarget || hasExceededMaxDuration) {
+    clearSectionTransitionState();
+    return;
+  }
+}
+
+function scheduleSectionTransitionReleaseCheck(delay = SECTION_TRANSITION_MAX_MS) {
+  clearSectionTransitionReleaseTimer();
+  sectionTransitionReleaseTimer = window.setTimeout(() => {
+    checkSectionTransitionRelease();
+  }, delay);
+}
+
+function resetWheelNavigationBuffer() {
+  wheelNavigationDelta = 0;
+  lastWheelDirection = 0;
+
+  if (wheelBufferResetTimer) {
+    window.clearTimeout(wheelBufferResetTimer);
+    wheelBufferResetTimer = null;
+  }
+}
+
+function scheduleWheelBufferReset() {
+  if (wheelBufferResetTimer) {
+    window.clearTimeout(wheelBufferResetTimer);
+  }
+
+  wheelBufferResetTimer = window.setTimeout(() => {
+    resetWheelNavigationBuffer();
+  }, WHEEL_BUFFER_RESET_MS);
+}
+
+function normalizeWheelDelta(event) {
+  if (!event) {
+    return 0;
+  }
+
+  if (event.deltaMode === 1) {
+    return event.deltaY * 16;
+  }
+
+  if (event.deltaMode === 2) {
+    return event.deltaY * window.innerHeight;
+  }
+
+  return event.deltaY;
+}
+
+function jumpToSectionIndex(index, smooth = true) {
+  const sectionStops = getSectionStops();
+
+  if (!sectionStops.length) {
+    return false;
+  }
+
+  const targetIndex = Math.max(0, Math.min(index, sectionStops.length - 1));
+  const targetTop = sectionStops[targetIndex];
+
+  resetWheelNavigationBuffer();
+  sectionTransitionTargetTop = targetTop;
+  sectionTransitionStartedAt = Date.now();
+  lockSectionNavigation();
+  scheduleSectionTransitionReleaseCheck();
+  window.scrollTo({
+    top: targetTop,
+    behavior: smooth ? "smooth" : "auto"
+  });
+
+  return true;
+}
+
+function moveSectionLevel(direction, smooth = true) {
+  const sectionStops = getSectionStops();
+  const currentIndex = getActiveSectionIndex();
+  const targetIndex = Math.max(0, Math.min(currentIndex + direction, sectionStops.length - 1));
+
+  if (targetIndex === currentIndex) {
+    return false;
+  }
+
+  return jumpToSectionIndex(targetIndex, smooth);
+}
+
+function isTextInputTarget(target) {
+  return Boolean(target && target.closest("input, textarea, select, option, [contenteditable=\"true\"]"));
+}
+
+function isKeyboardControlTarget(target) {
+  return Boolean(target && target.closest("button, a, input, textarea, select, option, [contenteditable=\"true\"]"));
+}
+
+function isOverlayNavigationOpen() {
+  return Boolean(
+    (navMenu && navMenu.classList.contains("show")) ||
+    (subscribeMenu && subscribeMenu.classList.contains("show"))
+  );
+}
+
+function canUseSectionNavigation(target) {
+  return isHomePage && getSectionStops().length > 1 && !isOverlayNavigationOpen() && !isTextInputTarget(target);
+}
+
+function handleSectionWheel(event) {
+  if (!canUseSectionNavigation(event.target)) {
+    return;
+  }
+
+  if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+    return;
+  }
+
+  event.preventDefault();
+  triggerHeroScrollHint();
+}
+
+function handleSectionTouchStart(event) {
+  if (!canUseSectionNavigation(event.target) || event.touches.length !== 1) {
+    touchStartX = null;
+    touchStartY = null;
+    return;
+  }
+
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleSectionTouchMove(event) {
+  if (!canUseSectionNavigation(event.target)) {
+    return;
+  }
+
+  if (event.touches.length !== 1 || touchStartX === null || touchStartY === null) {
+    return;
+  }
+
+  const touch = event.touches[0];
+  const deltaX = touch.clientX - touchStartX;
+  const deltaY = touch.clientY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    return;
+  }
+
+  event.preventDefault();
+  triggerHeroScrollHint();
+}
+
+function clearSectionTouchState() {
+  touchStartX = null;
+  touchStartY = null;
+}
+
+function triggerHeroScrollHint() {
+  if (!diveInLink) {
+    return;
+  }
+
+  if (heroScrollHintTimer) {
+    return;
+  }
+
+  diveInLink.classList.add("is-scroll-hint");
+
+  heroScrollHintTimer = window.setTimeout(() => {
+    diveInLink.classList.remove("is-scroll-hint");
+    heroScrollHintTimer = null;
+  }, HERO_SCROLL_HINT_DURATION_MS);
+}
+
+function handleSectionKeydown(event) {
+  if (
+    event.defaultPrevented ||
+    event.altKey ||
+    event.ctrlKey ||
+    event.metaKey ||
+    !canUseSectionNavigation(event.target) ||
+    isKeyboardControlTarget(event.target)
+  ) {
+    return;
+  }
+
+  const isForwardKey =
+    event.key === "ArrowDown" ||
+    event.key === "PageDown" ||
+    (event.key === " " && !event.shiftKey);
+  const isBackwardKey =
+    event.key === "ArrowUp" ||
+    event.key === "PageUp" ||
+    (event.key === " " && event.shiftKey);
+  const isHomeKey = event.key === "Home";
+  const isEndKey = event.key === "End";
+
+  if (!isForwardKey && !isBackwardKey && !isHomeKey && !isEndKey) {
+    return;
+  }
+
+  event.preventDefault();
+  triggerHeroScrollHint();
+}
+
 function syncSubscribeTheme() {
   if (!subscribeMenu || !header) {
     return;
@@ -381,13 +674,32 @@ function updateHeaderHeroState() {
   syncSubscribeTheme();
 }
 
-function updateBackToTopVisibility() {
-  if (!backToTop) {
+function updateSectionNavigationVisibility() {
+  if (!backToTop && !goDeeperButton) {
     return;
   }
 
-  const showButton = window.scrollY >= getMusicSectionTop() - 2;
-  backToTop.classList.toggle("show", Boolean(showButton));
+  const sectionStops = getSectionStops();
+  const activeSectionIndex = getActiveSectionIndex();
+  const lastSectionIndex = Math.max(0, sectionStops.length - 1);
+  const isAtBottomSection = activeSectionIndex >= lastSectionIndex && lastSectionIndex > 0;
+
+  if (backToTop) {
+    backToTop.classList.toggle("show", activeSectionIndex > 0);
+  }
+
+  if (goDeeperButton) {
+    goDeeperButton.classList.toggle("show", activeSectionIndex > 0 && !isAtBottomSection);
+    goDeeperButton.setAttribute("aria-label", "Go Deeper");
+  }
+
+  if (goDeeperButtonText) {
+    goDeeperButtonText.textContent = "Go Deeper";
+  }
+
+  if (goDeeperButtonIcon) {
+    goDeeperButtonIcon.hidden = false;
+  }
 }
 
 function updateCarouselControls() {
@@ -406,25 +718,20 @@ function updateCarouselControls() {
 
 function updatePageUI() {
   updateHeaderHeroState();
-  updateBackToTopVisibility();
+  updateSectionNavigationVisibility();
 }
 
 function scrollToMusicSection(smooth = true) {
-  if (!musicSection) {
-    return;
-  }
-
-  window.scrollTo({
-    top: getMusicSectionTop(),
-    behavior: smooth ? "smooth" : "auto"
-  });
+  return jumpToSectionIndex(1, smooth);
 }
 
 function scrollToTop(smooth = true) {
-  window.scrollTo({
-    top: 0,
-    behavior: smooth ? "smooth" : "auto"
-  });
+  return jumpToSectionIndex(0, smooth);
+}
+
+function scrollToFooter(smooth = true) {
+  const sectionStops = getSectionStops();
+  return jumpToSectionIndex(sectionStops.length - 1, smooth);
 }
 
 function moveCarouselBy(direction) {
@@ -647,7 +954,13 @@ if (diveInLink) {
 
 if (backToTop) {
   backToTop.addEventListener("click", () => {
-    scrollToTop(true);
+    moveSectionLevel(-1, true);
+  });
+}
+
+if (goDeeperButton) {
+  goDeeperButton.addEventListener("click", () => {
+    moveSectionLevel(1, true);
   });
 }
 
@@ -729,10 +1042,22 @@ if (window.visualViewport) {
 }
 
 window.addEventListener("scroll", () => {
+  if (sectionTransitionTargetTop !== null) {
+    checkSectionTransitionRelease();
+  }
+
   updatePageUI();
 }, { passive: true });
 
+window.addEventListener("wheel", handleSectionWheel, { passive: false });
+window.addEventListener("touchstart", handleSectionTouchStart, { passive: true });
+window.addEventListener("touchmove", handleSectionTouchMove, { passive: false });
+window.addEventListener("touchend", clearSectionTouchState, { passive: true });
+window.addEventListener("touchcancel", clearSectionTouchState, { passive: true });
+
 document.addEventListener("keydown", event => {
+  handleSectionKeydown(event);
+
   if (event.key === "Escape") {
     closeNavMenu();
     closeSubscribeMenu();

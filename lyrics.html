@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="320x320" href="assets/logo/Oceanleans Round Logo 2.png">
+  <link rel="apple-touch-icon" href="assets/logo/Oceanleans Round Logo 2.png">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -41,11 +43,6 @@
     </section>
   </main>
 
-  <button id="back-to-top" type="button" aria-label="Back to Surface">
-    <span class="back-to-top-icon" aria-hidden="true">↑</span>
-    <span class="back-to-top-text">Back to Surface</span>
-  </button>
-
   <footer class="page-footer">
     <div class="footer-socials" aria-label="Social media links">
       <a href="https://www.youtube.com/@OceanLeans/videos" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
@@ -69,25 +66,5 @@
     <a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
   </footer>
 
-  <script>
-    const lyricsBackToTop = document.getElementById("back-to-top");
-
-    function syncLyricsBackToTop() {
-      if (!lyricsBackToTop) {
-        return;
-      }
-
-      lyricsBackToTop.classList.toggle("show", window.scrollY > 120);
-    }
-
-    if (lyricsBackToTop) {
-      lyricsBackToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    }
-
-    window.addEventListener("scroll", syncLyricsBackToTop, { passive: true });
-    window.addEventListener("load", syncLyricsBackToTop);
-  </script>
 </body>
 </html>
