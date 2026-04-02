@@ -13,6 +13,26 @@
   <link rel="apple-touch-icon" href="assets/logo/Oceanleans Round Logo 2.png">
 
   <link rel="stylesheet" href="style.css">
+  <script>
+    if (window.location.hash) {
+      document.documentElement.style.scrollBehavior = "auto";
+
+      window.addEventListener("load", () => {
+        window.requestAnimationFrame(() => {
+          const hashId = decodeURIComponent(window.location.hash.slice(1));
+          const target = document.getElementById(hashId);
+
+          if (target) {
+            target.scrollIntoView({ block: "start" });
+          }
+
+          window.requestAnimationFrame(() => {
+            document.documentElement.style.scrollBehavior = "";
+          });
+        });
+      }, { once: true });
+    }
+  </script>
 </head>
 <body class="lyrics-body">
   <header>
@@ -28,18 +48,60 @@
       <h1 id="lyrics-heading">Lyrics</h1>
       <p class="lyrics-intro">Jump to a song or scroll through the page.</p>
 
+      <!-- AUTO-LYRICS-NAV:START -->
       <nav class="lyrics-jump-nav" aria-label="Jump to songs">
+        <a href="#crazy" class="lyrics-jump-link">Crazy</a>
+        <a href="#seed" class="lyrics-jump-link">Seed</a>
         <a href="#loch-ness" class="lyrics-jump-link">Loch Ness</a>
       </nav>
+      <!-- AUTO-LYRICS-NAV:END -->
 
-      <section class="lyrics-song" id="loch-ness" aria-labelledby="loch-ness-title">
-        <h2 id="loch-ness-title">Loch Ness</h2>
-        <p class="lyrics-song-meta">Single • February 6, 2026</p>
+      <!-- AUTO-LYRICS-SECTIONS:START -->
+      <section class="lyrics-song" id="crazy" aria-labelledby="crazy-title">
+        <h2 id="crazy-title">Crazy</h2>
+        <div class="lyrics-text">
+          <p>Me, I don’t have the answers
+But I’ve got the questions
+So many revolving around
+And around and around
+They're like a continuous sound
+An answer I haven’t found
+So why do I keep searching
+searching, searching?
+I'm looking in every nook and cranny
+Speaking to every youngster and granny
+But they’re telling me the same thing,
+Same thing, same thing
+I’m like, "Yeah, I’m changing, changing
+But I’m the same thing"
+Two truths at the same time
+That’s what’s fucking up my mind
+Have to somehow make sense
+And pick a side of the fence
+Easier said than done
+Man, it feels like I’m dumb
+I'm not even young anymore
+What point will I hit a wall?
+Maybe I already have
+That’s what’s making me sad</p>
+        </div>
+      </section>
 
+      <section class="lyrics-song" id="seed" aria-labelledby="seed-title">
+        <h2 id="seed-title">Seed</h2>
         <div class="lyrics-text">
           <p class="lyrics-placeholder">Lyrics coming soon.</p>
         </div>
       </section>
+
+      <section class="lyrics-song" id="loch-ness" aria-labelledby="loch-ness-title">
+        <h2 id="loch-ness-title">Loch Ness</h2>
+        <div class="lyrics-text">
+          <p class="lyrics-placeholder">Lyrics coming soon.</p>
+        </div>
+      </section>
+      <!-- AUTO-LYRICS-SECTIONS:END -->
+
     </section>
   </main>
 
@@ -65,6 +127,28 @@
     <p class="footer-legal">&copy; 2026 OceanLeans. All rights reserved.</p>
     <a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
   </footer>
+
+  <button id="back-to-top" class="section-nav-button section-nav-button--right" type="button" aria-label="Back to Surface">
+    <span class="section-nav-icon" aria-hidden="true">↑</span>
+    <span class="section-nav-text">Back to Surface</span>
+  </button>
+
+  <script>
+    const lyricsBackToTopButton = document.getElementById("back-to-top");
+
+    if (lyricsBackToTopButton) {
+      const syncLyricsBackToTopVisibility = () => {
+        lyricsBackToTopButton.classList.toggle("show", window.scrollY > 0);
+      };
+
+      lyricsBackToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      syncLyricsBackToTopVisibility();
+      window.addEventListener("scroll", syncLyricsBackToTopVisibility, { passive: true });
+    }
+  </script>
 
 </body>
 </html>

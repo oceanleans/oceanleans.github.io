@@ -2,6 +2,163 @@
 // Keep this file in sync with releases.json.
 window.OCEANLEANS_RELEASES = [
   {
+    "title": "Crazy",
+    "category": "songs",
+    "date": "2026-03-28",
+    "cover": "assets/album-covers/crazy.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_crazy.mp3",
+    "alt": "Keep Going cover",
+    "featured": true,
+    "featuredOrder": 1,
+    "lyricsLink": "lyrics.html#crazy"
+  },
+  {
+    "title": "Almost",
+    "category": "instrumentals",
+    "date": "2026-03-27",
+    "cover": "assets/album-covers/almost.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_almost.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Missed the Bliss",
+    "category": "instrumentals",
+    "date": "2026-02-27",
+    "cover": "assets/album-covers/missed-the-bliss.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_missedTheBliss.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Seed",
+    "category": "songs",
+    "date": "2026-02-24",
+    "cover": "assets/album-covers/seed.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_seed.mp3",
+    "alt": "Keep Going cover",
+    "lyricsLink": "lyrics.html#seed"
+  },
+  {
+    "title": "Parents",
+    "category": "instrumentals",
+    "date": "2026-02-19",
+    "cover": "assets/album-covers/parents.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_parents.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Real Man",
+    "category": "instrumentals",
+    "date": "2026-02-18",
+    "cover": "assets/album-covers/real-man.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_realMan.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Sword",
+    "category": "instrumentals",
+    "date": "2026-02-17",
+    "cover": "assets/album-covers/sword.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_sword.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Everyday is a New Day",
+    "category": "instrumentals",
+    "date": "2026-02-16",
+    "cover": "assets/album-covers/everyday-is-a-new-day.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_everydayIsANewDay.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
+    "title": "Baby",
+    "category": "instrumentals",
+    "date": "2026-02-15",
+    "cover": "assets/album-covers/baby.jpeg",
+    "link": "https://artists.landr.com/oceanleans-keep_going",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_baby.mp3",
+    "alt": "Keep Going cover"
+  },
+  {
     "title": "Loch Ness",
     "category": "songs",
     "date": "2026-02-06",
@@ -17,9 +174,7 @@ window.OCEANLEANS_RELEASES = [
     },
     "preview": "assets/previews/preview_lochness.mp3",
     "lyricsLink": "lyrics.html#loch-ness",
-    "alt": "Loch Ness cover",
-    "featured": true,
-    "featuredOrder": 1
+    "alt": "Loch Ness cover"
   },
   {
     "title": "Keep Going",

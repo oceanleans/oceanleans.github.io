@@ -29,10 +29,12 @@ const WHEEL_BUFFER_RESET_MS = 180;
 const SECTION_SETTLE_TOLERANCE = 3;
 const SECTION_TRANSITION_MAX_MS = 1800;
 const HERO_SCROLL_HINT_DURATION_MS = 1100;
+const DEFAULT_CATEGORY = "featured";
 
 let releases = [];
 let filteredReleases = [];
 let currentAlbumIndex = 0;
+let currentCategory = DEFAULT_CATEGORY;
 let previewAudio = null;
 let activePreviewButton = null;
 let lastSectionNavigationAt = 0;
@@ -46,7 +48,9 @@ let sectionTransitionStartedAt = 0;
 let sectionTransitionReleaseTimer = null;
 let heroScrollHintTimer = null;
 const prefetchedAlbumCoverRequests = new Map();
-const DEFAULT_CATEGORY = "featured";
+const categoryAlbumIndices = {
+  [DEFAULT_CATEGORY]: 0
+};
 
 document.documentElement.classList.toggle("home-page-scroll-locked", isHomePage);
 
@@ -87,6 +91,14 @@ function sortFeaturedReleases(items) {
 
     return new Date(b.date) - new Date(a.date);
   });
+}
+
+function shouldHideFeaturedReleaseFromCategory(selectedCategory, release) {
+  if (!release || release.featured !== true) {
+    return false;
+  }
+
+  return selectedCategory === "songs" || selectedCategory === "instrumentals";
 }
 
 function prefetchAlbumCover(src, highPriority = false) {
@@ -202,7 +214,7 @@ function createReleaseActionsMarkup(release, className) {
   if (release.category === "songs") {
     const lyricsHref = typeof release.lyricsLink === "string" ? release.lyricsLink.trim() : "";
     const lyricsMarkup = lyricsHref
-      ? `<a href="${lyricsHref}"${isExternalLink(lyricsHref) ? ` target="_blank" rel="noopener noreferrer"` : ``} class="lyrics-btn">Lyrics</a>`
+      ? `<a href="${lyricsHref}" target="_blank" rel="noopener noreferrer" class="lyrics-btn">Lyrics</a>`
       : ``;
 
     return `
@@ -749,7 +761,22 @@ function moveCarouselBy(direction) {
   }
 
   currentAlbumIndex = nextIndex;
+  categoryAlbumIndices[currentCategory] = currentAlbumIndex;
   renderCurrentAlbum();
+}
+
+function getStoredAlbumIndex(category, totalItems) {
+  const savedIndex = categoryAlbumIndices[category];
+
+  if (!Number.isInteger(savedIndex) || savedIndex < 0) {
+    return 0;
+  }
+
+  if (!Number.isInteger(totalItems) || totalItems <= 0) {
+    return 0;
+  }
+
+  return Math.min(savedIndex, totalItems - 1);
 }
 
 function createAlbumCard(release) {
@@ -825,7 +852,13 @@ function getFilteredReleases(selectedCategory = DEFAULT_CATEGORY) {
     return sortFeaturedReleases(releases.filter(release => release.featured === true));
   }
 
-  return releases.filter(release => release.category === selectedCategory);
+  return releases.filter(release => {
+    if (release.category !== selectedCategory) {
+      return false;
+    }
+
+    return !shouldHideFeaturedReleaseFromCategory(selectedCategory, release);
+  });
 }
 
 function renderCurrentAlbum() {
@@ -858,8 +891,10 @@ function buildAlbums(selectedCategory = DEFAULT_CATEGORY) {
     return;
   }
 
+  categoryAlbumIndices[currentCategory] = currentAlbumIndex;
+  currentCategory = selectedCategory;
   filteredReleases = getFilteredReleases(selectedCategory);
-  currentAlbumIndex = 0;
+  currentAlbumIndex = getStoredAlbumIndex(selectedCategory, filteredReleases.length);
   renderCurrentAlbum();
 }
 

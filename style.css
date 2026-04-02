@@ -660,7 +660,7 @@ animation:heroCtaPromptDark .96s cubic-bezier(.24, .82, .28, 1);
 transform:translateY(0) scale(1);
 }
 50%{
-transform:translateY(4px) scale(1.012);
+transform:translateY(2px) scale(1.006);
 }
 }
 
@@ -670,20 +670,20 @@ transform:scale(1);
 box-shadow:0 clamp(8px,1.5vw,16px) clamp(18px,3vw,28px) rgba(1,28,45,.18);
 }
 20%{
-transform:scale(1.05) rotate(-.55deg) translateX(-1px);
-box-shadow:0 clamp(14px,2.2vw,22px) clamp(28px,4vw,38px) rgba(1,28,45,.3);
+transform:scale(1.025) rotate(-.2deg) translateX(-.5px);
+box-shadow:0 clamp(11px,1.9vw,19px) clamp(24px,3.5vw,32px) rgba(1,28,45,.24);
 }
 38%{
-transform:scale(1.08) rotate(.8deg) translateX(2px);
-box-shadow:0 clamp(16px,2.4vw,24px) clamp(30px,4.2vw,40px) rgba(1,28,45,.34);
+transform:scale(1.04) rotate(.3deg) translateX(1px);
+box-shadow:0 clamp(13px,2vw,21px) clamp(26px,3.7vw,34px) rgba(1,28,45,.27);
 }
 56%{
-transform:scale(1.075) rotate(-.65deg) translateX(-2px);
-box-shadow:0 clamp(15px,2.3vw,23px) clamp(29px,4.1vw,39px) rgba(1,28,45,.32);
+transform:scale(1.035) rotate(-.24deg) translateX(-1px);
+box-shadow:0 clamp(12px,1.95vw,20px) clamp(25px,3.6vw,33px) rgba(1,28,45,.26);
 }
 74%{
-transform:scale(1.04) rotate(.3deg) translateX(1px);
-box-shadow:0 clamp(12px,2vw,20px) clamp(24px,3.8vw,34px) rgba(1,28,45,.26);
+transform:scale(1.018) rotate(.12deg) translateX(.5px);
+box-shadow:0 clamp(10px,1.7vw,18px) clamp(21px,3.3vw,30px) rgba(1,28,45,.22);
 }
 100%{
 transform:scale(1) rotate(0deg) translateX(0);
@@ -1878,10 +1878,29 @@ color:#e8e8e6;
 
 .lyrics-text p{
 margin:0;
+white-space:pre-line;
 }
 
 .lyrics-placeholder{
 color:rgba(232,232,230,.9);
+}
+
+.lyrics-body .section-nav-button#back-to-top{
+top:auto;
+bottom:clamp(16px, 2.5vw, 24px);
+left:auto;
+right:clamp(16px, 2.5vw, 24px);
+transform:translateY(12px) scale(.96);
+}
+
+.lyrics-body .section-nav-button.show#back-to-top{
+transform:translateY(0) scale(1);
+animation:surfaceButtonBob 2.8s ease-in-out infinite;
+}
+
+.lyrics-body .section-nav-button.show#back-to-top:hover,
+.lyrics-body .section-nav-button.show#back-to-top:focus-visible{
+animation-play-state:paused;
 }
 
 .lyrics-body .footer-social-link{
