@@ -1,5 +1,56 @@
 [
   {
+    "title": "Making Sense",
+    "category": "songs",
+    "date": "2026-04-05",
+    "cover": "assets/album-covers/making-sense.jpeg",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_making-sense.mp3",
+    "alt": "looking up at tall blue building",
+    "lyricsLink": "lyrics.html#making-sense"
+  },
+  {
+    "title": "How Is Your Day?",
+    "category": "songs",
+    "date": "2026-04-01",
+    "cover": "assets/album-covers/how-is-your-day.jpeg",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_how-is-your-day.mp3",
+    "alt": "looking up at tall blue building",
+    "lyricsLink": "lyrics.html#how-is-your-day"
+  },
+  {
+    "title": "I Don't Get It Right",
+    "category": "songs",
+    "date": "2026-03-30",
+    "cover": "assets/album-covers/i-dont-get-it-right.jpeg",
+    "streamingLinks": {
+      "spotify": "",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_i-dont-get-it-right.mp3",
+    "alt": "looking onto purple city skyline",
+    "lyricsLink": "lyrics.html#i-dont-get-it-right"
+  },
+  {
     "title": "Crazy",
     "category": "songs",
     "date": "2026-03-28",
@@ -49,23 +100,6 @@
     },
     "preview": "assets/previews/preview_missedTheBliss.mp3",
     "alt": "beach and ocean"
-  },
-  {
-    "title": "Seed",
-    "category": "songs",
-    "date": "2026-02-24",
-    "cover": "assets/album-covers/seed.jpeg",
-    "streamingLinks": {
-      "spotify": "https://open.spotify.com/track/01EGZeMSzwO2Ij5NtzrEIU?si=662964cd19304325",
-      "youtube": "",
-      "appleMusic": "https://music.apple.com/au/album/seed/1887475646?i=1887475647",
-      "amazonMusic": "",
-      "deezer": "",
-      "pandora": ""
-    },
-    "preview": "assets/previews/preview_seed.mp3",
-    "alt": "looking onto trees and lake",
-    "lyricsLink": "lyrics.html#seed"
   },
   {
     "title": "Parents",
