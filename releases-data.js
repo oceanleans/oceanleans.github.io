@@ -2,6 +2,57 @@
 // Keep this file in sync with releases.json.
 window.OCEANLEANS_RELEASES = [
   {
+    "title": "Making Sense",
+    "category": "songs",
+    "date": "2026-04-05",
+    "cover": "assets/album-covers/making-sense.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/0roP0EiZw6QCKFFrnTVB15?si=2ee3a19995b04281",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/us/song/making-sense/1890812663",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_making-sense.mp3",
+    "alt": "looking up at tall blue building",
+    "lyricsLink": "lyrics.html#making-sense"
+  },
+  {
+    "title": "How Is Your Day?",
+    "category": "songs",
+    "date": "2026-04-01",
+    "cover": "assets/album-covers/how-is-your-day.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/2S89QaCT5UdWt8kJJXcxvf?si=3b4bec652c2f46f8",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/us/song/how-is-your-day/1889836089",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_how-is-your-day.mp3",
+    "alt": "looking up at tall blue building",
+    "lyricsLink": "lyrics.html#how-is-your-day"
+  },
+  {
+    "title": "I Don't Get It Right",
+    "category": "songs",
+    "date": "2026-03-30",
+    "cover": "assets/album-covers/i-dont-get-it-right.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/3UTSuQ0iXucrvksNbvin9c?si=b34bc1e8b2e540dc",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/us/song/i-dont-get-it-right/1889111555",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_i-dont-get-it-right.mp3",
+    "alt": "looking onto purple city skyline",
+    "lyricsLink": "lyrics.html#i-dont-get-it-right"
+  },
+  {
     "title": "Crazy",
     "category": "songs",
     "date": "2026-03-28",
@@ -55,18 +106,18 @@ window.OCEANLEANS_RELEASES = [
   {
     "title": "Seed",
     "category": "songs",
-    "date": "2026-02-24",
+    "date": "2026-02-22",
     "cover": "assets/album-covers/seed.jpeg",
     "streamingLinks": {
-      "spotify": "https://open.spotify.com/track/01EGZeMSzwO2Ij5NtzrEIU?si=662964cd19304325",
+      "spotify": "https://open.spotify.com/track/0dQ3byXQKt90QVUgwUJdyA?si=2b795465275b40e6",
       "youtube": "",
-      "appleMusic": "https://music.apple.com/au/album/seed/1887475646?i=1887475647",
+      "appleMusic": "https://music.apple.com/au/album/missed-the-bliss/1888395926?i=1888395927",
       "amazonMusic": "",
       "deezer": "",
       "pandora": ""
     },
     "preview": "assets/previews/preview_seed.mp3",
-    "alt": "looking onto trees and lake",
+    "alt": "waterfront over lake",
     "lyricsLink": "lyrics.html#seed"
   },
   {
