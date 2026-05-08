@@ -2,6 +2,59 @@
 // Keep this file in sync with releases.json.
 window.OCEANLEANS_RELEASES = [
   {
+    "title": "Find My Place",
+    "category": "songs",
+    "date": "2026-05-07",
+    "cover": "assets/album-covers/find-my-place.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/6Dsk0GwceBhcbe1R53LbBI?si=fa9958228e894ece",
+      "youtube": "",
+      "appleMusic": "",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_find-my-place.mp3",
+    "alt": "looking up at a palm tree",
+    "featured": true,
+    "featuredOrder": 1,
+    "lyricsLink": "lyrics.html#find-my-place"
+  },
+  {
+    "title": "Nineteen",
+    "category": "songs",
+    "date": "2026-05-06",
+    "cover": "assets/album-covers/nineteen.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/1kZvPkBQQN1C7eVcBwLKkc?si=91aff39e0992449e",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/us/song/nineteen/6766955630",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_nineteen.mp3",
+    "alt": "blue and red contrast city street",
+    "lyricsLink": "lyrics.html#nineteen"
+  },
+  {
+    "title": "Step",
+    "category": "songs",
+    "date": "2026-04-19",
+    "cover": "assets/album-covers/step.jpeg",
+    "streamingLinks": {
+      "spotify": "https://open.spotify.com/track/3FZUxsxmzDph4h1mlmWWT3?si=8815f5e14225432a",
+      "youtube": "",
+      "appleMusic": "https://music.apple.com/us/song/step/1894638112",
+      "amazonMusic": "",
+      "deezer": "",
+      "pandora": ""
+    },
+    "preview": "assets/previews/preview_step.mp3",
+    "alt": "looking down steps",
+    "lyricsLink": "lyrics.html#step"
+  },
+  {
     "title": "Making Sense",
     "category": "songs",
     "date": "2026-04-05",
