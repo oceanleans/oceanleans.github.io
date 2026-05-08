@@ -28,7 +28,6 @@ const TOUCH_NAVIGATION_THRESHOLD = 64;
 const WHEEL_BUFFER_RESET_MS = 180;
 const SECTION_SETTLE_TOLERANCE = 3;
 const SECTION_TRANSITION_MAX_MS = 1800;
-const HERO_SCROLL_HINT_DURATION_MS = 1100;
 const DEFAULT_CATEGORY = "featured";
 
 let releases = [];
@@ -46,13 +45,10 @@ let wheelBufferResetTimer = null;
 let sectionTransitionTargetTop = null;
 let sectionTransitionStartedAt = 0;
 let sectionTransitionReleaseTimer = null;
-let heroScrollHintTimer = null;
 const prefetchedAlbumCoverRequests = new Map();
 const categoryAlbumIndices = {
   [DEFAULT_CATEGORY]: 0
 };
-
-document.documentElement.classList.toggle("home-page-scroll-locked", isHomePage);
 
 function cloneReleaseData(items) {
   if (!Array.isArray(items)) {
@@ -577,9 +573,6 @@ function handleSectionWheel(event) {
   if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
     return;
   }
-
-  event.preventDefault();
-  triggerHeroScrollHint();
 }
 
 function handleSectionTouchStart(event) {
@@ -611,29 +604,11 @@ function handleSectionTouchMove(event) {
   }
 
   event.preventDefault();
-  triggerHeroScrollHint();
 }
 
 function clearSectionTouchState() {
   touchStartX = null;
   touchStartY = null;
-}
-
-function triggerHeroScrollHint() {
-  if (!diveInLink) {
-    return;
-  }
-
-  if (heroScrollHintTimer) {
-    return;
-  }
-
-  diveInLink.classList.add("is-scroll-hint");
-
-  heroScrollHintTimer = window.setTimeout(() => {
-    diveInLink.classList.remove("is-scroll-hint");
-    heroScrollHintTimer = null;
-  }, HERO_SCROLL_HINT_DURATION_MS);
 }
 
 function handleSectionKeydown(event) {
@@ -664,7 +639,6 @@ function handleSectionKeydown(event) {
   }
 
   event.preventDefault();
-  triggerHeroScrollHint();
 }
 
 function syncSubscribeTheme() {
