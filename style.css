@@ -1766,7 +1766,7 @@ background:transparent;
 }
 
 .lyrics-body header{
-background:transparent;
+background:#0a526b;
 box-shadow:none;
 }
 
@@ -1774,7 +1774,7 @@ box-shadow:none;
 min-height:calc(100vh - var(--lyrics-header-height) + var(--lyrics-viewport-boost));
 min-height:calc(100svh - var(--lyrics-header-height) + var(--lyrics-viewport-boost));
 padding:clamp(28px, 5vw, 48px) 5%;
-background:linear-gradient(180deg, #e8e8e6 0%, #0a526b 42%, #01243a 100%);
+background:linear-gradient(180deg, #0a526b 0%, #01243a 100%);
 }
 
 .lyrics-shell{
@@ -1788,7 +1788,7 @@ gap:18px;
 font-size:clamp(1.9rem, 5vw, 3rem);
 line-height:.95;
 margin:0;
-color:#05374f;
+color:rgba(1,28,45,.12);
 text-shadow:0 1px 0 rgba(255,255,255,.35), 0 10px 24px rgba(1,28,45,.12);
 }
 
