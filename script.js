@@ -586,26 +586,6 @@ function handleSectionTouchStart(event) {
   touchStartY = event.touches[0].clientY;
 }
 
-function handleSectionTouchMove(event) {
-  if (!canUseSectionNavigation(event.target)) {
-    return;
-  }
-
-  if (event.touches.length !== 1 || touchStartX === null || touchStartY === null) {
-    return;
-  }
-
-  const touch = event.touches[0];
-  const deltaX = touch.clientX - touchStartX;
-  const deltaY = touch.clientY - touchStartY;
-
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    return;
-  }
-
-  event.preventDefault();
-}
-
 function clearSectionTouchState() {
   touchStartX = null;
   touchStartY = null;
@@ -1060,7 +1040,6 @@ window.addEventListener("scroll", () => {
 
 window.addEventListener("wheel", handleSectionWheel, { passive: false });
 window.addEventListener("touchstart", handleSectionTouchStart, { passive: true });
-window.addEventListener("touchmove", handleSectionTouchMove, { passive: false });
 window.addEventListener("touchend", clearSectionTouchState, { passive: true });
 window.addEventListener("touchcancel", clearSectionTouchState, { passive: true });
 
