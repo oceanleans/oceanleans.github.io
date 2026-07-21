@@ -1,152 +1,463 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>OceanLeans | Official Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="c015d824-883f-46fd-8e64-ae8db943ce3f"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="preload" as="image" href="assets/album-covers/keep-going.jpeg" fetchpriority="high">
-  <link rel="icon" type="image/png" sizes="320x320" href="assets/logo/Oceanleans Round Logo 2.png">
-  <link rel="apple-touch-icon" href="assets/logo/Oceanleans Round Logo 2.png">
+  <meta
+    name="description"
+    content="OceanLeans — STOP THE ROBOTS. Stream the latest release."
+  >
 
-  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#050505">
+
+  <title>OceanLeans — STOP THE ROBOTS</title>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #f5f5f5;
+      --muted: #888;
+      --line: rgba(255, 255, 255, 0.14);
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header,
+    main,
+    footer {
+      width: min(100% - 40px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    header {
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .release-label {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* MAIN */
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 40px 0 80px;
+    }
+
+    .release {
+      width: 100%;
+      display: grid;
+      grid-template-columns:
+        minmax(280px, 600px)
+        minmax(260px, 420px);
+
+      gap: clamp(40px, 8vw, 120px);
+
+      align-items: center;
+    }
+
+    /* ARTWORK */
+
+    .artwork {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+
+      display: grid;
+      place-items: center;
+
+      background:
+        radial-gradient(
+          circle at 30% 25%,
+          rgba(255, 255, 255, 0.12),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #181818,
+          #080808
+        );
+
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .artwork img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .artwork-placeholder {
+      color: #666;
+      font-size: clamp(12px, 1.4vw, 16px);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* SONG DETAILS */
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size: clamp(38px, 5vw, 76px);
+      line-height: 0.94;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    /* STREAM BUTTON */
+
+    .stream-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 58px;
+
+      margin-top: 36px;
+      padding: 0 32px;
+
+      background: var(--text);
+      color: var(--bg);
+
+      border: 1px solid var(--text);
+      border-radius: 999px;
+
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .stream-button:hover {
+      transform: translateY(-2px);
+      opacity: 0.88;
+    }
+
+    .stream-button:focus-visible,
+    .social-link:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 4px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 28px 0;
+
+      border-top: 1px solid var(--line);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 24px;
+    }
+
+    .copyright {
+      color: var(--muted);
+
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .social-link {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      transition: color 0.2s ease;
+    }
+
+    .social-link:hover {
+      color: var(--text);
+    }
+
+    /* TABLET + MOBILE */
+
+    @media (max-width: 800px) {
+
+      header {
+        padding: 22px 0;
+      }
+
+      main {
+        padding: 28px 0 60px;
+      }
+
+      .release {
+        grid-template-columns: 1fr;
+        gap: 34px;
+
+        max-width: 620px;
+        margin: 0 auto;
+      }
+
+      .details {
+        align-items: center;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: clamp(42px, 11vw, 68px);
+      }
+
+      .stream-button {
+        width: min(100%, 360px);
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: center;
+
+        padding: 24px 0;
+      }
+    }
+
+    /* SMALL MOBILE */
+
+    @media (max-width: 480px) {
+
+      header,
+      main,
+      footer {
+        width: min(100% - 28px, var(--max-width));
+      }
+
+      .release {
+        gap: 28px;
+      }
+
+      .stream-button {
+        margin-top: 30px;
+      }
+
+      .socials {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    /* REDUCED MOTION */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .stream-button {
+        transition: none;
+      }
+    }
+  </style>
 </head>
-<body class="home-page">
 
-<header>
-<nav id="main-nav">
 
-<a href="index.html" class="logo-link" aria-label="Go to the OceanLeans home page">
-<img src="assets/logo/Oceanleans Round Logo 2.png" alt="OceanLeans Logo" class="logo">
-</a>
+<body>
 
-<div class="nav-dropdown">
+  <div class="page">
 
-<button class="nav-toggle nav-pill-button" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="home-menu">
-<span class="nav-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
-<span class="nav-text">Home</span>
-<span class="nav-arrow">⌄</span>
-</button>
+    <!-- HEADER -->
 
-  <div class="nav-dropdown-menu" id="home-menu">
-    <a href="lyrics.html">Lyrics</a>
-    <a href="store.html">Store</a>
-    <a href="contact.html">Contact</a>
+    <header>
+
+      <a
+        class="logo"
+        href="/"
+        aria-label="OceanLeans home"
+      >
+        OceanLeans
+      </a>
+
+      <span class="release-label">
+        Latest Release
+      </span>
+
+    </header>
+
+
+    <!-- MAIN RELEASE -->
+
+    <main>
+
+      <section
+        class="release"
+        aria-labelledby="song-title"
+      >
+
+
+        <!-- ARTWORK -->
+
+        <div class="artwork">
+  <img
+    src="STOP THE ROBOTS_AC.png"
+    alt="STOP THE ROBOTS artwork"
+  >
+</div>
+
+
+        <!-- SONG INFORMATION -->
+
+        <div class="details">
+
+          <p class="eyebrow">
+            OceanLeans
+          </p>
+
+          <h1 id="song-title">
+            STOP THE ROBOTS
+          </h1>
+
+
+          <!-- PRIMARY CTA -->
+
+          <a
+            class="stream-button"
+            href="https://artists.landr.com/StopTheRobots"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            STREAM THE SONG
+          </a>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      <span class="copyright">
+        © OceanLeans
+      </span>
+
+
+      <nav
+        class="socials"
+        aria-label="Social media"
+      >
+
+        <a
+          class="social-link"
+          href="https://www.youtube.com/@OceanLeansArchive"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          YouTube
+        </a>
+
+        <a
+          class="social-link"
+          href="https://www.instagram.com/oceanleans/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram
+        </a>
+
+        <a
+          class="social-link"
+          href="https://www.tiktok.com/@oceanleans"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TikTok
+        </a>
+
+        <a
+          class="social-link"
+          href="https://www.facebook.com/profile.php?id=61563285745056"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Facebook
+        </a>
+
+      </nav>
+
+    </footer>
+
   </div>
 
-</div>
-
-<div class="subscribe-wrapper">
-
-<button class="subscribe-toggle nav-pill-button nav-pill-button-primary" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="subscribe-menu">
-<span class="nav-icon" aria-hidden="true"><i class="fa-regular fa-envelope"></i></span>
-<span class="subscribe-text">Subscribe</span>
-<span class="arrow">⌄</span>
-</button>
-
-<form class="subscribe-dropdown" id="subscribe-menu" data-form-type="subscribe" action="https://formsubmit.co/oceanleans@gmail.com" method="POST">
-<input type="hidden" name="_subject" value="OceanLeans subscribe form">
-<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
-<input type="hidden" name="form_type" value="subscribe">
-<input type="hidden" name="rendered_at" value="">
-<input type="hidden" name="request_id" value="">
-<input type="hidden" name="page_url" value="">
-<input type="hidden" name="user_agent" value="">
-<input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-<button type="submit">Join</button>
-</form>
-
-</div>
-
-</nav>
-</header>
-
-<main class="page-shell">
-<div class="page-track" id="page-track">
-
-<section class="hero-banner" id="home">
-<div class="hero-content">
-<div class="hero-stack">
-<h1 class="hero-title">
-<span class="lean-into"><b>lean</b> into</span>
-<b class="ocean-word">ocean.</b>
-</h1>
-
-<h2 class="hero-tagline"><span class="wave-text">#oceanrap</span></h2>
-
-<a href="#music-section" class="btn-listen hero-cta">DIVE IN</a>
-</div>
-
-</div>
-</section>
-
-<section id="music-section" aria-label="Music releases">
-
-<div class="music-filter-buttons" aria-label="Release categories">
-<button type="button" class="music-filter-button is-selected" data-category="featured" aria-pressed="true">Featured</button>
-<button type="button" class="music-filter-button" data-category="songs" aria-pressed="false">Songs</button>
-<button type="button" class="music-filter-button" data-category="instrumentals" aria-pressed="false">Instrumentals</button>
-<button type="button" class="music-filter-button" data-category="music-videos" aria-pressed="false">Videos</button>
-</div>
-
-<div class="album-viewer">
-<div class="album-grid" id="album-grid"></div>
-<div class="album-carousel-controls" aria-label="Album navigation">
-<button type="button" class="album-nav-button" id="album-nav-prev" aria-label="Show previous album">
-<span aria-hidden="true">←</span>
-</button>
-<button type="button" class="album-nav-button" id="album-nav-next" aria-label="Show next album">
-<span aria-hidden="true">→</span>
-</button>
-</div>
-</div>
-</section>
-
-<footer class="page-footer" id="page-footer">
-<div class="footer-socials" aria-label="Social media links">
-<a href="https://www.youtube.com/@OceanLeans/videos" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-<i class="fa-brands fa-youtube" aria-hidden="true"></i>
-<span class="sr-only">YouTube</span>
-</a>
-<a href="https://www.tiktok.com/@oceanleans" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-<i class="fa-brands fa-tiktok" aria-hidden="true"></i>
-<span class="sr-only">TikTok</span>
-</a>
-<a href="https://www.instagram.com/oceanleans/" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-<i class="fa-brands fa-instagram" aria-hidden="true"></i>
-<span class="sr-only">Instagram</span>
-</a>
-<a href="https://www.facebook.com/profile.php?id=61563285745056" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-<i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
-<span class="sr-only">Facebook</span>
-</a>
-</div>
-<p class="footer-legal">&copy; 2026 OceanLeans. All rights reserved.</p>
-<a href="privacy.html" class="footer-policy-link">Privacy Policy</a>
-</footer>
-
-</div>
-
-<button id="go-deeper" class="section-nav-button section-nav-button--right" type="button">
-<span class="section-nav-icon" aria-hidden="true">↓</span>
-<span class="section-nav-text">Go Deeper</span>
-</button>
-
-<button id="back-to-top" class="section-nav-button section-nav-button--left" type="button">
-<span class="section-nav-icon" aria-hidden="true">↑</span>
-<span class="section-nav-text">Back to Surface</span>
-</button>
-
-</main>
-
-<script src="releases-data.js"></script>
-<script src="script.js"></script>
-<script src="forms-config.js"></script>
-<script src="forms.js"></script>
 </body>
 </html>
