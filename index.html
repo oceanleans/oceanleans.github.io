@@ -57,8 +57,7 @@ h1 { font-size: 3rem; line-height: 1.02; font-weight: 800; margin: 44px 0 28px; 
   font-weight: 600; font-size: 1.2rem;
   transition: transform .15s ease;
 }
-.listen[aria-disabled] { opacity: .6; cursor: default; }
-.listen[aria-disabled]:hover { transform: none; }
+.listen:hover { transform: translateY(-2px); }
 .listen:active { transform: translateY(0); }
 a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .socials {
@@ -114,7 +113,7 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; }
   <h1>Vilify</h1>
   
 
-    <span class="listen" aria-disabled="true">Coming soon</span>
+    <a class="listen" href="https://release.landr.com/vilify" target="_blank" rel="noopener" data-umami-event="Listen now">Listen now</a>
 
   <form class="join" id="join" novalidate>
       <h2>Join the mailing list</h2>
