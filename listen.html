@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Listen to Vilify – OceanLeans</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="c015d824-883f-46fd-8e64-ae8db943ce3f"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e7e4e0;
+  --ink: #26201f;
+  --muted: #6a615d;
+  --accent: #9b1c1c;
+  --accent-ink: #fbf3ef;
+  --line: #c6beb8;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151212; --ink: #ece6e0; --muted: #a0958e;
+    --accent: #c4302b; --accent-ink: #fbf3ef; --line: #3a3130;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151212; --ink: #ece6e0; --muted: #a0958e;
+  --accent: #c4302b; --accent-ink: #fbf3ef; --line: #3a3130;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex; justify-content: center;
+}
+main {
+  width: 100%; max-width: 440px; padding: 48px 24px 72px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.wordmark { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em; margin: 0 0 40px; color: var(--ink); text-decoration: none; }
+.cover {
+  width: 100%; max-width: 260px; aspect-ratio: 1; border-radius: 6px; overflow: hidden;
+  transform: rotate(-3deg); transform-origin: 50% 100%;
+  box-shadow: 0 24px 40px -18px rgba(20, 8, 8, 0.6);
+  background: var(--line);
+}
+.cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+h1 { font-size: 2.6rem; line-height: 1.02; font-weight: 800; margin: 36px 0 10px; letter-spacing: -0.02em; }
+.sub { margin: 0 0 28px; color: var(--muted); font-size: 1.05rem; }
+.links { list-style: none; padding: 0; margin: 0; width: 100%; display: grid; gap: 12px; }
+.links a {
+  display: block; width: 100%; padding: 16px 24px; border-radius: 999px;
+  border: 1.5px solid var(--line); color: var(--ink); text-decoration: none;
+  font-weight: 600; font-size: 1.05rem;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.links a:hover { transform: translateY(-2px); border-color: var(--ink); }
+.links a:active { transform: translateY(0); }
+.links li:first-child a { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.back { margin-top: 40px; color: var(--muted); font-size: 0.9rem; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid transparent; }
+.back:hover { color: var(--ink); border-bottom-color: var(--ink); }
+footer { margin-top: 36px; color: var(--muted); font-size: 0.8rem; }
+@media (min-width: 900px) {
+  main {
+    max-width: 1080px; padding: 56px 48px 40px; text-align: left;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto; column-gap: 80px; align-items: center;
+  }
+  .wordmark { grid-column: 1 / -1; justify-self: start; margin: 0; font-size: 1.25rem; }
+  .cover { grid-column: 1; grid-row: 2; max-width: 520px; width: 100%; justify-self: center; }
+  .info { grid-column: 2; grid-row: 2; max-width: 480px; }
+  h1 { font-size: 4rem; margin-top: 0; }
+  footer { grid-column: 1 / -1; margin-top: 0; }
+}
+@media (min-width: 900px) { .info { display: block; } }
+@media (max-width: 899px) { .info { width: 100%; display: flex; flex-direction: column; align-items: center; } }
+@media (prefers-reduced-motion: reduce) { .links a { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="wordmark" href="index.html">OceanLeans</a>
+
+  <div class="cover"><img src="cover.jpg" alt="Cover art for Vilify by OceanLeans" width="900" height="900" onerror="this.parentNode.style.display='none'"></div>
+
+  <div class="info">
+    <h1>Vilify</h1>
+    <p class="sub">Choose where you want to listen.</p>
+
+    <ul class="links">
+      <li><a href="https://open.spotify.com/album/4JrUqVttHxLJnoIQyoUrlp" target="_blank" rel="noopener" data-umami-event="click-spotify">Spotify</a></li>
+      <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="click-apple-music">Apple Music</a></li>
+      <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_nOBYLKDlcVI0ZFf3Mq0xUfKe76Mqz-zqY" target="_blank" rel="noopener" data-umami-event="click-youtube-music">YouTube Music</a></li>
+      <li><a href="https://music.amazon.com/albums/B0HQS3S2RT?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="click-amazon-music">Amazon Music</a></li>
+      <li><a href="http://www.tidal.com/album/576834204" target="_blank" rel="noopener" data-umami-event="click-tidal">Tidal</a></li>
+      <li><a href="https://www.deezer.com/album/1140893301" target="_blank" rel="noopener" data-umami-event="click-deezer">Deezer</a></li>
+      <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fvillify%2FAL4tkXXVdvqm9h6&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="click-pandora">Pandora</a></li>
+      <li><a href="https://audiomack.com/oceanleans_/song/villify?utm_source=featurefm&amp;utm_campaign=onelink&amp;utm_medium=website" target="_blank" rel="noopener" data-umami-event="click-audiomack">Audiomack</a></li>
+      <li><a href="https://open.qobuz.com/album/lv2l7houpti5v" target="_blank" rel="noopener" data-umami-event="click-qobuz">Qobuz</a></li>
+    </ul>
+
+    <a class="back" href="index.html">← Back to OceanLeans</a>
+  </div>
+
+  <footer>© LeaningOcean Entertainment</footer>
+</main>
+</body>
+</html>
