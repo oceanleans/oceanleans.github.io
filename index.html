@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OceanLeans – Vilify</title>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c015d824-883f-46fd-8e64-ae8db943ce3f"></script>
+<link rel="preload" as="image" href="cover.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
@@ -49,17 +50,29 @@ main {
 }
 .cover img, .cover svg { display: block; width: 100%; height: 100%; object-fit: cover; }
 @keyframes lean { from { transform: rotate(3deg); } to { transform: rotate(-3deg); } }
-h1 { font-size: 3rem; line-height: 1.02; font-weight: 800; margin: 44px 0 28px; letter-spacing: -0.02em; }
-.sub { margin: 0 0 28px; color: var(--muted); font-size: 1.1rem; }
-.listen {
-  display: block; width: 100%; padding: 20px 24px; border-radius: 999px;
-  background: var(--accent); color: var(--accent-ink); text-decoration: none;
-  font-weight: 600; font-size: 1.2rem;
-  transition: transform .15s ease;
+h1 { font-size: 3rem; line-height: 1.02; font-weight: 800; margin: 44px 0 10px; letter-spacing: -0.02em; }
+.sub { margin: 0 0 24px; color: var(--muted); font-size: 1.1rem; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.links { list-style: none; padding: 0; margin: 0; width: 100%; display: grid; gap: 12px; }
+.links a {
+  display: block; width: 100%; padding: 16px 24px; border-radius: 999px;
+  border: 1.5px solid var(--line); color: var(--ink); text-decoration: none;
+  font-weight: 600; font-size: 1.1rem; text-align: center;
+  transition: transform .15s ease, border-color .15s ease;
 }
-.listen:hover { transform: translateY(-2px); }
-.listen:active { transform: translateY(0); }
-a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.links a:hover { transform: translateY(-2px); border-color: var(--ink); }
+.links a:active { transform: translateY(0); }
+.links a.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); padding: 20px 24px; font-size: 1.2rem; }
+.more { width: 100%; margin-top: 12px; }
+.more summary {
+  list-style: none; cursor: pointer; text-align: center; padding: 10px 0;
+  color: var(--muted); font-weight: 600; font-size: 0.95rem;
+}
+.more summary::-webkit-details-marker { display: none; }
+.more summary::after { content: " +"; }
+.more[open] summary::after { content: " –"; }
+.more summary:hover { color: var(--ink); }
+.more .links { margin-top: 6px; }
 .socials {
   list-style: none; padding: 0; margin: 48px 0 0; width: 100%;
   display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px;
@@ -72,7 +85,7 @@ a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .socials a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; }
 .info { width: 100%; display: flex; flex-direction: column; align-items: center; }
-.join { width: 100%; margin-top: 64px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.join { width: 100%; margin-top: 56px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
 .join h2 { grid-column: 1 / -1; margin: 0 0 2px; font-size: 1.05rem; font-weight: 600; }
 .join input[type="email"] { width: 100%; min-width: 0; padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 1rem; }
 .join input[type="email"]::placeholder { color: var(--muted); }
@@ -93,13 +106,14 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; }
   .cover { grid-column: 1; width: 100%; max-width: 560px; justify-self: center; }
   .info { grid-column: 2; align-items: flex-start; max-width: 480px; }
   h1 { font-size: 4.8rem; margin-top: 0; }
-  .sub { font-size: 1.25rem; margin-bottom: 36px; }
+  .sub { font-size: 1.25rem; }
+  .more summary { text-align: left; }
   .socials { margin-top: 44px; justify-content: flex-start; }
   footer { grid-column: 1 / -1; margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cover { animation: none; }
-  .listen, .socials a { transition: none; }
+  .links a, .socials a { transition: none; }
 }
 </style>
 </head>
@@ -107,12 +121,29 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; }
 <main>
   <p class="wordmark">OceanLeans</p>
 
-  <div class="cover"><img src="cover.jpg" alt="Cover art for Vilify by OceanLeans" width="900" height="900"></div>
+  <div class="cover"><img src="cover.jpg" fetchpriority="high" decoding="async" alt="Cover art for Vilify by OceanLeans" width="900" height="900"></div>
 
   <div class="info">
     <h1>Vilify</h1>
+    <p class="sub">Out now. Listen on:</p>
 
-    <a class="listen" href="listen.html" data-umami-event="listen-now">Listen now</a>
+    <ul class="links">
+      <li><a class="primary" href="https://open.spotify.com/album/4JrUqVttHxLJnoIQyoUrlp" target="_blank" rel="noopener" data-umami-event="click-spotify">Spotify</a></li>
+      <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="click-apple-music">Apple Music</a></li>
+      <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_nOBYLKDlcVI0ZFf3Mq0xUfKe76Mqz-zqY" target="_blank" rel="noopener" data-umami-event="click-youtube-music">YouTube Music</a></li>
+    </ul>
+
+    <details class="more" id="more">
+      <summary>More platforms</summary>
+      <ul class="links">
+        <li><a href="https://music.amazon.com/albums/B0HQS3S2RT?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="click-amazon-music">Amazon Music</a></li>
+        <li><a href="http://www.tidal.com/album/576834204" target="_blank" rel="noopener" data-umami-event="click-tidal">Tidal</a></li>
+        <li><a href="https://www.deezer.com/album/1140893301" target="_blank" rel="noopener" data-umami-event="click-deezer">Deezer</a></li>
+        <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fvillify%2FAL4tkXXVdvqm9h6&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="click-pandora">Pandora</a></li>
+        <li><a href="https://audiomack.com/oceanleans_/song/villify?utm_source=featurefm&amp;utm_campaign=onelink&amp;utm_medium=website" target="_blank" rel="noopener" data-umami-event="click-audiomack">Audiomack</a></li>
+        <li><a href="https://open.qobuz.com/album/lv2l7houpti5v" target="_blank" rel="noopener" data-umami-event="click-qobuz">Qobuz</a></li>
+      </ul>
+    </details>
 
     <form class="join" id="join" novalidate>
       <h2>Join the mailing list</h2>
@@ -135,10 +166,14 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.8rem; }
 </main>
 <script>
 (function () {
+  function track(n) { try { if (window.umami) umami.track(n); } catch (e) {} }
+
+  var more = document.getElementById('more');
+  if (more) more.addEventListener('toggle', function () { if (more.open) track('more-platforms'); });
+
   var f = document.getElementById('join');
   if (!f) return;
   var msg = f.querySelector('.msg'), btn = f.querySelector('button');
-  function track(n) { try { if (window.umami) umami.track(n); } catch (e) {} }
   f.addEventListener('submit', function (e) {
     e.preventDefault();
     var input = f.elements['email'];
