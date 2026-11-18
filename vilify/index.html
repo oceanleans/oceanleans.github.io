@@ -224,7 +224,7 @@ footer a:hover { color: var(--bone); }
 
   <footer>
     <span class="tag">Lean into Ocean</span>
-    <a href="https://oceanleans.com/">oceanleans.com</a> · © LeaningOcean Entertainment
+    <a href="https://oceanleans.com/" data-umami-event="click-footer-home">oceanleans.com</a> · © LeaningOcean Entertainment
   </footer>
 </main>
 
@@ -257,7 +257,10 @@ footer a:hover { color: var(--bone); }
   audio.addEventListener('pause', function () {
     btn.classList.remove('is-playing');
     btn.setAttribute('aria-label', 'Play preview');
-    if (!audio.ended) label.textContent = 'Paused';
+    if (!audio.ended) {
+      label.textContent = 'Paused';
+      track('preview-pause', { second: Math.round(audio.currentTime) });
+    }
   });
   audio.addEventListener('timeupdate', function () {
     if (!audio.duration) return;
@@ -274,7 +277,7 @@ footer a:hover { color: var(--bone); }
 
   /* ----- other apps ----- */
   var more = document.getElementById('more');
-  more.addEventListener('toggle', function () { if (more.open) track('more-platforms'); });
+  more.addEventListener('toggle', function () { track(more.open ? 'more-platforms' : 'more-platforms-close'); });
 
   /* ----- mailing list ----- */
   var f = document.getElementById('join'),
@@ -282,7 +285,7 @@ footer a:hover { color: var(--bone); }
   f.addEventListener('submit', function (e) {
     e.preventDefault();
     var input = f.elements['email'];
-    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; return; }
+    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; track('subscribe-invalid'); return; }
     sub.disabled = true; msg.textContent = '';
     track('subscribe-attempt');
     fetch('https://formsubmit.co/ajax/oceanleans@gmail.com', {

@@ -217,7 +217,7 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var input = form.elements['email'];
-    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; return; }
+    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; track('subscribe-invalid'); return; }
     sub.disabled = true; msg.textContent = '';
     track('subscribe-attempt');
     fetch('https://formsubmit.co/ajax/oceanleans@gmail.com', {
