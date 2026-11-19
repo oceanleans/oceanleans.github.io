@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sitting – OceanLeans</title>
+<meta name="description" content="Sitting by OceanLeans. Out now.">
+<meta name="theme-color" content="#141210">
+<meta property="og:title" content="Sitting – OceanLeans">
+<meta property="og:description" content="Out now.">
+<meta property="og:image" content="https://oceanleans.com/sitting/cover.jpg">
+<meta property="og:type" content="music.song">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="c015d824-883f-46fd-8e64-ae8db943ce3f"></script>
+<link rel="preload" as="image" href="cover-720.jpg" imagesrcset="cover-720.jpg 720w, cover.jpg 1200w" imagesizes="(min-width: 900px) 540px, 100vw" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@800&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #141210;        /* the carpet, lights low */
+  --stone: #1f1b18;
+  --bone: #f1e4cc;      /* the lit sign */
+  --muted: #9a8f84;     /* worn carpet grey */
+  --line: #3a332d;
+  --amber: #d08a3c;     /* wood panels under the wall lamps */
+  --amber-hover: #e09c50;
+  --ink: #17110c;       /* text on amber */
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+  --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0; min-height: 100vh; background: var(--bg); color: var(--bone);
+  font-family: var(--sans); -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--bone); outline-offset: 4px; }
+
+/* ---------- logo ---------- */
+.mark { position: absolute; top: max(16px, env(safe-area-inset-top)); left: 16px;
+  width: 34px; height: 34px; color: var(--bone); z-index: 3; opacity: .92; filter: drop-shadow(0 1px 6px rgba(0,0,0,.5)); }
+.mark svg { display: block; width: 100%; height: 100%; }
+
+/* ---------- hero / cover ---------- */
+.hero { position: relative; width: 100%; }
+.cover { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; background: var(--stone); }
+.cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cover::after { /* fade the bottom of the cover into the page */
+  content: ""; position: absolute; inset: auto 0 0 0; height: 13%;
+  background: linear-gradient(to bottom, rgba(20,18,16,0) 0%, rgba(20,18,16,.7) 55%, var(--bg) 100%);
+  pointer-events: none;
+}
+.play {
+  position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); z-index: 2;
+  width: 88px; height: 88px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: rgba(20,18,16,.6); color: var(--bone);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display: grid; place-items: center;
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,.7);
+  transition: transform .15s ease, background .15s ease;
+}
+.play:hover { background: rgba(20,18,16,.78); }
+.play:active { transform: translate(-50%, -50%) scale(.96); }
+.play .ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.play .ring circle { fill: none; stroke-width: 3; }
+.play .ring .track { stroke: rgba(241,228,204,.35); }
+.play .ring .prog { stroke: var(--amber); stroke-linecap: round; stroke-dasharray: 270.2; stroke-dashoffset: 270.2; }
+.play .icon { width: 28px; height: 28px; position: relative; }
+.play .i-pause { display: none; }
+.play.is-playing .i-play { display: none; }
+.play.is-playing .i-pause { display: block; }
+.play:not(.has-played)::before { /* gentle invite to tap, only until first play */
+  content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1.5px solid rgba(241,228,204,.55); animation: pulse 2.2s ease-out infinite;
+}
+@keyframes pulse { from { transform: scale(.92); opacity: 1; } to { transform: scale(1.3); opacity: 0; } }
+.play-label {
+  position: absolute; left: 0; right: 0; top: calc(42% + 54px); z-index: 2; margin: 0;
+  text-align: center; font-size: .7rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--bone); opacity: .9; text-shadow: 0 1px 6px rgba(0,0,0,.6);
+}
+
+/* ---------- info ---------- */
+.info { padding: 22px 24px 0; max-width: 480px; margin: 0 auto; text-align: center; }
+h1 {
+  font-family: var(--serif); font-weight: 800; font-size: clamp(3rem, 15vw, 4.6rem);
+  line-height: .95; letter-spacing: .04em; margin: 0; text-transform: uppercase;
+}
+.byline { margin: 12px 0 28px; font-size: .78rem; font-weight: 700; letter-spacing: .34em; text-transform: uppercase; color: var(--muted); }
+
+.cta {
+  display: block; width: 100%; padding: 19px 24px; border-radius: 4px;
+  background: var(--amber); color: var(--ink); text-decoration: none; text-align: center;
+  font-weight: 700; font-size: 1rem; letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 0 12px 28px -12px rgba(208,138,60,.7);
+  transition: background .15s ease, transform .15s ease;
+}
+.cta:hover { background: var(--amber-hover); }
+.cta:active { transform: translateY(1px); }
+.cta.nudge { animation: nudge .9s ease 2; }
+@keyframes nudge { 0%,100% { transform: none; } 30% { transform: translateY(-4px); } 60% { transform: translateY(0); } }
+
+.more { margin-top: 10px; }
+.more summary {
+  list-style: none; cursor: pointer; padding: 14px 0; color: var(--muted);
+  font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+}
+.more summary::-webkit-details-marker { display: none; }
+.more summary::after { content: " +"; }
+.more[open] summary::after { content: " –"; }
+.more summary:hover { color: var(--bone); }
+.apps { list-style: none; padding: 0; margin: 0 0 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.apps a {
+  display: block; padding: 13px 10px; border: 1px solid var(--line); border-radius: 4px;
+  text-decoration: none; font-weight: 500; font-size: .92rem; color: var(--bone);
+  transition: border-color .15s ease;
+}
+.apps a:hover { border-color: var(--bone); }
+@media (max-width: 899px) { .apps li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+
+/* ---------- mailing list ---------- */
+.join { margin: 56px 0 0; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 8px; text-align: left; }
+.join h2 { grid-column: 1 / -1; margin: 0 0 8px;font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.join p.hint { grid-column: 1 / -1; margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+.join input[type="email"] {
+  width: 100%; min-width: 0; padding: 13px 14px; border-radius: 4px; border: 1px solid var(--line);
+  background: var(--stone); color: var(--bone); font: inherit; font-size: 1rem;
+}
+.join input[type="email"]::placeholder { color: var(--muted); }
+.join input[type="email"]:focus-visible { outline: 2px solid var(--bone); outline-offset: 2px; }
+.join button {
+  padding: 13px 18px; border-radius: 4px; border: 1px solid var(--bone); background: transparent; color: var(--bone);
+  font: inherit; font-weight: 700; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;
+}
+.join button:hover { background: var(--bone); color: var(--bg); }
+.join button:disabled { opacity: .5; cursor: default; }
+.join .msg { grid-column: 1 / -1; min-height: 1.2em; margin: 0; font-size: .9rem; color: var(--muted); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+footer { text-align: center; padding: 48px 24px calc(36px + env(safe-area-inset-bottom)); color: var(--muted); font-size: .72rem; letter-spacing: .12em; }
+footer .tag { display: block; margin-bottom: 6px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--bone); opacity: .7; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--bone); }
+
+/* ---------- desktop ---------- */
+@media (min-width: 900px) {
+  body { display: grid; place-items: center; }
+  .page { width: 100%; max-width: 1120px; padding: 64px 48px 0; display: grid; grid-template-columns: 540px 1fr; column-gap: 72px; align-items: center; }
+  .mark { position: fixed; top: 28px; left: 32px; transform: none; width: 38px; height: 38px; }
+  .cover { border-radius: 4px; box-shadow: 0 40px 70px -30px rgba(0,0,0,.9); }
+  .cover::after { height: 10%; background: linear-gradient(to bottom, rgba(20,18,16,0), rgba(20,18,16,.45)); }
+  .info { padding: 0; margin: 0; text-align: left; max-width: 440px; }
+  h1 { font-size: 5.4rem; }
+  .apps { grid-template-columns: 1fr 1fr 1fr; }
+  footer { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .play:not(.has-played)::before, .cta.nudge { animation: none; }
+  .play, .cta, .apps a { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="mark" href="https://oceanleans.com/" aria-label="OceanLeans home" data-umami-event="click-logo">
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <defs><clipPath id="inner"><circle cx="50" cy="50" r="46"/></clipPath></defs>
+    <circle cx="50" cy="50" r="47.8" fill="none" stroke="currentColor" stroke-width="4.4"/>
+    <path clip-path="url(#inner)" fill="currentColor" d="M0 63 C12 55 32 52 51 60.6 S82 70 100 58 V100 H0 Z"/>
+  </svg>
+</a>
+
+<main class="page">
+  <section class="hero">
+    <div class="cover">
+      <img src="cover-720.jpg" srcset="cover-720.jpg 720w, cover.jpg 1200w" sizes="(min-width: 900px) 540px, 100vw"
+           width="1200" height="1200" fetchpriority="high" decoding="async" alt="Sitting cover art: a long wood-panelled hallway lit by wall lamps, leading to a closed black door, under a glowing OceanLeans sign">
+    </div>
+    <button class="play" id="play" type="button" aria-label="Play a preview of Sitting">
+      <svg class="ring" viewBox="0 0 92 92" aria-hidden="true">
+        <circle class="track" cx="46" cy="46" r="43"/>
+        <circle class="prog" id="prog" cx="46" cy="46" r="43"/>
+      </svg>
+      <svg class="icon i-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>
+      <svg class="icon i-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4h4.5v16H6zm7.5 0H18v16h-4.5z"/></svg>
+    </button>
+    <p class="play-label" id="play-label" aria-hidden="true">Hear it</p>
+    <audio id="audio" src="preview.mp3" preload="metadata"></audio>
+  </section>
+
+  <section class="info">
+    <h1 class="sr">Sitting by OceanLeans</h1>
+
+    <a class="cta" id="cta" href="https://open.spotify.com/album/724hYsS8tQsRMRKKweadD7" target="_blank" rel="noopener" data-umami-event="click-spotify">Play on Spotify</a>
+
+    <details class="more" id="more">
+      <summary>Other apps</summary>
+      <ul class="apps">
+        <li><a href="https://geo.music.apple.com/us/album/sitting-single/6835016537?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="click-apple-music">Apple Music</a></li>
+        <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_kNrQf1Daf7BUGq7EwFaZah-qMrdLXI8tM" target="_blank" rel="noopener" data-umami-event="click-youtube-music">YouTube Music</a></li>
+        <li><a href="https://music.amazon.com/albums/B0HRRDK2XZ?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="click-amazon-music">Amazon Music</a></li>
+        <li><a href="https://tidal.com/album/579247529" target="_blank" rel="noopener" data-umami-event="click-tidal">Tidal</a></li>
+        <li><a href="https://www.deezer.com/album/1147327941" target="_blank" rel="noopener" data-umami-event="click-deezer">Deezer</a></li>
+        <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fsitting%2FALgxhp3hXrVJPrm&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A71154608&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A71154608&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="click-pandora">Pandora</a></li>
+        <li><a href="https://open.qobuz.com/track/467989524" target="_blank" rel="noopener" data-umami-event="click-qobuz">Qobuz</a></li>
+        <li><a href="https://www.iheart.com/artist/43587948/albums/447979436/" target="_blank" rel="noopener" data-umami-event="click-iheart">iHeartRadio</a></li>
+      </ul>
+    </details>
+
+    <form class="join" id="join" novalidate>
+      <h2>Get the next one first</h2>
+      <label for="email" class="sr">Email address</label>
+      <input id="email" name="email" type="email" required placeholder="Your email" autocomplete="email">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Join</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer>
+    <span class="tag">Lean into Ocean</span>
+    <a href="https://oceanleans.com/" data-umami-event="click-footer-home">oceanleans.com</a> · © LeaningOcean Entertainment
+  </footer>
+</main>
+
+<script>
+(function () {
+  function track(name, data) { try { if (window.umami) umami.track(name, data); } catch (e) {} }
+
+  /* ----- preview player ----- */
+  var audio = document.getElementById('audio'),
+      btn = document.getElementById('play'),
+      label = document.getElementById('play-label'),
+      prog = document.getElementById('prog'),
+      cta = document.getElementById('cta'),
+      CIRC = 270.2, started = false, half = false;
+
+  btn.addEventListener('click', function () {
+    if (audio.paused) {
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () { track('preview-error'); });
+    } else {
+      audio.pause();
+    }
+  });
+  audio.addEventListener('play', function () {
+    btn.classList.add('is-playing', 'has-played');
+    btn.setAttribute('aria-label', 'Pause preview');
+    label.textContent = 'Playing';
+    if (!started) { started = true; track('preview-play'); } else { track('preview-replay'); }
+  });
+  audio.addEventListener('pause', function () {
+    btn.classList.remove('is-playing');
+    btn.setAttribute('aria-label', 'Play preview');
+    if (!audio.ended) {
+      label.textContent = 'Paused';
+      track('preview-pause', { second: Math.round(audio.currentTime) });
+    }
+  });
+  audio.addEventListener('timeupdate', function () {
+    if (!audio.duration) return;
+    var r = audio.currentTime / audio.duration;
+    prog.style.strokeDashoffset = CIRC * (1 - r);
+    if (!half && r >= 0.5) { half = true; track('preview-50'); }
+  });
+  audio.addEventListener('ended', function () {
+    track('preview-complete');
+    label.textContent = 'Full track on Spotify';
+    prog.style.strokeDashoffset = CIRC;
+    cta.classList.remove('nudge'); void cta.offsetWidth; cta.classList.add('nudge');
+  });
+
+  /* ----- other apps ----- */
+  var more = document.getElementById('more');
+  more.addEventListener('toggle', function () { track(more.open ? 'more-platforms' : 'more-platforms-close'); });
+
+  /* ----- mailing list ----- */
+  var f = document.getElementById('join'),
+      msg = f.querySelector('.msg'), sub = f.querySelector('button');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = f.elements['email'];
+    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; track('subscribe-invalid'); return; }
+    sub.disabled = true; msg.textContent = '';
+    track('subscribe-attempt');
+    fetch('https://formsubmit.co/ajax/oceanleans@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: input.value.trim(), _subject: 'New OceanLeans subscriber', _honey: f.elements['_honey'].value })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('failed');
+      f.reset(); msg.textContent = 'You’re in. Next one comes to you first.';
+      track('subscribe');
+    }).catch(function () {
+      track('subscribe-error');
+      msg.textContent = 'Something went wrong. Try again in a moment.';
+    }).then(function () { sub.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

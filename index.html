@@ -36,14 +36,24 @@ a { color: inherit; }
 section { padding: 56px 0; border-top: 1px solid var(--line); }
 
 /* ---------- hero ---------- */
-.hero { min-height: 78vh; min-height: 78svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: calc(64px + env(safe-area-inset-top)) 24px 56px; border-top: 0; }
+.hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: calc(64px + env(safe-area-inset-top)) 24px 120px; border-top: 0; }
 .logo { width: 132px; height: 132px; color: var(--bone); }
 .logo svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .logo .sea { animation: swell 9s linear infinite; }
 @keyframes swell { from { transform: translateX(0); } to { transform: translateX(-100px); } }
 .wordmark { margin: 34px 0 0; font-weight: 300; font-size: clamp(1.25rem, 6vw, 2rem); letter-spacing: .55em; padding-left: .55em; text-transform: uppercase; }
-.scroll { margin-top: 56px; width: 1px; height: 44px; background: linear-gradient(var(--muted), transparent); }
+/* "go deeper" cue: a drop sinking down a line, pinned to the bottom of the first screen */
+.deeper { position: absolute; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 8px 16px; text-decoration: none;
+  color: var(--muted); font-size: .7rem; font-weight: 700; letter-spacing: .38em; padding-left: calc(16px + .38em); text-transform: uppercase;
+  transition: color .2s ease; }
+.deeper:hover { color: var(--bone); }
+.deeper .line { position: relative; width: 1px; height: 52px; overflow: hidden; background: linear-gradient(var(--line), transparent); }
+.deeper .line::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 18px;
+  background: linear-gradient(transparent, var(--bone)); animation: sink 2.4s cubic-bezier(.55,0,.45,1) infinite; }
+@keyframes sink { from { transform: translateY(-18px); opacity: 0; } 25% { opacity: 1; } to { transform: translateY(52px); opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
 /* ---------- latest release ---------- */
 .release { display: grid; gap: 28px; }
@@ -57,6 +67,16 @@ section { padding: 56px 0; border-top: 1px solid var(--line); }
   font-weight: 700; font-size: .9rem; letter-spacing: .18em; text-transform: uppercase; transition: opacity .15s ease, transform .15s ease; }
 .btn:hover { opacity: .88; }
 .btn:active { transform: translateY(1px); }
+
+/* ---------- other releases ---------- */
+.releases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 18px; }
+.releases a { display: block; text-decoration: none; }
+.releases img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 3px;
+  box-shadow: 0 20px 40px -24px rgba(0,0,0,.9); transition: transform .2s ease; }
+.releases a:hover img { transform: translateY(-3px); }
+.releases .t { display: block; margin-top: 14px; font-family: var(--serif); font-weight: 800; font-size: 1.25rem; letter-spacing: .04em; text-transform: uppercase; }
+.releases .k { display: block; margin-top: 4px; font-size: .7rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.caption { margin: 14px 0 0; font-size: .85rem; color: var(--muted); }
 
 /* ---------- video ---------- */
 .video { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 3px; overflow: hidden; background: var(--panel); }
@@ -96,10 +116,12 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
   section { padding: 88px 0; }
   .release { grid-template-columns: 440px 1fr; column-gap: 64px; align-items: center; }
   .follow { grid-template-columns: 1fr 1fr; }
+  .releases { grid-template-columns: repeat(4, 1fr); gap: 36px 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .logo .sea { animation: none; }
-  .btn, .release .cover, .video button img { transition: none; }
+  .logo .sea, .deeper .line::after { animation: none; }
+  .deeper .line::after { opacity: 1; transform: translateY(17px); }
+  .btn, .release .cover, .video button img, .releases img, .deeper { transition: none; }
 }
 </style>
 </head>
@@ -117,23 +139,41 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
     </svg>
   </div>
   <h1 class="wordmark">OceanLeans</h1>
-  <div class="scroll" aria-hidden="true"></div>
+  <a class="deeper" href="#latest" data-umami-event="click-go-deeper">Go deeper<span class="line" aria-hidden="true"></span></a>
 </header>
 
 <main>
+  <!--
+    NEW RELEASE CHECKLIST
+    1. Copy the current release below into the top of "Other releases" as a new <li>.
+    2. Swap the slug, title and cover here for the new release.
+  -->
   <section id="latest">
     <div class="wrap">
       <p class="label">Latest release</p>
       <div class="release">
-        <a class="cover" href="/vilify/" data-umami-event="click-latest-cover">
-          <img src="vilify/cover-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Vilify cover art">
+        <a class="cover" href="/sitting/" data-umami-event="click-latest-cover">
+          <img src="sitting/cover-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Sitting cover art">
         </a>
         <div>
-          <h2>Vilify</h2>
+          <h2>Sitting</h2>
           <p class="meta">Out now</p>
-          <a class="btn" href="/vilify/" data-umami-event="click-latest-listen">Listen</a>
+          <a class="btn" href="/sitting/" data-umami-event="click-latest-listen">Listen</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="releases">
+    <div class="wrap">
+      <p class="label">Other releases</p>
+      <ul class="releases">
+        <!-- newest first -->
+        <li><a href="/vilify/" data-umami-event="click-release-vilify">
+          <img src="vilify/cover-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Vilify cover art">
+          <span class="t">Vilify</span><span class="k">Single</span>
+        </a></li>
+      </ul>
     </div>
   </section>
 
@@ -147,6 +187,7 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
           <span class="yt-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></span>
         </button>
       </div>
+      <p class="caption">Vilify, music video</p>
     </div>
   </section>
 
