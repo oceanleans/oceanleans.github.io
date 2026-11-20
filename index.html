@@ -147,18 +147,19 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
     NEW RELEASE CHECKLIST
     1. Copy the current release below into the top of "Other releases" as a new <li>.
     2. Swap the slug, title and cover here for the new release.
+    3. Update the song name in the two click-latest-<song>-* Umami events.
   -->
   <section id="latest">
     <div class="wrap">
       <p class="label">Latest release</p>
       <div class="release">
-        <a class="cover" href="/sitting/" data-umami-event="click-latest-cover">
+        <a class="cover" href="/sitting/" data-umami-event="click-latest-sitting-cover">
           <img src="sitting/cover-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Sitting cover art">
         </a>
         <div>
           <h2>Sitting</h2>
           <p class="meta">Out now</p>
-          <a class="btn" href="/sitting/" data-umami-event="click-latest-listen">Listen</a>
+          <a class="btn" href="/sitting/" data-umami-event="click-latest-sitting-listen">Listen</a>
         </div>
       </div>
     </div>
@@ -249,7 +250,7 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
     f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
     f.allowFullscreen = true;
     v.innerHTML = ''; v.appendChild(f);
-    track('video-play');
+    track('video-play-vilify');
   });
 
   /* ----- mailing list ----- */

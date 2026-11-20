@@ -88,6 +88,8 @@ h1 {
 }
 .byline { margin: 12px 0 28px; font-size: .78rem; font-weight: 700; letter-spacing: .34em; text-transform: uppercase; color: var(--muted); }
 
+.line { margin: 0 0 20px; font-size: 1.05rem; line-height: 1.5; color: var(--bone); font-weight: 500; }
+
 .cta {
   display: block; width: 100%; padding: 19px 24px; border-radius: 4px;
   background: var(--red); color: #fff; text-decoration: none; text-align: center;
@@ -162,7 +164,7 @@ footer a:hover { color: var(--bone); }
 </style>
 </head>
 <body>
-<a class="mark" href="https://oceanleans.com/" aria-label="OceanLeans home" data-umami-event="click-logo">
+<a class="mark" href="https://oceanleans.com/" aria-label="OceanLeans home" data-umami-event="vilify-click-logo">
   <svg viewBox="0 0 100 100" aria-hidden="true">
     <defs><clipPath id="inner"><circle cx="50" cy="50" r="46"/></clipPath></defs>
     <circle cx="50" cy="50" r="47.8" fill="none" stroke="currentColor" stroke-width="4.4"/>
@@ -191,20 +193,21 @@ footer a:hover { color: var(--bone); }
   <section class="info">
     <h1 class="sr">Vilify by OceanLeans</h1>
 
-    <a class="cta" id="cta" href="https://open.spotify.com/album/4JrUqVttHxLJnoIQyoUrlp" target="_blank" rel="noopener" data-umami-event="click-spotify">Play on Spotify</a>
+    <p class="line">Don’t make me the villain.</p>
+    <a class="cta" id="cta" href="https://open.spotify.com/album/4JrUqVttHxLJnoIQyoUrlp" target="_blank" rel="noopener" data-umami-event="vilify-click-spotify">Play on Spotify</a>
 
     <details class="more" id="more">
       <summary>Other apps</summary>
       <ul class="apps">
-        <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="click-apple-music">Apple Music</a></li>
-        <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_nOBYLKDlcVI0ZFf3Mq0xUfKe76Mqz-zqY" target="_blank" rel="noopener" data-umami-event="click-youtube-music">YouTube Music</a></li>
-        <li><a href="https://music.amazon.com/albums/B0HQS3S2RT?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="click-amazon-music">Amazon Music</a></li>
-        <li><a href="https://tidal.com/album/576834204" target="_blank" rel="noopener" data-umami-event="click-tidal">Tidal</a></li>
-        <li><a href="https://www.deezer.com/album/1140893301" target="_blank" rel="noopener" data-umami-event="click-deezer">Deezer</a></li>
-        <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fvillify%2FAL4tkXXVdvqm9h6&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="click-pandora">Pandora</a></li>
-        <li><a href="https://audiomack.com/oceanleans_/song/villify?utm_source=featurefm&amp;utm_campaign=onelink&amp;utm_medium=website" target="_blank" rel="noopener" data-umami-event="click-audiomack">Audiomack</a></li>
-        <li><a href="https://open.qobuz.com/album/lv2l7houpti5v" target="_blank" rel="noopener" data-umami-event="click-qobuz">Qobuz</a></li>
-        <li><a href="https://www.iheart.com/artist/43587948/albums/445985636/" target="_blank" rel="noopener" data-umami-event="click-iheart">iHeartRadio</a></li>
+        <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="vilify-click-apple-music">Apple Music</a></li>
+        <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_nOBYLKDlcVI0ZFf3Mq0xUfKe76Mqz-zqY" target="_blank" rel="noopener" data-umami-event="vilify-click-youtube-music">YouTube Music</a></li>
+        <li><a href="https://music.amazon.com/albums/B0HQS3S2RT?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="vilify-click-amazon-music">Amazon Music</a></li>
+        <li><a href="https://tidal.com/album/576834204" target="_blank" rel="noopener" data-umami-event="vilify-click-tidal">Tidal</a></li>
+        <li><a href="https://www.deezer.com/album/1140893301" target="_blank" rel="noopener" data-umami-event="vilify-click-deezer">Deezer</a></li>
+        <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fvillify%2FAL4tkXXVdvqm9h6&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="vilify-click-pandora">Pandora</a></li>
+        <li><a href="https://audiomack.com/oceanleans_/song/villify?utm_source=featurefm&amp;utm_campaign=onelink&amp;utm_medium=website" target="_blank" rel="noopener" data-umami-event="vilify-click-audiomack">Audiomack</a></li>
+        <li><a href="https://open.qobuz.com/album/lv2l7houpti5v" target="_blank" rel="noopener" data-umami-event="vilify-click-qobuz">Qobuz</a></li>
+        <li><a href="https://www.iheart.com/artist/43587948/albums/445985636/" target="_blank" rel="noopener" data-umami-event="vilify-click-iheart">iHeartRadio</a></li>
       </ul>
     </details>
 
@@ -220,13 +223,14 @@ footer a:hover { color: var(--bone); }
 
   <footer>
     <span class="tag">Lean into Ocean</span>
-    <a href="https://oceanleans.com/" data-umami-event="click-footer-home">oceanleans.com</a> · © LeaningOcean Entertainment
+    <a href="https://oceanleans.com/" data-umami-event="vilify-click-footer-home">oceanleans.com</a> · © LeaningOcean Entertainment
   </footer>
 </main>
 
 <script>
 (function () {
-  function track(name, data) { try { if (window.umami) umami.track(name, data); } catch (e) {} }
+  var SONG = 'vilify';
+  function track(name, data) { try { if (window.umami) umami.track(SONG + '-' + name, data); } catch (e) {} }
 
   /* ----- preview player ----- */
   var audio = document.getElementById('audio'),
