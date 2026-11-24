@@ -119,7 +119,15 @@ h1 {
   transition: border-color .15s ease;
 }
 .apps a:hover { border-color: var(--bone); }
-@media (max-width: 899px) { .apps li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (max-width: 899px) { .more .apps li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+/* the three biggest services after Spotify, always visible */
+.apps.top { grid-template-columns: repeat(3, 1fr); margin: 10px 0 0; }
+.apps.top a { height: 100%; display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 12px 6px; font-size: .85rem; line-height: 1.25; }
+
+.follow-sp { margin: 0; padding-top: 18px; color: var(--muted); font-size: .9rem; text-align: left; }
+.follow-sp a { color: var(--bone); text-underline-offset: 3px; }
+.follow-sp a:hover { color: var(--amber-hover); }
 
 /* ---------- mailing list ---------- */
 .join { margin: 56px 0 0; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 8px; text-align: left; }
@@ -194,15 +202,18 @@ footer a:hover { color: var(--bone); }
   <section class="info">
     <h1 class="sr">Sitting by OceanLeans</h1>
 
-    <p class="line">Just sit.</p>
+    <p class="line" id="line">Just sit.</p>
     <a class="cta" id="cta" href="https://open.spotify.com/album/724hYsS8tQsRMRKKweadD7" target="_blank" rel="noopener" data-umami-event="sitting-click-spotify">Play on Spotify</a>
 
+    <ul class="apps top">
+      <li><a href="https://geo.music.apple.com/us/album/sitting-single/6835016537?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="sitting-click-apple-music">Apple Music</a></li>
+      <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_kNrQf1Daf7BUGq7EwFaZah-qMrdLXI8tM" target="_blank" rel="noopener" data-umami-event="sitting-click-youtube-music">YouTube Music</a></li>
+      <li><a href="https://music.amazon.com/albums/B0HRRDK2XZ?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="sitting-click-amazon-music">Amazon Music</a></li>
+    </ul>
+
     <details class="more" id="more">
-      <summary>Other apps</summary>
+      <summary>More apps</summary>
       <ul class="apps">
-        <li><a href="https://geo.music.apple.com/us/album/sitting-single/6835016537?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="sitting-click-apple-music">Apple Music</a></li>
-        <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_kNrQf1Daf7BUGq7EwFaZah-qMrdLXI8tM" target="_blank" rel="noopener" data-umami-event="sitting-click-youtube-music">YouTube Music</a></li>
-        <li><a href="https://music.amazon.com/albums/B0HRRDK2XZ?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="sitting-click-amazon-music">Amazon Music</a></li>
         <li><a href="https://tidal.com/album/579247529" target="_blank" rel="noopener" data-umami-event="sitting-click-tidal">Tidal</a></li>
         <li><a href="https://www.deezer.com/album/1147327941" target="_blank" rel="noopener" data-umami-event="sitting-click-deezer">Deezer</a></li>
         <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fsitting%2FALgxhp3hXrVJPrm&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A71154608&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A71154608&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="sitting-click-pandora">Pandora</a></li>
@@ -219,6 +230,7 @@ footer a:hover { color: var(--bone); }
       <button type="submit">Join</button>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
+    <p class="follow-sp">Or <a href="https://open.spotify.com/artist/1YZIgP9MSJ8kjTCjx5bmD8" target="_blank" rel="noopener" data-umami-event="sitting-click-spotify-follow">follow OceanLeans on Spotify</a> and new songs show up in your Release Radar.</p>
   </section>
 
   <footer>
@@ -230,7 +242,25 @@ footer a:hover { color: var(--bone); }
 <script>
 (function () {
   var SONG = 'sitting';
-  function track(name, data) { try { if (window.umami) umami.track(SONG + '-' + name, data); } catch (e) {} }
+
+  /* ----- which ad (if any) brought this visitor ----- */
+  /* Each promoted Short links here with its own ?utm_content=... tag. */
+  var LINES = {
+    'dont-scroll': 'Don’t scroll. Just sit.',
+    'scrolling-away': 'What are you scrolling away from?'
+  };
+  var ad = 'none';
+  try { ad = new URLSearchParams(location.search).get('utm_content') || 'none'; } catch (e) {}
+  if (LINES[ad]) document.getElementById('line').textContent = LINES[ad];
+  /* attach the ad to every tracked click, so Umami can split clicks by Short */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-umami-event]'), function (el) {
+    el.setAttribute('data-umami-event-ad', ad);
+  });
+
+  function track(name, data) {
+    data = data || {}; data.ad = ad;
+    try { if (window.umami) umami.track(SONG + '-' + name, data); } catch (e) {}
+  }
 
   /* ----- preview player ----- */
   var audio = document.getElementById('audio'),
@@ -274,6 +304,50 @@ footer a:hover { color: var(--bone); }
     prog.style.strokeDashoffset = CIRC;
     cta.classList.remove('nudge'); void cta.offsetWidth; cta.classList.add('nudge');
   });
+
+  /* stop the preview when they leave for a streaming service, so it doesn't play over the full song */
+  Array.prototype.forEach.call(document.querySelectorAll('.info a[target="_blank"]'), function (a) {
+    a.addEventListener('click', function () { if (!audio.paused) audio.pause(); });
+  });
+
+  /* ----- open the Spotify app instead of Spotify's website -----
+     Inside the YouTube / Instagram / TikTok in-app browsers, an open.spotify.com link
+     loads Spotify's website instead of the app. For those visitors on a phone, the first
+     tap on a Spotify link opens the app directly; if the app doesn't open (not installed,
+     or the browser blocks it) we fall back to the normal web link. A second tap always
+     uses the normal web link, so nobody can get stuck. Desktop and regular visitors are
+     untouched, because there the normal link already opens the app. */
+  var ua = navigator.userAgent || '',
+      isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1),
+      isAndroid = /Android/.test(ua),
+      inAppBrowser = ad !== 'none' || /FBAN|FBAV|Instagram|musical_ly|BytedanceWebview/.test(ua);
+
+  if ((isIOS || isAndroid) && inAppBrowser) {
+    Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://open.spotify.com/"]'), function (a) {
+      var tried = false;
+      a.addEventListener('click', function (e) {
+        var m = a.href.match(/open\.spotify\.com\/(album|artist|track)\/([A-Za-z0-9]+)/);
+        if (tried || !m) return;          // second tap: plain web link
+        tried = true;
+        e.preventDefault();
+        var web = a.href, left = false, timer;
+        function gone() { left = true; clearTimeout(timer); }
+        // the page being hidden or losing focus means the app (or iOS's "Open in Spotify?" prompt) took over
+        document.addEventListener('visibilitychange', function () { if (document.hidden) gone(); });
+        window.addEventListener('pagehide', gone);
+        window.addEventListener('blur', gone);
+        timer = setTimeout(function () {
+          if (left) return;
+          track('spotify-app-fallback');
+          location.href = web;
+        }, 2000);
+        track('spotify-app-try');
+        location.href = isAndroid
+          ? 'intent://' + m[1] + '/' + m[2] + '#Intent;scheme=spotify;package=com.spotify.music;S.browser_fallback_url=' + encodeURIComponent(web) + ';end'
+          : 'spotify:' + m[1] + ':' + m[2];
+      });
+    });
+  }
 
   /* ----- other apps ----- */
   var more = document.getElementById('more');
