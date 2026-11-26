@@ -57,16 +57,18 @@ section { padding: 56px 0; border-top: 1px solid var(--line); }
 
 /* ---------- latest release ---------- */
 .release { display: grid; gap: 28px; }
-.release .cover { display: block; width: 100%; max-width: 440px; aspect-ratio: 1; border-radius: 3px; overflow: hidden;
-  box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); transition: transform .2s ease; }
-.release .cover:hover { transform: translateY(-3px); }
-.release .cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.release .video { box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); }
 .release h2 { margin: 0; font-family: var(--serif); font-weight: 800; font-size: clamp(3rem, 14vw, 4.6rem); line-height: .95; letter-spacing: .04em; text-transform: uppercase; }
 .release .meta { margin: 12px 0 26px; font-size: .78rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 30px; }
 .btn { display: inline-block; padding: 17px 34px; border-radius: 3px; background: var(--bone); color: var(--bg); text-decoration: none;
   font-weight: 700; font-size: .9rem; letter-spacing: .18em; text-transform: uppercase; transition: opacity .15s ease, transform .15s ease; }
 .btn:hover { opacity: .88; }
 .btn:active { transform: translateY(1px); }
+.actions .btn { width: 100%; text-align: center; padding-left: 20px; padding-right: 20px; }
+.sublink { color: var(--muted); font-size: .9rem; text-underline-offset: 4px; }
+.sublink:hover { color: var(--bone); }
+@media (min-width: 600px) { .actions .btn { width: auto; padding-left: 34px; padding-right: 34px; } }
 
 /* ---------- other releases ---------- */
 .releases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 18px; }
@@ -114,14 +116,13 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
 
 @media (min-width: 860px) {
   section { padding: 88px 0; }
-  .release { grid-template-columns: 440px 1fr; column-gap: 64px; align-items: center; }
   .follow { grid-template-columns: 1fr 1fr; }
   .releases { grid-template-columns: repeat(4, 1fr); gap: 36px 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo .sea, .deeper .line::after { animation: none; }
   .deeper .line::after { opacity: 1; transform: translateY(17px); }
-  .btn, .release .cover, .video button img, .releases img, .deeper { transition: none; }
+  .btn, .video button img, .releases img, .deeper { transition: none; }
 }
 </style>
 </head>
@@ -146,20 +147,32 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
   <!--
     NEW RELEASE CHECKLIST
     1. Copy the current release below into the top of "Other releases" as a new <li>.
-    2. Swap the slug, title and cover here for the new release.
-    3. Update the song name in the two click-latest-<song>-* Umami events.
+    2. Move the current release's video block into the top of "More videos" (keep its
+       data-id, data-title, data-event, aria-label and caption).
+    3. Swap the YouTube video ID here for the new release: data-id plus BOTH thumbnail
+       URLs (maxresdefault and the hqdefault fallback in onerror). Also update
+       data-title, data-event (video-play-<song>) and the button's aria-label.
+    4. Swap the slug (/<song>/) and title here for the new release.
+    5. Update the song name in the two click-latest-<song>-* Umami events.
   -->
   <section id="latest">
     <div class="wrap">
       <p class="label">Latest release</p>
       <div class="release">
-        <a class="cover" href="/sitting/" data-umami-event="click-latest-sitting-cover">
-          <img src="sitting/cover-720.jpg" width="720" height="720" loading="lazy" decoding="async" alt="Sitting cover art">
-        </a>
+        <div class="video" data-id="o6qjXzbLess" data-title="Sitting – OceanLeans" data-event="video-play-sitting">
+          <button type="button" aria-label="Play the Sitting music video">
+            <img src="https://i.ytimg.com/vi/o6qjXzbLess/maxresdefault.jpg" loading="lazy" alt=""
+                 onerror="if(this.dataset.f){this.style.visibility='hidden'}else{this.dataset.f=1;this.src='https://i.ytimg.com/vi/o6qjXzbLess/hqdefault.jpg'}">
+            <span class="yt-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg></span>
+          </button>
+        </div>
         <div>
           <h2>Sitting</h2>
           <p class="meta">Out now</p>
-          <a class="btn" href="/sitting/" data-umami-event="click-latest-sitting-listen">Listen</a>
+          <div class="actions">
+            <a class="btn" href="https://www.youtube.com/@OceanLeans?sub_confirmation=1" target="_blank" rel="noopener" data-umami-event="click-latest-sitting-subscribe">Subscribe on YouTube</a>
+            <a class="sublink" href="/sitting/" data-umami-event="click-latest-sitting-listen">Listen on Spotify, Apple Music and more</a>
+          </div>
         </div>
       </div>
     </div>
@@ -178,10 +191,10 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
     </div>
   </section>
 
-  <section id="watch">
+  <section id="videos">
     <div class="wrap">
-      <p class="label">Watch</p>
-      <div class="video" id="video" data-id="4HRoKoFtA1I">
+      <p class="label">More videos</p>
+      <div class="video" data-id="4HRoKoFtA1I" data-title="Vilify – OceanLeans" data-event="video-play-vilify">
         <button type="button" aria-label="Play the Vilify video">
           <img src="https://i.ytimg.com/vi/4HRoKoFtA1I/maxresdefault.jpg" loading="lazy" alt=""
                onerror="if(this.dataset.f){this.style.visibility='hidden'}else{this.dataset.f=1;this.src='https://i.ytimg.com/vi/4HRoKoFtA1I/hqdefault.jpg'}">
@@ -219,7 +232,7 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
       <div>
         <p class="label">Follow</p>
         <ul class="links">
-          <li><a href="https://www.youtube.com/@OceanLeans" target="_blank" rel="noopener" data-umami-event="click-social-youtube">YouTube</a></li>
+          <li><a href="https://www.youtube.com/@OceanLeans?sub_confirmation=1" target="_blank" rel="noopener" data-umami-event="click-social-youtube">YouTube</a></li>
           <li><a href="https://www.instagram.com/oceanleans/" target="_blank" rel="noopener" data-umami-event="click-social-instagram">Instagram</a></li>
           <li><a href="https://www.tiktok.com/@oceanleans" target="_blank" rel="noopener" data-umami-event="click-social-tiktok">TikTok</a></li>
           <li><a href="https://www.facebook.com/profile.php?id=61563285745056" target="_blank" rel="noopener" data-umami-event="click-social-facebook">Facebook</a></li>
@@ -239,18 +252,18 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
 
 <script>
 (function () {
-  function track(n) { try { if (window.umami) umami.track(n); } catch (e) {} }
+  function track(n, data) { try { if (window.umami) umami.track(n, data); } catch (e) {} }
 
-  /* ----- video: load YouTube only when tapped ----- */
-  var v = document.getElementById('video');
-  v.querySelector('button').addEventListener('click', function () {
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + v.dataset.id + '?autoplay=1&rel=0&playsinline=1';
-    f.title = 'Vilify – OceanLeans';
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    v.innerHTML = ''; v.appendChild(f);
-    track('video-play-vilify');
+  /* ----- videos: load YouTube only when tapped (any .video[data-id] on the page) ----- */
+  Array.prototype.forEach.call(document.querySelectorAll('.video[data-id]'), function (v) {
+    v.querySelector('button').addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + v.dataset.id + '?autoplay=1&rel=0&playsinline=1';
+      f.title = v.dataset.title || 'OceanLeans video';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      v.innerHTML = ''; v.appendChild(f);
+      if (v.dataset.event) track(v.dataset.event);
+    });
   });
 
   /* ----- mailing list ----- */
@@ -267,11 +280,17 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ email: input.value.trim(), _subject: 'New OceanLeans subscriber (homepage)', _honey: form.elements['_honey'].value })
     }).then(function (r) {
-      if (!r.ok) throw new Error('failed');
+      // FormSubmit can answer 200 with {"success":"false","message":"..."} (e.g. form not activated yet)
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok || String(d.success) !== 'true') throw new Error(d.message || ('HTTP ' + r.status));
+      });
+    }).then(function () {
       form.reset(); msg.textContent = 'You’re in. Next one comes to you first.';
       track('subscribe');
-    }).catch(function () {
-      track('subscribe-error');
+    }).catch(function (err) {
+      var reason = (err && err.message) || 'unknown';
+      console.error('Mailing list signup failed:', reason);
+      track('subscribe-error', { reason: reason.slice(0, 120) });
       msg.textContent = 'Something went wrong. Try again in a moment.';
     }).then(function () { sub.disabled = false; });
   });
