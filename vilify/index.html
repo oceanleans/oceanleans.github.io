@@ -194,18 +194,18 @@ footer a:hover { color: var(--bone); }
     <h1 class="sr">Vilify by OceanLeans</h1>
 
     <p class="line">Don’t make me the villain.</p>
-    <a class="cta" id="cta" href="https://open.spotify.com/album/4JrUqVttHxLJnoIQyoUrlp" target="_blank" rel="noopener" data-umami-event="vilify-click-spotify">Play on Spotify</a>
+    <a class="cta" id="cta" href="https://open.spotify.com/track/5SKkFp0b8iHahcSmnO4AFp" target="_blank" rel="noopener" data-umami-event="vilify-click-spotify">Play on Spotify</a>
 
     <details class="more" id="more">
       <summary>Other apps</summary>
       <ul class="apps">
-        <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="vilify-click-apple-music">Apple Music</a></li>
-        <li><a href="https://music.youtube.com/playlist?list=OLAK5uy_nOBYLKDlcVI0ZFf3Mq0xUfKe76Mqz-zqY" target="_blank" rel="noopener" data-umami-event="vilify-click-youtube-music">YouTube Music</a></li>
-        <li><a href="https://music.amazon.com/albums/B0HQS3S2RT?ref=dm_ff_amazonmusic_3p" target="_blank" rel="noopener" data-umami-event="vilify-click-amazon-music">Amazon Music</a></li>
+        <li><a href="https://geo.music.apple.com/us/album/villify-single/6831889199?i=6831889200&amp;app=music&amp;ls=1" target="_blank" rel="noopener" data-umami-event="vilify-click-apple-music">Apple Music</a></li>
+        <li><a href="https://music.youtube.com/watch?v=4HRoKoFtA1I" target="_blank" rel="noopener" data-umami-event="vilify-click-youtube-music">YouTube Music</a></li>
+        <li><a href="https://music.amazon.com/albums/B0HQS3S2RT" target="_blank" rel="noopener" data-umami-event="vilify-click-amazon-music">Amazon Music</a></li>
         <li><a href="https://tidal.com/album/576834204" target="_blank" rel="noopener" data-umami-event="vilify-click-tidal">Tidal</a></li>
         <li><a href="https://www.deezer.com/album/1140893301" target="_blank" rel="noopener" data-umami-event="vilify-click-deezer">Deezer</a></li>
         <li><a href="https://pandora.app.link/?$desktop_url=https%3A%2F%2Fwww.pandora.com%2Fartist%2Foceanleans%2Fvillify%2FAL4tkXXVdvqm9h6&amp;$ios_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;$android_deeplink_path=pandorav4%3A%2F%2Fbackstage%2Falbum%3Ftoken%3DAL%3A70959738&amp;~channel=Partner%20Catalog%20Search%20API" target="_blank" rel="noopener" data-umami-event="vilify-click-pandora">Pandora</a></li>
-        <li><a href="https://audiomack.com/oceanleans_/song/villify?utm_source=featurefm&amp;utm_campaign=onelink&amp;utm_medium=website" target="_blank" rel="noopener" data-umami-event="vilify-click-audiomack">Audiomack</a></li>
+        <li><a href="https://audiomack.com/oceanleans_/song/villify" target="_blank" rel="noopener" data-umami-event="vilify-click-audiomack">Audiomack</a></li>
         <li><a href="https://open.qobuz.com/album/lv2l7houpti5v" target="_blank" rel="noopener" data-umami-event="vilify-click-qobuz">Qobuz</a></li>
         <li><a href="https://www.iheart.com/artist/43587948/albums/445985636/" target="_blank" rel="noopener" data-umami-event="vilify-click-iheart">iHeartRadio</a></li>
       </ul>
@@ -274,6 +274,53 @@ footer a:hover { color: var(--bone); }
     prog.style.strokeDashoffset = CIRC;
     cta.classList.remove('nudge'); void cta.offsetWidth; cta.classList.add('nudge');
   });
+
+  /* stop the preview when they leave for a streaming service, so it doesn't play over the full song */
+  Array.prototype.forEach.call(document.querySelectorAll('.info a[target="_blank"]'), function (a) {
+    a.addEventListener('click', function () { if (!audio.paused) audio.pause(); });
+  });
+
+  /* ----- open the Spotify app instead of Spotify's website -----
+     Inside the YouTube / Instagram / TikTok in-app browsers, an open.spotify.com link
+     loads Spotify's website instead of the app. For those visitors on a phone, the first
+     tap on a Spotify link opens the app directly; if the app doesn't open (not installed,
+     or the browser blocks it) we fall back to the normal web link. A second tap always
+     uses the normal web link, so nobody can get stuck. Desktop and regular visitors are
+     untouched, because there the normal link already opens the app.
+     YouTube's in-app browser can't be spotted from the user agent, so any visitor who
+     arrived on a tagged link (?utm_...) is treated as in-app too. */
+  var ua = navigator.userAgent || '',
+      isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1),
+      isAndroid = /Android/.test(ua),
+      tagged = /[?&]utm_/.test(location.search),
+      inAppBrowser = tagged || /FBAN|FBAV|Instagram|musical_ly|BytedanceWebview/.test(ua);
+
+  if ((isIOS || isAndroid) && inAppBrowser) {
+    Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://open.spotify.com/"]'), function (a) {
+      var tried = false;
+      a.addEventListener('click', function (e) {
+        var m = a.href.match(/open\.spotify\.com\/(album|artist|track)\/([A-Za-z0-9]+)/);
+        if (tried || !m) return;          // second tap: plain web link
+        tried = true;
+        e.preventDefault();
+        var web = a.href, left = false, timer;
+        function gone() { left = true; clearTimeout(timer); }
+        // the page being hidden or losing focus means the app (or iOS's "Open in Spotify?" prompt) took over
+        document.addEventListener('visibilitychange', function () { if (document.hidden) gone(); });
+        window.addEventListener('pagehide', gone);
+        window.addEventListener('blur', gone);
+        timer = setTimeout(function () {
+          if (left) return;
+          track('spotify-app-fallback');
+          location.href = web;
+        }, 2000);
+        track('spotify-app-try');
+        location.href = isAndroid
+          ? 'intent://' + m[1] + '/' + m[2] + '#Intent;scheme=spotify;package=com.spotify.music;S.browser_fallback_url=' + encodeURIComponent(web) + ';end'
+          : 'spotify:' + m[1] + ':' + m[2];
+      });
+    });
+  }
 
   /* ----- other apps ----- */
   var more = document.getElementById('more');
