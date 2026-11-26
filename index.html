@@ -104,6 +104,9 @@ section { padding: 56px 0; border-top: 1px solid var(--line); }
 .join button:hover { background: var(--bone); color: var(--bg); }
 .join button:disabled { opacity: .5; cursor: default; }
 .join .msg { grid-column: 1 / -1; min-height: 1.2em; margin: 0; font-size: .9rem; color: var(--muted); }
+.join .msg .fix { padding: 0; border: 0; background: none; color: var(--bone); font: inherit; letter-spacing: 0;
+  text-transform: none; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.join .msg .fix:hover { background: none; color: var(--bone); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -266,13 +269,68 @@ footer { padding: 40px 24px calc(40px + env(safe-area-inset-bottom)); text-align
     });
   });
 
+  /* spot common email typos (comma for a dot, misspelt gmail/hotmail/..., missing @) */
+  var DOMAIN_FIXES = {
+    'gmail.com': ['gmial.com', 'gmal.com', 'gmai.com', 'gamil.com', 'gnail.com', 'gmaill.com', 'gmail.co', 'gmail.cm', 'gmail.om', 'gmail.con'],
+    'hotmail.com': ['hotmial.com', 'hotmal.com', 'hotmai.com', 'hotmail.co', 'hotmail.cm', 'hotmail.con'],
+    'yahoo.com': ['yahooo.com', 'yaho.com', 'yahoo.co', 'yahoo.cm', 'yahoo.con'],
+    'outlook.com': ['outlok.com', 'outloo.com', 'outlook.co', 'outlook.cm', 'outlook.con'],
+    'icloud.com': ['iclod.com', 'icoud.com', 'icloud.co', 'icloud.cm', 'icloud.con']
+  };
+  function suggestEmail(v) {
+    var s = v.replace(/\s+/g, '').replace(/,/g, '.').replace(/\.{2,}/g, '.').replace(/\.$/, ''),
+        at = s.lastIndexOf('@'), out;
+    if (at < 0) {                       // "namegmail.com" -> "name@gmail.com"
+      var m = s.toLowerCase().match(/^(.+?)(gmail|hotmail|yahoo|outlook|icloud)\.com$/);
+      if (!m) return null;
+      out = s.slice(0, m[1].length) + '@' + m[2] + '.com';
+    } else {
+      var domain = s.slice(at + 1).toLowerCase();
+      for (var good in DOMAIN_FIXES) if (DOMAIN_FIXES[good].indexOf(domain) > -1) domain = good;
+      domain = domain.replace(/\.(con|cmo|ocm|comm)$/, '.com');
+      out = s.slice(0, at) + '@' + domain;
+    }
+    return out.toLowerCase() !== v.toLowerCase() ? out : null;
+  }
+
   /* ----- mailing list ----- */
   var form = document.getElementById('join-form'),
-      msg = form.querySelector('.msg'), sub = form.querySelector('button');
+      msg = form.querySelector('.msg'), sub = form.querySelector('button'),
+      input = form.elements['email'], suggestedFor = '';
+  function offerFix(fix) {
+    msg.textContent = 'Did you mean ';
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'fix'; b.textContent = fix;
+    b.addEventListener('click', function () {
+      input.value = fix; msg.textContent = '';
+      track('subscribe-suggest-accept');
+      sub.click();
+    });
+    msg.appendChild(b); msg.appendChild(document.createTextNode('?'));
+  }
+  input.addEventListener('input', function () { if (msg.querySelector('.fix')) msg.textContent = ''; });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var input = form.elements['email'];
-    if (!input.value.trim() || !input.checkValidity()) { msg.textContent = 'Enter a valid email address.'; track('subscribe-invalid'); return; }
+    var val = input.value.trim();
+    if (!val) {
+      msg.textContent = 'Type your email first.';
+      input.focus();
+      track('subscribe-invalid', { reason: 'empty' });
+      return;
+    }
+    var fix = suggestEmail(val);
+    if (fix && val !== suggestedFor) {   // offer the fix once; tapping Join again sends it as typed (if valid)
+      suggestedFor = val;
+      offerFix(fix);
+      track('subscribe-suggest');
+      return;
+    }
+    if (!input.checkValidity()) {
+      msg.textContent = 'That email doesn’t look right. Check it and try again.';
+      input.focus();
+      track('subscribe-invalid', { reason: 'malformed' });
+      return;
+    }
     sub.disabled = true; msg.textContent = '';
     track('subscribe-attempt');
     fetch('https://formsubmit.co/ajax/oceanleans@gmail.com', {
